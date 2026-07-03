@@ -14,7 +14,7 @@ export default function Logo({ size = 44, variant = 'dark', subtitle }) {
   const isLight = variant === 'light'
   
   const textColorBanco = isLight ? '#ffffff' : '#1f2937'
-  const textColorNacion = isLight ? '#ffffff' : '#003087'
+  const textColorNacion = isLight ? '#ffffff' : '#D91223'
   const textColorSub = isLight ? 'rgba(255, 255, 255, 0.8)' : '#64748b'
 
   return (
@@ -39,11 +39,11 @@ export default function Logo({ size = 44, variant = 'dark', subtitle }) {
       >
         <path
           d="M20,80 C15,80 10,70 15,50 C25,25 50,15 70,15 C85,15 90,25 80,45 C65,70 40,85 20,80 Z"
-          fill="#003087"
+          fill="#D91223"
         />
         <path
           d="M35,65 C40,45 60,30 75,30 C85,30 87,35 80,48 C70,68 50,80 35,65 Z"
-          fill={isLight ? '#0d42a8' : '#ffffff'}
+          fill={isLight ? '#9B0F23' : '#ffffff'}
           opacity="0.9"
         />
       </svg>

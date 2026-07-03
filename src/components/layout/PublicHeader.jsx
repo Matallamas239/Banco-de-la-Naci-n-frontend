@@ -25,7 +25,7 @@ export default function PublicHeader() {
               style={{ 
                 background: activeTab === 'clientes' ? '#ffffff' : 'transparent', 
                 border: 'none', 
-                borderBottom: activeTab === 'clientes' ? '2px solid #003087' : 'none',
+                borderBottom: activeTab === 'clientes' ? '2px solid #D91223' : 'none',
                 color: activeTab === 'clientes' ? '#111827' : '#4b5563',
                 padding: '4px 12px',
                 fontSize: '11px',
@@ -68,7 +68,7 @@ export default function PublicHeader() {
           <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
             <a href="#" style={{ color: '#4b5563', textDecoration: 'none', display: 'inline-flex', alignItems: 'center', gap: '4px' }}>
               Portal de Transparencia
-              <span style={{ background: '#003087', color: '#fff', fontSize: '9px', fontWeight: 'bold', padding: '1px 5px', borderRadius: '50%' }}>PT</span>
+              <span style={{ background: '#D91223', color: '#fff', fontSize: '9px', fontWeight: 'bold', padding: '1px 5px', borderRadius: '50%' }}>PT</span>
             </a>
           </div>
         </div>
@@ -108,7 +108,7 @@ export default function PublicHeader() {
               target="_blank" 
               rel="noopener noreferrer"
               style={{ 
-                background: '#002060', 
+                background: '#9B0F23', 
                 color: '#ffffff', 
                 textDecoration: 'none',
                 fontWeight: '700', 
@@ -128,7 +128,7 @@ export default function PublicHeader() {
             <button 
               onClick={() => navigate('/login')}
               style={{ 
-                background: '#003087', 
+                background: '#D91223', 
                 color: '#ffffff', 
                 border: 'none',
                 fontWeight: '700', 
@@ -163,7 +163,7 @@ export default function PublicHeader() {
           <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
             <button 
               onClick={() => { navigate('/login'); setMobileMenuOpen(false); }}
-              style={{ width: '100%', background: '#003087', color: '#fff', border: 'none', padding: '10px', borderRadius: '8px', fontWeight: '700' }}
+              style={{ width: '100%', background: '#D91223', color: '#fff', border: 'none', padding: '10px', borderRadius: '8px', fontWeight: '700' }}
             >
               Banca por Internet
             </button>
@@ -171,7 +171,7 @@ export default function PublicHeader() {
               href="https://pagalo.pe" 
               target="_blank" 
               rel="noopener noreferrer"
-              style={{ width: '100%', background: '#002060', color: '#fff', display: 'block', textAlign: 'center', textDecoration: 'none', padding: '10px', borderRadius: '8px', fontWeight: '700' }}
+              style={{ width: '100%', background: '#9B0F23', color: '#fff', display: 'block', textAlign: 'center', textDecoration: 'none', padding: '10px', borderRadius: '8px', fontWeight: '700' }}
             >
               págalo.pe
             </a>

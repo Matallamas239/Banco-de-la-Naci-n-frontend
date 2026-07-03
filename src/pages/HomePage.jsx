@@ -23,7 +23,7 @@ import { getAdminStats } from '../services/adminService.js'
 // ──────────────────────────────────────────────────────────────────────────────
 // Paleta de colores corporativa Banco de la Nación
 // ──────────────────────────────────────────────────────────────────────────────
-const BN_COLORS = ['#003087', '#4b5563', '#002060', '#F5A800', '#F5A800', '#111827']
+const BN_COLORS = ['#D91223', '#4b5563', '#9B0F23', '#F5A800', '#eab308', '#111827']
 const SBS_COLORS = {
   Normal: '#16a34a',
   CPP: '#F5A800',
@@ -65,7 +65,7 @@ function AdminDashboard() {
   if (!stats) return <p className="bbva-empty">No se pudieron cargar las estadísticas.</p>
 
   const kpis = [
-    { label: 'Clientes activos', value: stats.clientes_activos, icon: Users, color: '#003087', bg: '#00308718' },
+    { label: 'Clientes activos', value: stats.clientes_activos, icon: Users, color: '#D91223', bg: 'rgba(217, 18, 35, 0.08)' },
     { label: 'Cuentas ahorro', value: stats.cuentas_ahorro_activas, icon: PiggyBank, color: '#16a34a', bg: '#16a34a18' },
     { label: 'Créditos activos', value: stats.creditos_activos, icon: CreditCard, color: '#F5A800', bg: '#F5A80018' },
     { label: 'Total ahorros PEN', value: fmt(stats.total_ahorro_pen), icon: TrendingUp, color: '#16a34a', bg: '#16a34a18', isMoney: false },
@@ -241,11 +241,11 @@ function ClienteDashboard() {
     <PageLayout>
       {/* 1. Saludo / Banner de Bienvenida Premium */}
       <div style={{
-        background: 'linear-gradient(135deg, #002060 0%, #003087 60%, #0d42a8 100%)',
+        background: 'linear-gradient(135deg, #9B0F23 0%, #D91223 60%, #ef4444 100%)',
         borderRadius: '16px',
         padding: '24px 28px',
         marginBottom: '20px',
-        boxShadow: '0 10px 25px -5px rgba(0, 48, 135, 0.3)',
+        boxShadow: '0 10px 25px -5px rgba(217, 18, 35, 0.25)',
         display: 'flex',
         justifyContent: 'space-between',
         alignItems: 'center',

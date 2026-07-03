@@ -34,7 +34,7 @@ export default function PublicFooter() {
           <ul style={{ listStyle: 'none', padding: 0, margin: 0, display: 'flex', flexDirection: 'column', gap: '8px' }}>
             {nosotrosLinks.map((link, idx) => (
               <li key={idx} style={{ fontSize: '13px' }}>
-                <a href={link.href} style={{ color: '#4b5563', textDecoration: 'none' }} onMouseEnter={(e) => e.target.style.color = '#003087'} onMouseLeave={(e) => e.target.style.color = '#4b5563'}>
+                <a href={link.href} style={{ color: '#4b5563', textDecoration: 'none' }} onMouseEnter={(e) => e.target.style.color = '#D91223'} onMouseLeave={(e) => e.target.style.color = '#4b5563'}>
                   {link.label}
                 </a>
               </li>
@@ -48,7 +48,7 @@ export default function PublicFooter() {
           <ul style={{ listStyle: 'none', padding: 0, margin: 0, display: 'flex', flexDirection: 'column', gap: '8px' }}>
             {informacionInteresLinks.map((link, idx) => (
               <li key={idx} style={{ fontSize: '13px' }}>
-                <a href={link.href} style={{ color: '#4b5563', textDecoration: 'none' }} onMouseEnter={(e) => e.target.style.color = '#003087'} onMouseLeave={(e) => e.target.style.color = '#4b5563'}>
+                <a href={link.href} style={{ color: '#4b5563', textDecoration: 'none' }} onMouseEnter={(e) => e.target.style.color = '#D91223'} onMouseLeave={(e) => e.target.style.color = '#4b5563'}>
                   {link.label}
                 </a>
               </li>
@@ -91,9 +91,9 @@ export default function PublicFooter() {
           {/* Libro de Reclamaciones */}
           <div style={{ display: 'inline-block' }}>
             <a href="#" style={{ display: 'flex', alignItems: 'center', gap: '10px', padding: '10px 14px', background: '#fff', border: '1px solid #e5e7eb', borderRadius: '8px', textDecoration: 'none', color: '#1f2937', fontWeight: '600', fontSize: '12.5px', boxShadow: '0 1px 3px rgba(0,0,0,0.05)' }}>
-              <BookOpen size={18} style={{ color: '#003087' }} />
+              <BookOpen size={18} style={{ color: '#D91223' }} />
               <div>
-                <div style={{ fontSize: '11px', fontWeight: '800', color: '#003087' }}>LIBRO DE RECLAMACIONES</div>
+                <div style={{ fontSize: '11px', fontWeight: '800', color: '#D91223' }}>LIBRO DE RECLAMACIONES</div>
                 <div style={{ fontSize: '8px', color: '#71717a' }}>Conforme al Código de Protección al Consumidor</div>
               </div>
             </a>
@@ -103,7 +103,7 @@ export default function PublicFooter() {
       </div>
 
       {/* Franja Roja BN */}
-      <div className="gnb-footer-green-bar" style={{ height: '4px', background: '#003087' }} />
+      <div className="gnb-footer-green-bar" style={{ height: '4px', background: '#D91223' }} />
 
       {/* 2. Sección Negra de Oficinas y Transparencia */}
       <div style={{ background: '#374151', color: '#d1d5db', padding: '30px 20px', fontSize: '12px', lineHeight: '1.6' }}>

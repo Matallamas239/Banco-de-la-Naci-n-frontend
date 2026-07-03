@@ -95,7 +95,7 @@ export default function LandingPage() {
               zIndex: idx === currentSlide ? 2 : 1,
               display: 'flex',
               flexDirection: 'row',
-              background: 'linear-gradient(110deg, #00153b 0%, #003087 50%, #003087 100%)',
+              background: 'linear-gradient(110deg, #9B0F23 0%, #D91223 50%, #D91223 100%)',
               color: '#fff',
               pointerEvents: idx === currentSlide ? 'auto' : 'none'
             }}
@@ -109,7 +109,7 @@ export default function LandingPage() {
                 style={{ 
                   alignSelf: 'flex-start',
                   background: '#ffffff', 
-                  color: '#003087', 
+                  color: '#D91223', 
                   border: 'none', 
                   fontWeight: '700', 
                   padding: '10px 24px', 
@@ -163,7 +163,7 @@ export default function LandingPage() {
               style={{
                 background: currentSlide === index ? '#ffffff' : 'transparent',
                 border: '2px solid #ffffff',
-                color: currentSlide === index ? '#003087' : '#ffffff',
+                color: currentSlide === index ? '#D91223' : '#ffffff',
                 borderRadius: '50%',
                 width: '24px',
                 height: '24px',
@@ -207,7 +207,7 @@ export default function LandingPage() {
                     transition: 'transform 0.15s'
                   }}
                 >
-                  <span style={{ color: '#003087', background: '#f0f4fa', padding: '12px', borderRadius: '50%' }}>
+                  <span style={{ color: '#D91223', background: 'rgba(217, 18, 35, 0.08)', padding: '12px', borderRadius: '50%' }}>
                     <Icon size={28} />
                   </span>
                   <span style={{ fontSize: '12.5px', fontWeight: '600', color: '#4b5563' }}>{prod.label}</span>
@@ -227,7 +227,7 @@ export default function LandingPage() {
             onClick={() => navigate('/login')}
             style={{ 
               flex: '1 1 45%', 
-              background: 'linear-gradient(135deg, #00153b 0%, #003087 100%)', 
+              background: 'linear-gradient(135deg, #9B0F23 0%, #D91223 100%)', 
               borderRadius: '12px', 
               overflow: 'hidden', 
               cursor: 'pointer',
@@ -249,7 +249,7 @@ export default function LandingPage() {
             onClick={() => navigate('/login')}
             style={{ 
               flex: '1 1 45%', 
-              background: 'linear-gradient(135deg, #00153b 0%, #003087 100%)', 
+              background: 'linear-gradient(135deg, #9B0F23 0%, #D91223 100%)', 
               borderRadius: '12px', 
               overflow: 'hidden', 
               cursor: 'pointer',
@@ -316,13 +316,13 @@ export default function LandingPage() {
                 gap: '16px'
               }}
             >
-              <div style={{ display: 'flex', alignItems: 'center', gap: '8px', border: '2px solid #003087', padding: '6px 12px', borderRadius: '4px' }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '8px', border: '2px solid #D91223', padding: '6px 12px', borderRadius: '4px' }}>
                 <span style={{ fontWeight: '800', color: '#1f2937', fontSize: '13px' }}>ALTO AL FRAUDE</span>
               </div>
               <h4 style={{ fontSize: '14px', fontWeight: '700', color: '#1f2937', margin: 0 }}>
                 Tu seguridad es primero, aprende a detectar fraudes y estafas
               </h4>
-              <button style={{ background: '#003087', color: '#ffffff', border: 'none', fontWeight: '700', padding: '8px 20px', borderRadius: '6px', fontSize: '12px', cursor: 'pointer' }}>
+              <button style={{ background: '#D91223', color: '#ffffff', border: 'none', fontWeight: '700', padding: '8px 20px', borderRadius: '6px', fontSize: '12px', cursor: 'pointer' }}>
                 Infórmate aquí
               </button>
             </div>

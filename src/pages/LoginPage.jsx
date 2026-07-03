@@ -76,13 +76,13 @@ export default function LoginPage() {
     <div className="bn-login-page" style={{ background: '#eaeaea', minHeight: '100vh', display: 'flex', flexDirection: 'column', fontFamily: 'Arial, sans-serif' }}>
       
       {/* 1. Header superior con la franja roja y el logo colgado */}
-      <div style={{ height: '6px', background: '#003087', width: '100%' }}></div>
+      <div style={{ height: '6px', background: '#D91223', width: '100%' }}></div>
       <header style={{ background: '#ffffff', height: '65px', display: 'flex', alignItems: 'center', justifyContent: 'center', borderBottom: '1px solid #d4d4d8', position: 'relative' }}>
         <div style={{ maxWidth: '1000px', width: '100%', padding: '0 20px', display: 'flex', justifyContent: 'space-between', alignItems: 'center', height: '100%' }}>
           
           {/* Logo Multired Virtual colgado */}
           <div style={{ 
-            background: '#003087', 
+            background: '#D91223', 
             color: '#fff', 
             padding: '8px 24px 12px 24px', 
             borderBottomLeftRadius: '14px', 
@@ -112,7 +112,7 @@ export default function LoginPage() {
       <main style={{ flexGrow: 1, display: 'flex', flexDirection: 'column', alignItems: 'center', padding: '32px 20px', background: '#eaeaea' }}>
         
         {/* Zona Segura */}
-        <div style={{ display: 'flex', alignItems: 'center', gap: '8px', color: '#003087', marginBottom: '16px', fontWeight: 'bold', fontSize: '16px' }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '8px', color: '#D91223', marginBottom: '16px', fontWeight: 'bold', fontSize: '16px' }}>
           <Lock size={18} style={{ color: '#71717a' }} strokeWidth={2.5} />
           <span>Usted se encuentra en una zona segura</span>
         </div>
@@ -141,7 +141,7 @@ export default function LoginPage() {
               <div style={{ display: 'flex', alignItems: 'center', flexGrow: 1 }}>
                 <div style={{ position: 'relative', width: '250px' }}>
                   <select 
-                    disabled
+                    disabled={true}
                     style={{ 
                       width: '100%', 
                       height: '26px', 
@@ -158,7 +158,7 @@ export default function LoginPage() {
                   >
                     <option>Multired Global Débito</option>
                   </select>
-                  <div style={{ position: 'absolute', right: 0, top: 0, bottom: 0, width: '24px', background: '#002060', borderTopRightRadius: '4px', borderBottomRightRadius: '4px', display: 'flex', alignItems: 'center', justifyContent: 'center', pointerEvents: 'none' }}>
+                  <div style={{ position: 'absolute', right: 0, top: 0, bottom: 0, width: '24px', background: '#9B0F23', borderTopRightRadius: '4px', borderBottomRightRadius: '4px', display: 'flex', alignItems: 'center', justifyContent: 'center', pointerEvents: 'none' }}>
                     <div style={{ width: 0, height: 0, borderLeft: '4px solid transparent', borderRight: '4px solid transparent', borderTop: '5px solid #ffffff' }} />
                   </div>
                 </div>
@@ -217,7 +217,7 @@ export default function LoginPage() {
                   >
                     <option value="DNI">DNI</option>
                   </select>
-                  <div style={{ position: 'absolute', right: 0, top: 0, bottom: 0, width: '24px', background: '#002060', borderTopRightRadius: '4px', borderBottomRightRadius: '4px', display: 'flex', alignItems: 'center', justifyContent: 'center', pointerEvents: 'none' }}>
+                  <div style={{ position: 'absolute', right: 0, top: 0, bottom: 0, width: '24px', background: '#9B0F23', borderTopRightRadius: '4px', borderBottomRightRadius: '4px', display: 'flex', alignItems: 'center', justifyContent: 'center', pointerEvents: 'none' }}>
                     <div style={{ width: 0, height: 0, borderLeft: '4px solid transparent', borderRight: '4px solid transparent', borderTop: '5px solid #ffffff' }} />
                   </div>
                 </div>
@@ -301,7 +301,7 @@ export default function LoginPage() {
 
                 {/* Enlaces del medio (140px) */}
                 <div style={{ width: '140px', display: 'flex', flexDirection: 'column', justifyContent: 'center', minHeight: '50px' }}>
-                  <a href="#" style={{ fontSize: '10.5px', color: '#003087', textDecoration: 'none', fontWeight: 'bold', display: 'flex', gap: '3px', alignItems: 'flex-start' }}>
+                  <a href="#" style={{ fontSize: '10.5px', color: '#D91223', textDecoration: 'none', fontWeight: 'bold', display: 'flex', gap: '3px', alignItems: 'flex-start' }}>
                     <svg width="14" height="14" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style={{ flexShrink: 0, marginTop: '1px' }}>
                       <circle cx="9" cy="15" r="5" fill="#F5A800" />
                       <path d="M13 11L18 6M18 6L20 8M18 6L16 4" stroke="#F5A800" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
@@ -314,8 +314,8 @@ export default function LoginPage() {
                   </span>
 
                   <div style={{ display: 'flex', alignItems: 'center', gap: '4px', marginTop: '12px', paddingLeft: '17px' }}>
-                    <div style={{ width: '13px', height: '13px', borderRadius: '50%', background: '#003087', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#ffffff', fontSize: '9px', fontWeight: 'bold', flexShrink: 0 }}>!</div>
-                    <a href="#" style={{ fontSize: '10.5px', color: '#003087', textDecoration: 'underline', fontWeight: 'bold' }}>Olvidé mi clave</a>
+                    <div style={{ width: '13px', height: '13px', borderRadius: '50%', background: '#D91223', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#ffffff', fontSize: '9px', fontWeight: 'bold', flexShrink: 0 }}>!</div>
+                    <a href="#" style={{ fontSize: '10.5px', color: '#D91223', textDecoration: 'underline', fontWeight: 'bold' }}>Olvidé mi clave</a>
                   </div>
                 </div>
 
@@ -382,7 +382,7 @@ export default function LoginPage() {
                   <button 
                     type="button" 
                     onClick={changeCaptcha} 
-                    style={{ background: 'none', border: 'none', color: '#003087', fontSize: '10px', textDecoration: 'underline', cursor: 'pointer', marginTop: '4px', display: 'flex', alignItems: 'center', gap: '2px', padding: 0 }}
+                    style={{ background: 'none', border: 'none', color: '#D91223', fontSize: '10px', textDecoration: 'underline', cursor: 'pointer', marginTop: '4px', display: 'flex', alignItems: 'center', gap: '2px', padding: 0 }}
                   >
                     <RefreshCw size={10} /> Cambiar texto
                   </button>
@@ -419,7 +419,7 @@ export default function LoginPage() {
                 type="submit" 
                 disabled={loading}
                 style={{ 
-                  background: '#002060', 
+                  background: '#D91223', 
                   color: '#ffffff', 
                   border: 'none', 
                   fontWeight: 'bold', 
@@ -444,11 +444,11 @@ export default function LoginPage() {
             <a href="#" style={{ fontSize: '11px', color: '#0284c7', textDecoration: 'underline', fontWeight: 'bold' }}>Recomendaciones de Seguridad</a>
             <div style={{ display: 'flex', justifyContent: 'center', gap: '20px', marginTop: '10px' }}>
               <a href="#" style={{ fontSize: '10.5px', color: '#4b5563', textDecoration: 'none', display: 'flex', alignItems: 'center', gap: '4px', fontWeight: '600' }}>
-                <span style={{ color: '#003087', fontSize: '12px' }}>■</span>
+                <span style={{ color: '#D91223', fontSize: '12px' }}>■</span>
                 <span>Guía Cuenta de Ahorro</span>
               </a>
               <a href="#" style={{ fontSize: '10.5px', color: '#4b5563', textDecoration: 'none', display: 'flex', alignItems: 'center', gap: '4px', fontWeight: '600' }}>
-                <span style={{ color: '#003087', fontSize: '12px' }}>■</span>
+                <span style={{ color: '#D91223', fontSize: '12px' }}>■</span>
                 <span>Guía Cuentas Corrientes</span>
               </a>
             </div>

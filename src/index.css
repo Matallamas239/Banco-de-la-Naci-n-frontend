@@ -1,36 +1,36 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
 
 :root {
-  /* Paleta de marca Banco GNB — colores premium y oficiales */
-  --hb-red: #73a700;          /* Verde principal GNB */
-  --hb-red-dark: #5b8500;     /* Verde GNB hover */
-  --hb-red-light: rgba(115, 167, 0, 0.1); /* Verde GNB translúcido */
-  --hb-magenta: #f8fafc;      
-  --hb-turquesa: #73a700;     
-  --hb-naranja: #8ac926;      /* Verde brillante acento */
-  --hb-amarillo: #8ac926;     /* Verde brillante acento */
-  --hb-verde-t: #73a700;      
-  --hb-morado: #0b132b;       
+  /* Paleta de marca Banco de la Nación — colores premium oficiales */
+  --hb-red: #D91223;          /* Rojo principal BN */
+  --hb-red-dark: #9B0F23;     /* Rojo BN hover */
+  --hb-red-light: rgba(217, 18, 35, 0.08); /* Rojo BN translúcido */
+  --hb-magenta: #ffffff;      
+  --hb-turquesa: #D91223;     
+  --hb-naranja: #F5A800;      /* Oro/Amarillo Multired acento */
+  --hb-amarillo: #F5A800;     /* Oro/Amarillo Multired acento */
+  --hb-verde-t: #D91223;      
+  --hb-morado: #ffffff;       
 
-  --hb-bg: #0b132b;           /* Fondo principal: azul pizarra muy oscuro */
-  --hb-text: #f8fafc;         /* Texto principal claro */
-  --hb-muted: #94a3b8;        /* Texto secundario slate */
-  --hb-border: rgba(255, 255, 255, 0.08); /* Bordes suaves translúcidos */
-  --hb-green: #8ac926;        
-  --hb-amber: #f5a800;        
-  --hb-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
-  --hb-radius: 14px;          
-  --card-bg: rgba(21, 37, 61, 0.85); /* Tarjetas premium translúcidas */
+  --hb-bg: #f4f4f6;           /* Fondo principal: Gris claro */
+  --hb-text: #1f2937;         /* Texto principal oscuro */
+  --hb-muted: #6b7280;        /* Texto secundario */
+  --hb-border: #e5e7eb;       /* Bordes claros */
+  --hb-green: #16a34a;        
+  --hb-amber: #F5A800;        
+  --hb-shadow: 0 4px 20px 0 rgba(0, 0, 0, 0.05);
+  --hb-radius: 12px;          
+  --card-bg: #ffffff;         /* Tarjetas blancas */
 
-  /* Gradiente y franja GNB */
-  --hb-grad: linear-gradient(110deg, #0e1b2f 0%, #152238 100%);
-  --hb-grad-login: linear-gradient(135deg, #0b132b 0%, #0e1b2f 50%, #152238 100%);
+  /* Gradiente y franja Banco de la Nación */
+  --hb-grad: linear-gradient(110deg, #D91223 0%, #9B0F23 100%);
+  --hb-grad-login: linear-gradient(135deg, #f4f4f6 0%, #ffffff 100%);
   --hb-franja: linear-gradient(
     90deg,
-    #73a700 0%,
-    #8ac926 40%,
-    #8ac926 70%,
-    #5b8500 100%
+    #D91223 0%,
+    #F5A800 40%,
+    #F5A800 70%,
+    #9B0F23 100%
   );
 }
 
@@ -3677,47 +3677,49 @@ div[style*="background-color: #ffffff"],
 div[style*="background-color: rgb(255, 255, 255)"] {
   background: var(--card-bg) !important;
   border-radius: 14px !important;
-  border: 1px solid rgba(255, 255, 255, 0.08) !important;
-  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3) !important;
-  color: #f8fafc !important;
+  border: 1px solid var(--hb-border) !important;
+  box-shadow: var(--hb-shadow) !important;
+  color: var(--hb-text) !important;
 }
 
 /* 6. List items inside cards should look beautiful and stand out */
 .bbva-prodlist li,
 .bn-mov-item {
-  background: rgba(255, 255, 255, 0.03) !important;
-  border: 1px solid rgba(255, 255, 255, 0.06) !important;
+  background: #ffffff !important;
+  border: 1px solid var(--hb-border) !important;
   border-radius: 10px !important;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1) !important;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04) !important;
   margin-bottom: 8px !important;
   transition: all 0.2s ease !important;
-  color: #f8fafc !important;
+  color: var(--hb-text) !important;
 }
 .bbva-prodlist li:hover,
 .bn-mov-item:hover {
-  background: rgba(255, 255, 255, 0.07) !important;
-  border-color: var(--hb-naranja) !important;
+  background: var(--hb-red-light) !important;
+  border-color: var(--hb-red) !important;
   transform: translateX(3px) !important;
 }
 
-/* Ensure child text inside lists are readable in dark theme */
+/* Ensure child text inside lists are readable in light theme */
 .bbva-prod-info strong,
-.bbva-prod-info small,
 .bbva-prod-amt,
 .bn-progress-labels span,
 .bbva-prodlist-total,
 .bbva-acc-main strong,
-.bbva-acc-main small,
 .bbva-acc-saldo,
 .bbva-acc-saldo .hb-money,
-.bbva-detalle-sub,
 .bbva-serv strong,
-.bbva-serv small,
 .bbva-comprobante-rows dd,
-.bbva-comprobante-rows dt,
 .bbva-hello h1,
 .bbva-hello p {
-  color: #f8fafc !important;
+  color: var(--hb-text) !important;
+}
+.bbva-prod-info small,
+.bbva-acc-main small,
+.bbva-detalle-sub,
+.bbva-serv small,
+.bbva-comprobante-rows dt {
+  color: var(--hb-muted) !important;
 }
 
 /* 7. Header user greeting elegant font weights */
@@ -3759,13 +3761,13 @@ div[style*="linear-gradient(135deg"] {
   }
 
   header > div[style*="height: 65px"] {
-    background: rgba(14, 27, 47, 0.85) !important;
+    background: rgba(217, 18, 35, 0.92) !important;
     backdrop-filter: blur(12px) !important;
-    border: 1px solid rgba(255, 255, 255, 0.08) !important;
+    border: 1px solid rgba(255, 255, 255, 0.15) !important;
     border-radius: 16px !important;
     height: 70px !important;
     padding: 0 24px !important;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3) !important;
+    box-shadow: 0 10px 30px rgba(217, 18, 35, 0.15) !important;
     border-bottom: none !important;
   }
 
@@ -3779,7 +3781,7 @@ div[style*="linear-gradient(135deg"] {
     margin-left: -8px !important;
   }
   header svg path[fill="#003087"] {
-    fill: var(--hb-red) !important; /* GNB Green */
+    fill: #ffffff !important;
   }
   header svg path[fill="#0d42a8"],
   header svg path[fill="#ffffff"] {
@@ -3852,15 +3854,15 @@ div[style*="linear-gradient(135deg"] {
     display: flex !important;
     align-items: center !important;
     justify-content: center !important;
-    background: rgba(255, 255, 255, 0.05) !important;
-    border: 1px solid rgba(255, 255, 255, 0.08) !important;
+    background: rgba(255, 255, 255, 0.15) !important;
+    border: 1px solid rgba(255, 255, 255, 0.2) !important;
     transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1) !important;
-    color: rgba(255, 255, 255, 0.75) !important;
+    color: rgba(255, 255, 255, 0.9) !important;
   }
 
   div[style*="width: 70px"] button:hover,
   div[style*="width: 250px"] button:hover {
-    background: rgba(255, 255, 255, 0.15) !important;
+    background: rgba(255, 255, 255, 0.25) !important;
     transform: translateY(-2px) !important;
     color: #ffffff !important;
   }
@@ -3874,10 +3876,22 @@ div[style*="linear-gradient(135deg"] {
   div[style*="width: 250px"] button[style*="background:#73a700"],
   div[style*="width: 70px"] button[style*="background: rgb(115, 167, 0)"],
   div[style*="width: 250px"] button[style*="background: rgb(115, 167, 0)"] {
-    background: var(--hb-red) !important;
-    color: #ffffff !important;
-    border-color: rgba(255, 255, 255, 0.2) !important;
-    box-shadow: 0 4px 14px rgba(115, 167, 0, 0.4) !important;
+    background: #ffffff !important;
+    color: #D91223 !important;
+    border-color: #ffffff !important;
+    box-shadow: 0 4px 14px rgba(255, 255, 255, 0.25) !important;
+  }
+
+  /* Force SVG active icon color to be red */
+  div[style*="width: 70px"] button[style*="background: var(--hb-red)"] svg,
+  div[style*="width: 250px"] button[style*="background: var(--hb-red)"] svg,
+  div[style*="width: 70px"] button[style*="background: #003087"] svg,
+  div[style*="width: 250px"] button[style*="background: #003087"] svg,
+  div[style*="width: 70px"] button[style*="background:#73a700"] svg,
+  div[style*="width: 250px"] button[style*="background:#73a700"] svg,
+  div[style*="width: 70px"] button[style*="background: rgb(115, 167, 0)"] svg,
+  div[style*="width: 250px"] button[style*="background: rgb(115, 167, 0)"] svg {
+    color: #D91223 !important;
   }
 
   /* Hide vertical lines inside navigation buttons */
@@ -3905,7 +3919,7 @@ div[style*="linear-gradient(135deg"] {
 .hb-header,
 .bbva-topbar,
 header {
-  background: #0e1b2f !important;
+  background: #D91223 !important; /* Rojo BN */
   color: #ffffff !important;
 }
 
@@ -3927,14 +3941,14 @@ div[style*="background: rgb(252, 252, 252)"] {
   background: var(--hb-bg) !important;
 }
 
-/* General text elements in dark background to be white */
+/* General text elements in light background to be dark slate */
 .gnb-public-page h1,
 .gnb-public-page h2,
 .gnb-public-page h3,
 .gnb-public-page p,
 .gnb-public-page label,
 .gnb-public-page a {
-  color: #f8fafc !important;
+  color: var(--hb-text) !important;
 }
 
 /* Except text inside card elements, which should remain dark slate for contrast */
@@ -3945,32 +3959,32 @@ div[style*="background: rgb(252, 252, 252)"] {
 .gnb-info-card *,
 .gnb-sidebar-nav *,
 .gnb-security-notice * {
-  color: #f8fafc !important;
+  color: var(--hb-text) !important;
 }
 
-/* Form input dark styling overrides */
+/* Form input styling overrides */
 .hb-input, .hb-select, .bn-search-input {
-  background: rgba(255, 255, 255, 0.04) !important;
-  border: 1px solid rgba(255, 255, 255, 0.08) !important;
-  color: #f8fafc !important;
+  background: #ffffff !important;
+  border: 1px solid var(--hb-border) !important;
+  color: var(--hb-text) !important;
 }
 .hb-input:focus, .hb-select:focus, .bn-search-input:focus {
-  border-color: var(--hb-naranja) !important;
-  box-shadow: 0 0 0 3px rgba(138, 201, 38, 0.2) !important;
+  border-color: var(--hb-red) !important;
+  box-shadow: 0 0 0 3px rgba(217, 18, 35, 0.15) !important;
 }
 
-/* Tables styling overrides for dark mode */
+/* Tables styling overrides */
 .hb-table th {
-  background: rgba(255, 255, 255, 0.02) !important;
-  color: #94a3b8 !important;
-  border-bottom: 2px solid rgba(255, 255, 255, 0.08) !important;
+  background: #f9fafb !important;
+  color: var(--hb-muted) !important;
+  border-bottom: 2px solid var(--hb-border) !important;
 }
 .hb-table td {
-  border-bottom: 1px solid rgba(255, 255, 255, 0.04) !important;
-  color: #f8fafc !important;
+  border-bottom: 1px solid var(--hb-border) !important;
+  color: var(--hb-text) !important;
 }
 .hb-table tbody tr:hover {
-  background: rgba(255, 255, 255, 0.02) !important;
+  background: #f9fafb !important;
 }
 
 /* Quick action cards override */
@@ -3981,80 +3995,80 @@ div[style*="grid-template-columns: repeat(4, 1fr)"] button {
   box-shadow: var(--hb-shadow) !important;
 }
 div[style*="grid-template-columns: repeat(4, 1fr)"] button:hover {
-  border-color: var(--hb-naranja) !important;
+  border-color: var(--hb-red) !important;
 }
 
-/* Icon container circle: dark backing with glowing GNB green icon */
+/* Icon container circle: light backing with red icon */
 div[style*="grid-template-columns: repeat(4, 1fr)"] button > span:first-child {
-  background: rgba(255, 255, 255, 0.04) !important;
-  border: 1px solid rgba(255, 255, 255, 0.08) !important;
-  color: var(--hb-naranja) !important;
+  background: var(--hb-red-light) !important;
+  border: 1px solid var(--hb-border) !important;
+  color: var(--hb-red) !important;
 }
 div[style*="grid-template-columns: repeat(4, 1fr)"] button > span:first-child svg {
-  color: var(--hb-naranja) !important;
+  color: var(--hb-red) !important;
 }
 
-/* Text label container: white high-contrast text */
+/* Text label container: dark high-contrast text */
 div[style*="grid-template-columns: repeat(4, 1fr)"] button > span:nth-child(2) {
-  color: #f8fafc !important;
+  color: var(--hb-text) !important;
   font-weight: 600 !important;
 }
 
-/* Card titles text color override to be perfectly visible on dark cards */
+/* Card titles text color override to be perfectly visible on light cards */
 .hb-card span[style*="color: #1e293b"],
 .hb-card span[style*="color: rgb(30, 41, 59)"],
 .bbva-card-title span[style*="color: #1e293b"],
 .bbva-card-title span[style*="color: rgb(30, 41, 59)"],
 h2.hb-card-title span[style*="color"] {
-  color: #f8fafc !important;
+  color: var(--hb-text) !important;
   font-weight: 600 !important;
   text-transform: uppercase !important;
   letter-spacing: 0.05em !important;
 }
 
-/* Link color inside cards override to GNB accent green */
+/* Link color inside cards override to red BN */
 .hb-card a,
 .hb-card button,
 .hb-card span[style*="color: #003087"],
 .hb-card span[style*="color: rgb(0, 48, 135)"],
 div[style*="color: #003087"] a,
 div[style*="color: rgb(0, 48, 135)"] a {
-  color: var(--hb-naranja) !important;
+  color: var(--hb-red) !important;
 }
 
 .hb-card span[style*="color: #64748b"],
 .hb-card span[style*="color: rgb(100, 116, 139)"] {
-  color: #94a3b8 !important;
+  color: var(--hb-muted) !important;
 }
 
-/* Chart text overrides to match light font on dark theme */
+/* Chart text overrides to match light theme */
 .recharts-text,
 .recharts-legend-item-text {
-  fill: #94a3b8 !important;
-  color: #94a3b8 !important;
+  fill: var(--hb-text) !important;
+  color: var(--hb-text) !important;
 }
 .recharts-cartesian-grid-horizontal line,
 .recharts-cartesian-grid-vertical line {
-  stroke: rgba(255, 255, 255, 0.08) !important;
+  stroke: var(--hb-border) !important;
 }
 
 /* ============================================================
    PAGE HEADER & INLINE TEXT CONTRAST IMPROVEMENTS
    ============================================================ */
 
-/* Force high contrast white for all page layout titles and headers */
+/* Force high contrast dark slate for all page layout titles and headers */
 .bbva-page-title,
 h1.bbva-page-title,
 .bbva-page-main h1 {
-  color: #f8fafc !important;
+  color: var(--hb-text) !important;
   font-weight: 700 !important;
 }
 
-/* Force light gray for subtitles and breadcrumbs */
+/* Force medium gray for subtitles and breadcrumbs */
 .bbva-page-sub,
 p.bbva-page-sub,
 .bbva-page-main p {
-  color: #94a3b8 !important;
+  color: var(--hb-muted) !important;
 }
 
 /* Overwrite common dark gray/black inline styles in main content */
@@ -4066,11 +4080,11 @@ p.bbva-page-sub,
 .bbva-page-main p[style*="color: rgb(107, 114, 128)"],
 .bbva-page-main p[style*="color: #4b5563"],
 .bbva-page-main p[style*="color: rgb(75, 85, 99)"] {
-  color: #e2e8f0 !important;
+  color: var(--hb-text) !important;
 }
 
 .bbva-op-card:hover {
-  border-color: var(--hb-naranja) !important;
+  border-color: var(--hb-red) !important;
 }
 
 /* ============================================================
@@ -4089,17 +4103,18 @@ p.bbva-page-sub,
   width: 100% !important;
   padding: 12px 14px 12px 42px !important;
   box-sizing: border-box !important;
+  background: #ffffff !important;
 }
 .bn-search-icon {
   position: absolute !important;
   left: 14px !important;
   top: 50% !important;
   transform: translateY(-50%) !important;
-  color: var(--hb-naranja) !important;
+  color: var(--hb-red) !important;
   z-index: 10 !important;
 }
 
-/* Additional dark gray inline color resets to high contrast light gray */
+/* Additional dark gray inline color resets to high contrast */
 .bbva-page-main span[style*="color: #475569"],
 .bbva-page-main span[style*="color: rgb(71, 85, 105)"],
 .bbva-page-main strong[style*="color: #475569"],
@@ -4116,30 +4131,30 @@ span[style*="color: #64748b"],
 span[style*="color: rgb(100, 116, 139)"],
 strong[style*="color: #64748b"],
 strong[style*="color: rgb(100, 116, 139)"] {
-  color: #e2e8f0 !important;
+  color: var(--hb-text) !important;
 }
 .bbva-op-card strong,
 .bbva-op-card span.bbva-op-body strong,
 .bbva-op-card [style*="color: #1e293b"] {
-  color: #f8fafc !important; /* Pure white */
+  color: var(--hb-text) !important;
 }
 
 .bbva-op-card small,
 .bbva-op-card span.bbva-op-body small,
 .bbva-op-card [style*="color: #64748b"] {
-  color: #94a3b8 !important; /* Light slate gray */
+  color: var(--hb-muted) !important;
 }
 
 .bbva-op-card .bbva-op-chev {
-  color: #94a3b8 !important;
+  color: var(--hb-muted) !important;
 }
 
 .bbva-op-card:hover .bbva-op-chev {
-  color: var(--hb-naranja) !important;
+  color: var(--hb-red) !important;
 }
 
 .bbva-op-card:hover {
-  border-color: var(--hb-naranja) !important;
+  border-color: var(--hb-red) !important;
 }
 
 /* ============================================================
@@ -4148,29 +4163,29 @@ strong[style*="color: rgb(100, 116, 139)"] {
 
 /* 1. Public Header Background & Text contrast overrides */
 .gnb-public-header {
-  background: #0e1b2f !important; /* GNB Dark Blue */
-  border-bottom: 1px solid rgba(255, 255, 255, 0.08) !important;
+  background: #ffffff !important; 
+  border-bottom: 1px solid var(--hb-border) !important;
 }
 .gnb-public-header div[style*="background: #ffffff"],
 .gnb-public-header div[style*="background: rgb(255, 255, 255)"] {
-  background: transparent !important;
+  background: #ffffff !important;
 }
 .gnb-top-official-bar,
 .gnb-public-header div.gnb-top-official-bar {
-  background: rgba(255, 255, 255, 0.03) !important;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.08) !important;
-  color: #94a3b8 !important;
+  background: #f3f4f6 !important;
+  border-bottom: 1px solid var(--hb-border) !important;
+  color: var(--hb-muted) !important;
 }
 .gnb-top-official-bar *,
 .gnb-top-official-bar button {
-  color: #94a3b8 !important;
+  color: var(--hb-muted) !important;
 }
 .gnb-public-header a,
 .gnb-public-header nav a,
 .gnb-public-header span,
 .gnb-public-header div[style*="color: #4b5563"],
 .gnb-public-header div[style*="color: rgb(75, 85, 99)"] {
-  color: #ffffff !important;
+  color: var(--hb-text) !important;
 }
 
 /* 2. Landing Page Sections Background & Text resets */
@@ -4178,61 +4193,61 @@ strong[style*="color: rgb(100, 116, 139)"] {
   background: var(--hb-bg) !important;
 }
 .gnb-public-page section {
-  background: transparent !important;
+  background: #ffffff !important;
 }
 .gnb-public-page h2,
 .gnb-public-page section h2,
 .gnb-public-page section h3 {
-  color: #f8fafc !important;
+  color: var(--hb-text) !important;
 }
 
 /* Landing page product card text labels color */
 .gnb-public-page span[style*="color: #4b5563"],
 .gnb-public-page span[style*="color: rgb(75, 85, 99)"] {
-  color: #f8fafc !important;
+  color: var(--hb-text) !important;
 }
 
-/* Landing page product card circular icons background & glowing green icon */
+/* Landing page product card circular icons background & red BN icon */
 .gnb-public-page section span[style*="background: #f0f4fa"],
 .gnb-public-page section span[style*="background: rgb(240, 244, 250)"] {
-  background: rgba(255, 255, 255, 0.04) !important;
-  border: 1px solid rgba(255, 255, 255, 0.08) !important;
-  color: var(--hb-naranja) !important;
+  background: var(--hb-red-light) !important;
+  border: 1px solid var(--hb-border) !important;
+  color: var(--hb-red) !important;
 }
 .gnb-public-page section span[style*="background: #f0f4fa"] svg,
 .gnb-public-page section span[style*="background: rgb(240, 244, 250)"] svg {
-  color: var(--hb-naranja) !important;
+  color: var(--hb-red) !important;
 }
 
-/* 3. Public Footer Styling Overrides (GNB Dark Blue & High Contrast Slate) */
+/* 3. Public Footer Styling Overrides (Red and Light Gray) */
 .gnb-public-footer {
-  background: #0e1b2f !important;
-  border-top: 1px solid rgba(255, 255, 255, 0.08) !important;
-  color: #94a3b8 !important;
+  background: #f3f4f6 !important;
+  border-top: 1px solid var(--hb-border) !important;
+  color: var(--hb-muted) !important;
 }
 .gnb-public-footer h4,
 .gnb-public-footer strong,
 .gnb-public-footer p {
-  color: #f8fafc !important;
+  color: var(--hb-text) !important;
 }
 .gnb-public-footer a {
-  color: #94a3b8 !important;
+  color: var(--hb-muted) !important;
   transition: color 0.15s ease !important;
 }
 .gnb-public-footer a:hover {
-  color: var(--hb-naranja) !important;
+  color: var(--hb-red) !important;
 }
 
 /* Libro de reclamaciones card */
 .gnb-public-footer a[style*="background: #fff"],
 .gnb-public-footer a[style*="background: rgb(255, 255, 255)"] {
-  background: var(--card-bg) !important;
-  border: 1px solid rgba(255, 255, 255, 0.08) !important;
+  background: #ffffff !important;
+  border: 1px solid var(--hb-border) !important;
   box-shadow: none !important;
 }
 .gnb-public-footer a[style*="background: #fff"] *,
 .gnb-public-footer a[style*="background: rgb(255, 255, 255)"] * {
-  color: #f8fafc !important;
+  color: var(--hb-text) !important;
 }
 
 /* Footer Accent Line */
@@ -4243,20 +4258,20 @@ strong[style*="color: rgb(100, 116, 139)"] {
 /* Footer Section 2 (bottom address block) */
 .gnb-public-footer div[style*="background: #374151"],
 .gnb-public-footer div[style*="background: rgb(55, 65, 81)"] {
-  background: #0b132b !important;
-  border-top: 1px solid rgba(255, 255, 255, 0.05) !important;
+  background: #eaeaea !important;
+  border-top: 1px solid var(--hb-border) !important;
 }
 .gnb-public-footer div[style*="background: #374151"] *,
 .gnb-public-footer div[style*="background: rgb(55, 65, 81)"] * {
-  color: #94a3b8 !important;
+  color: var(--hb-muted) !important;
 }
 .gnb-public-footer div[style*="background: #374151"] strong,
 .gnb-public-footer div[style*="background: rgb(55, 65, 81)"] strong {
-  color: #ffffff !important;
+  color: var(--hb-text) !important;
 }
 
 /* ============================================================
-   BN LOGIN PAGE DARK MODE BRANDING OVERRIDES
+   BN LOGIN PAGE LIGHT MODE BRANDING OVERRIDES
    ============================================================ */
 
 .bn-login-page {
@@ -4268,58 +4283,58 @@ strong[style*="color: rgb(100, 116, 139)"] {
 
 /* Form Container Card Override */
 .bn-login-page main > div:nth-of-type(2) {
-  background: var(--card-bg) !important;
-  border: 1px solid rgba(255, 255, 255, 0.08) !important;
-  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3) !important;
-  color: #f8fafc !important;
-  border-radius: 14px !important;
+  background: #ffffff !important;
+  border: 1px solid #cccccc !important;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05) !important;
+  color: var(--hb-text) !important;
+  border-radius: 8px !important;
 }
 
 /* Labels and text colors */
 .bn-login-page label {
-  color: #94a3b8 !important;
+  color: #555555 !important;
 }
 .bn-login-page div[style*="color: #003087"] {
-  color: var(--hb-naranja) !important;
+  color: var(--hb-red) !important;
 }
 .bn-login-page a[style*="color: #003087"],
 .bn-login-page a[style*="color: rgb(0, 48, 135)"],
 .bn-login-page a[style*="color: #0284c7"] {
-  color: var(--hb-naranja) !important;
+  color: var(--hb-red) !important;
 }
 .bn-login-page a[style*="color: #4b5563"] {
-  color: #94a3b8 !important;
+  color: var(--hb-muted) !important;
 }
 
 /* Input boxes & dropdown selects */
 .bn-login-page input,
 .bn-login-page select {
-  background: rgba(255, 255, 255, 0.04) !important;
-  border: 1px solid rgba(255, 255, 255, 0.08) !important;
-  color: #f8fafc !important;
+  background: #ffffff !important;
+  border: 1px solid #b1b1b1 !important;
+  color: var(--hb-text) !important;
 }
 .bn-login-page input:focus,
 .bn-login-page select:focus {
-  border-color: var(--hb-naranja) !important;
+  border-color: var(--hb-red) !important;
 }
 
 /* Virtual keyboard keys overrides */
 .bn-login-page button[style*="background: #f2f2f2"],
 .bn-login-page button[style*="background: rgb(242, 242, 242)"] {
-  background: rgba(255, 255, 255, 0.05) !important;
-  border: 1px solid rgba(255, 255, 255, 0.08) !important;
-  color: #f8fafc !important;
+  background: #f2f2f2 !important;
+  border: 1px solid #aaaaaa !important;
+  color: #333333 !important;
 }
 .bn-login-page button[style*="background: #f2f2f2"]:hover,
 .bn-login-page button[style*="background: rgb(242, 242, 242)"]:hover {
-  background: rgba(255, 255, 255, 0.15) !important;
+  background: #e2e2e2 !important;
 }
 
 /* Virtual keyboard clear button override */
 .bn-login-page button[style*="background: #444444"],
 .bn-login-page button[style*="background: rgb(68, 68, 68)"] {
-  background: rgba(255, 255, 255, 0.12) !important;
-  border: 1px solid rgba(255, 255, 255, 0.05) !important;
+  background: #444444 !important;
+  border: 1px solid #444444 !important;
   color: #ffffff !important;
 }
 
@@ -4328,7 +4343,7 @@ strong[style*="color: rgb(100, 116, 139)"] {
 .bn-login-page button[style*="background: rgb(0, 32, 96)"] {
   background: var(--hb-red) !important;
   color: #ffffff !important;
-  border-radius: 8px !important;
+  border-radius: 4px !important;
   border: none !important;
   transition: all 0.2s ease !important;
 }
@@ -4339,37 +4354,36 @@ strong[style*="color: rgb(100, 116, 139)"] {
 
 /* Login Page Header */
 .bn-login-page header {
-  background: #0e1b2f !important;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.08) !important;
+  background: #ffffff !important;
+  border-bottom: 1px solid #d4d4d8 !important;
 }
 .bn-login-page header div[style*="background: #003087"],
 .bn-login-page header div[style*="background: rgb(0, 48, 135)"] {
-  /* Hide the top red multired virtual tag hanging */
-  display: none !important;
+  background: var(--hb-red) !important;
 }
 .bn-login-page header span[style*="color"] {
-  color: #ffffff !important;
+  color: var(--hb-text) !important;
 }
 
 /* Login Page Footer */
 .bn-login-page footer {
-  background: #0b132b !important;
-  border-top: 1px solid rgba(255, 255, 255, 0.08) !important;
-  color: #94a3b8 !important;
+  background: #f4f4f6 !important;
+  border-top: 1px solid #d4d4d8 !important;
+  color: var(--hb-muted) !important;
 }
 .bn-login-page footer div[style*="color: #444444"],
 .bn-login-page footer div[style*="color: rgb(68, 68, 68)"] {
-  color: #ffffff !important;
+  color: var(--hb-text) !important;
 }
 
 /* Security tips & Guides boxes */
 .bn-login-page div[style*="background: #f9fafb"],
 .bn-login-page div[style*="background: rgb(249, 250, 251)"] {
-  background: rgba(255, 255, 255, 0.02) !important;
-  border: 1px solid rgba(255, 255, 255, 0.05) !important;
-  color: #94a3b8 !important;
+  background: #f9fafb !important;
+  border: 1px solid #e5e7eb !important;
+  color: var(--hb-muted) !important;
 }
 .bn-login-page div[style*="background: #f9fafb"] span[style*="color: #003087"],
 .bn-login-page div[style*="background: rgb(249, 250, 251)"] span[style*="color: rgb(0, 48, 135)"] {
-  color: var(--hb-naranja) !important;
+  color: var(--hb-red) !important;
 }
