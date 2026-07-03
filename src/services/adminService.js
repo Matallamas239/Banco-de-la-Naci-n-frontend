@@ -36,6 +36,16 @@ export async function adminDesembolsarSolicitud(id) {
   return data
 }
 
+export async function adminBuscarClientes(q) {
+  const { data } = await hbApi.get('/admin/clientes/buscar', { params: { q } })
+  return data
+}
+
+export async function adminCrearCliente(payload) {
+  const { data } = await hbApi.post('/admin/clientes/crear', payload)
+  return data
+}
+
 // ── Power BI flat exports ────────────────────────────────────────────────────
 
 export async function getPbClientes() {
@@ -55,5 +65,32 @@ export async function getPbCreditos() {
 
 export async function getPbOperaciones() {
   const { data } = await hbApi.get('/admin/powerbi/operaciones')
+  return data
+}
+
+// ── Recuperaciones / Mora (Cobranza) ──────────────────────────────────────────
+
+export async function getRecuperacionesStats() {
+  const { data } = await hbApi.get('/admin/recuperaciones/stats')
+  return data
+}
+
+export async function getRecuperacionesCartera(banda) {
+  const { data } = await hbApi.get('/admin/recuperaciones/cartera', { params: { banda } })
+  return data
+}
+
+export async function registrarGestionCobranza(payload) {
+  const { data } = await hbApi.post('/admin/recuperaciones/gestiones', payload)
+  return data
+}
+
+export async function getHistorialCobranza(pkcuentacredito) {
+  const { data } = await hbApi.get(`/admin/recuperaciones/gestiones/${pkcuentacredito}`)
+  return data
+}
+
+export async function transicionarMora(payload) {
+  const { data } = await hbApi.post('/admin/recuperaciones/transicionar', payload)
   return data
 }

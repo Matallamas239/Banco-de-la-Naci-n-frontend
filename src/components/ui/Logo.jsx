@@ -1,93 +1,66 @@
 import React from 'react'
 
 /**
- * Logo oficial de Banco GNB Perú.
- * Presenta las letras "BANCO GNB" con la fuente y colores oficiales,
- * el isotipo del árbol verde y la palabra "PERÚ" debajo.
+ * Logo oficial de Banco de la Nación.
+ * Presenta el símbolo oficial (escarapela/cinta roja BN) y el texto correspondiente.
  *
  * @param {Object} props
  * @param {number}  [props.size=44]          Tamaño/escala del logotipo.
  * @param {string}  [props.variant='dark']   Variante de color ('dark' o 'light').
+ * @param {string}  [props.subtitle]         Subtítulo opcional para el encabezado (ej. Banca por Internet).
  */
-export default function Logo({ size = 44, variant = 'dark' }) {
+export default function Logo({ size = 44, variant = 'dark', subtitle }) {
   const scale = size / 44
   const isLight = variant === 'light'
   
-  const textColorBanco = isLight ? 'rgba(255, 255, 255, 0.9)' : '#4b5563'
-  const textColorGnb = isLight ? '#ffffff' : '#c5112e' // Rojo corporativo
-  const textColorPeru = isLight ? 'rgba(255, 255, 255, 0.75)' : '#1f2937'
-  
-  const circleColor = isLight ? '#ffffff' : '#c5112e'
-  const iconStrokeColor = isLight ? '#c5112e' : '#ffffff'
+  const textColorBanco = isLight ? '#ffffff' : '#1f2937'
+  const textColorNacion = isLight ? '#ffffff' : '#003087'
+  const textColorSub = isLight ? 'rgba(255, 255, 255, 0.8)' : '#64748b'
 
   return (
     <div 
       style={{ 
         display: 'inline-flex', 
-        flexDirection: 'column', 
-        alignItems: 'flex-start', 
-        lineHeight: 1,
-        fontFamily: '"Outfit", "Inter", "Segoe UI", sans-serif',
-        userSelect: 'none'
+        alignItems: 'center', 
+        gap: `${10 * scale}px`,
+        fontFamily: '"Outfit", "Inter", sans-serif',
+        userSelect: 'none',
+        textAlign: 'left'
       }}
     >
-      <div style={{ display: 'flex', alignItems: 'center', gap: `${6 * scale}px` }}>
-        <span 
-          style={{ 
-            fontWeight: 300, 
-            fontSize: `${16 * scale}px`, 
-            color: textColorBanco,
-            letterSpacing: '0.5px'
-          }}
-        >
-          BANCO DE LA
-        </span>
-        <span 
-          style={{ 
-            fontWeight: 800, 
-            fontSize: `${16 * scale}px`, 
-            color: textColorGnb,
-            letterSpacing: '0.5px',
-            marginRight: `${2 * scale}px`
-          }}
-        >
-          NACIÓN
-        </span>
-        
-        {/* Isotipo: Banco de la Nación (Círculo rojo con N blanca) */}
-        <svg
-          width={Math.round(24 * scale)}
-          height={Math.round(24 * scale)}
-          viewBox="0 0 24 24"
-          fill="none"
-          xmlns="http://www.w3.org/2000/svg"
-          style={{ display: 'block', flexShrink: 0 }}
-        >
-          <circle cx="12" cy="12" r="10" fill={circleColor} />
-          <path
-            d="M8.5 16.5V7.5L15.5 16.5V7.5"
-            stroke={iconStrokeColor}
-            strokeWidth="2.5"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-          />
-        </svg>
-      </div>
-      
-      <span 
-        style={{ 
-          fontWeight: 600, 
-          fontSize: `${9 * scale}px`, 
-          color: textColorPeru,
-          letterSpacing: `${4.5 * scale}px`,
-          paddingLeft: `${3 * scale}px`,
-          marginTop: `-${1 * scale}px`,
-          alignSelf: 'stretch',
-          textAlign: 'center'
-        }}
+      {/* Símbolo BN: Onda/Cinta Roja */}
+      <svg
+        width={Math.round(36 * scale)}
+        height={Math.round(36 * scale)}
+        viewBox="0 0 100 100"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+        style={{ display: 'block', flexShrink: 0 }}
       >
-        PERÚ
-      </span>
+        <path
+          d="M20,80 C15,80 10,70 15,50 C25,25 50,15 70,15 C85,15 90,25 80,45 C65,70 40,85 20,80 Z"
+          fill="#003087"
+        />
+        <path
+          d="M35,65 C40,45 60,30 75,30 C85,30 87,35 80,48 C70,68 50,80 35,65 Z"
+          fill={isLight ? '#0d42a8' : '#ffffff'}
+          opacity="0.9"
+        />
+      </svg>
+      
+      <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start', lineHeight: 1.1 }}>
+        <span style={{ fontWeight: 800, fontSize: `${18 * scale}px`, color: textColorBanco, letterSpacing: '-0.3px' }}>
+          Banco
+        </span>
+        <span style={{ fontWeight: 500, fontSize: `${15 * scale}px`, color: textColorNacion, letterSpacing: '-0.2px' }}>
+          de la Nación
+        </span>
+        {subtitle && (
+          <span style={{ fontWeight: 600, fontSize: `${8.5 * scale}px`, color: textColorSub, letterSpacing: '0.5px', marginTop: `${3 * scale}px`, textTransform: 'uppercase' }}>
+            {subtitle}
+          </span>
+        )}
+      </div>
     </div>
   )
 }

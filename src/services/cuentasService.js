@@ -35,21 +35,3 @@ export async function getCuotas(codcuentacredito) {
   )
   return Array.isArray(data) ? data : []
 }
-
-// POST /public/pedir-info
-export async function postPublicPedirInfo(payload) {
-  const { data } = await hbApi.post('/public/pedir-info', payload)
-  return data
-}
-
-// POST /operaciones/pedir-info
-export async function postOperacionesPedirInfo(payload) {
-  const { data } = await hbApi.post('/operaciones/pedir-info', payload)
-  return data
-}
-
-// GET /admin/pedir-info
-export async function getAdminPedirInfo() {
-  const { data } = await hbApi.get('/admin/pedir-info')
-  return data
-}

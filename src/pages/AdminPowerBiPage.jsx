@@ -1,13 +1,8 @@
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 import {
   BarChart3, Link2, Database, CheckCircle2, Copy, ExternalLink,
   Globe, Server, Key, ChevronDown, ChevronRight,
 } from 'lucide-react'
-import {
-  ResponsiveContainer, PieChart, Pie, Cell, Tooltip,
-  BarChart as RechartsBarChart, Bar, XAxis, YAxis, CartesianGrid
-} from 'recharts'
-import { getAdminStats } from '../services/adminService.js'
 import PageLayout from '../components/layout/PageLayout.jsx'
 import Card from '../components/ui/Card.jsx'
 
@@ -76,42 +71,12 @@ function CollapsibleStep({ number, title, children }) {
 
 export default function AdminPowerBiPage() {
   const [activeTab, setActiveTab] = useState('web')
-  const [pbiUrl, setPbiUrl] = useState('')
-  const [savedUrl, setSavedUrl] = useState('')
-  const [stats, setStats] = useState(null)
-  const [loadingStats, setLoadingStats] = useState(false)
-
-  // Cargar URL del localStorage al iniciar
-  useEffect(() => {
-    const url = localStorage.getItem('gnb_pbi_dashboard_url') || ''
-    setSavedUrl(url)
-    setPbiUrl(url)
-
-    // Cargar estadísticas en tiempo real
-    setLoadingStats(true)
-    getAdminStats()
-      .then(setStats)
-      .catch(console.error)
-      .finally(() => setLoadingStats(false))
-  }, [])
-
-  const saveUrl = () => {
-    localStorage.setItem('gnb_pbi_dashboard_url', pbiUrl.trim())
-    setSavedUrl(pbiUrl.trim())
-    alert('URL del Dashboard guardada con éxito.')
-  }
-
-  const clearUrl = () => {
-    localStorage.removeItem('gnb_pbi_dashboard_url')
-    setSavedUrl('')
-    setPbiUrl('')
-  }
 
   return (
     <PageLayout>
       <div className="bbva-hello">
         <h1>Conectividad con Power BI</h1>
-        <p>Integra los datos del Banco GNB directamente en tus reportes de Power BI Desktop o visualízalos en línea.</p>
+        <p>Integra los datos del Banco de la Nación directamente en tus reportes de Power BI Desktop.</p>
       </div>
 
       {/* Selector de método */}
@@ -127,12 +92,6 @@ export default function AdminPowerBiPage() {
           onClick={() => setActiveTab('db')}
         >
           <Database size={16} /> Opción B — Base de Datos PostgreSQL
-        </button>
-        <button
-          className={`pbi-tab ${activeTab === 'dashboard' ? 'active' : ''}`}
-          onClick={() => setActiveTab('dashboard')}
-        >
-          <BarChart3 size={16} /> Opción C — Dashboard Integrado (Web)
         </button>
       </div>
 
@@ -283,138 +242,6 @@ export default function AdminPowerBiPage() {
               </CollapsibleStep>
             </div>
           </Card>
-        </div>
-      )}
-
-      {/* ── OPCIÓN C: Dashboard Integrado (Web) ────────────────────────────────── */}
-      {activeTab === 'dashboard' && (
-        <div className="pbi-content">
-          <Card title="Configuración del Reporte de Power BI" icon={<Link2 size={18} />}>
-            <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
-              <p style={{ margin: 0, fontSize: 14, color: 'var(--hb-muted)' }}>
-                Si has publicado tu reporte de Power BI a la Web (<strong>Archivo → Publicar en la web</strong>), puedes pegar la URL del <code>iframe</code> o la URL directa aquí para visualizarlo de manera integrada en el portal.
-              </p>
-              <div style={{ display: 'flex', gap: 10, flexWrap: 'wrap' }}>
-                <input
-                  type="text"
-                  className="hb-input"
-                  style={{ flex: 1, minWidth: 280 }}
-                  placeholder="https://app.powerbi.com/view?r=..."
-                  value={pbiUrl}
-                  onChange={(e) => setPbiUrl(e.target.value)}
-                />
-                <button className="bbva-btn" onClick={saveUrl}>
-                  Guardar y Cargar
-                </button>
-                {savedUrl && (
-                  <button className="bbva-btn-gray" onClick={clearUrl}>
-                    Restablecer
-                  </button>
-                )}
-              </div>
-            </div>
-          </Card>
-
-          {savedUrl ? (
-            <Card title="Reporte Power BI Embebido" icon={<Globe size={18} />}>
-              <div style={{ position: 'relative', width: '100%', height: 600, overflow: 'hidden', borderRadius: 12, border: '1px solid var(--hb-border)' }}>
-                <iframe
-                  title="GNB Power BI Report"
-                  src={savedUrl}
-                  style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', border: 'none' }}
-                  allowFullScreen={true}
-                />
-              </div>
-            </Card>
-          ) : (
-            <>
-              <div className="pbi-intro-alert pbi-intro-alert--blue" style={{ background: '#e6f4ea', color: '#137333', borderColor: '#b7e1cd' }}>
-                <BarChart3 size={18} />
-                <div>
-                  <strong>Vista Previa del Dashboard de BI:</strong> Mostrando el reporte consolidado de datos en tiempo real del Banco GNB desde la base de datos PostgreSQL.
-                </div>
-              </div>
-
-              {/* KPIs de BI */}
-              <div className="admin-kpi-grid" style={{ marginBottom: 20 }}>
-                <div className="admin-kpi-card" style={{ '--kpi-color': '#0a2e5c', '--kpi-bg': '#0a2e5c18' }}>
-                  <span className="admin-kpi-ico" style={{ color: '#0a2e5c', backgroundColor: '#0a2e5c18' }}><Globe size={22} /></span>
-                  <div className="admin-kpi-body">
-                    <span className="admin-kpi-label">Clientes Únicos</span>
-                    <span className="admin-kpi-val">{stats?.clientes_activos || 0}</span>
-                  </div>
-                </div>
-                <div className="admin-kpi-card" style={{ '--kpi-color': '#73b71c', '--kpi-bg': '#73b71c18' }}>
-                  <span className="admin-kpi-ico" style={{ color: '#73b71c', backgroundColor: '#73b71c18' }}><Database size={22} /></span>
-                  <div className="admin-kpi-body">
-                    <span className="admin-kpi-label">Cuentas Ahorro</span>
-                    <span className="admin-kpi-val">{stats?.cuentas_ahorro_activas || 0}</span>
-                  </div>
-                </div>
-                <div className="admin-kpi-card" style={{ '--kpi-color': '#e5b224', '--kpi-bg': '#e5b22418' }}>
-                  <span className="admin-kpi-ico" style={{ color: '#e5b224', backgroundColor: '#e5b22418' }}><Key size={22} /></span>
-                  <div className="admin-kpi-body">
-                    <span className="admin-kpi-label">Créditos de Cartera</span>
-                    <span className="admin-kpi-val">{stats?.creditos_activos || 0}</span>
-                  </div>
-                </div>
-              </div>
-
-              {/* Gráficos de recharts */}
-              <div className="admin-charts-grid" style={{ marginBottom: 20 }}>
-                <div className="admin-chart-card">
-                  <h3 className="admin-chart-title" style={{ display: 'flex', alignItems: 'center', gap: 6, fontSize: 14, fontWeight: 700, margin: '0 0 14px' }}><Database size={16} /> Distribución Ahorros por Producto</h3>
-                  <div style={{ height: 240 }}>
-                    <ResponsiveContainer width="100%" height="100%">
-                      <PieChart>
-                        <Pie
-                          data={(stats?.dist_productos_ahorro || []).map((p, i) => ({
-                            name: p.tipo,
-                            value: p.total,
-                          }))}
-                          cx="50%"
-                          cy="50%"
-                          outerRadius={80}
-                          dataKey="value"
-                          label={({ name, percent }) => `${name.split(' ')[0]} ${(percent * 100).toFixed(0)}%`}
-                        >
-                          {(stats?.dist_productos_ahorro || []).map((_, idx) => (
-                            <Cell key={idx} fill={['#73b71c', '#0a2e5c', '#e5b224', '#2196f3'][idx % 4]} />
-                          ))}
-                        </Pie>
-                        <Tooltip formatter={(v) => [`S/ ${Number(v).toLocaleString('es-PE', { minimumFractionDigits: 2 })}`, 'Total']} />
-                      </PieChart>
-                    </ResponsiveContainer>
-                  </div>
-                </div>
-
-                <div className="admin-chart-card">
-                  <h3 className="admin-chart-title" style={{ display: 'flex', alignItems: 'center', gap: 6, fontSize: 14, fontWeight: 700, margin: '0 0 14px' }}><BarChart3 size={16} /> Calificación SBS de Cartera</h3>
-                  <div style={{ height: 240 }}>
-                    <ResponsiveContainer width="100%" height="100%">
-                      <RechartsBarChart
-                        data={(stats?.cartera_sbs || []).map(c => ({
-                          name: c.clasificacion,
-                          monto: c.monto,
-                        }))}
-                        margin={{ top: 10, right: 10, left: 0, bottom: 0 }}
-                      >
-                        <CartesianGrid strokeDasharray="3 3" stroke="#e5e7eb" />
-                        <XAxis dataKey="name" tick={{ fontSize: 11 }} />
-                        <YAxis tickFormatter={(v) => `S/ ${(v/1000).toFixed(0)}k`} tick={{ fontSize: 10 }} width={60} />
-                        <Tooltip formatter={(v) => [`S/ ${Number(v).toLocaleString('es-PE', { minimumFractionDigits: 2 })}`, 'Monto']} />
-                        <Bar dataKey="monto" fill="#0a2e5c" radius={[4, 4, 0, 0]}>
-                          {(stats?.cartera_sbs || []).map((entry, index) => (
-                            <Cell key={`cell-${index}`} fill={['#73b71c', '#e5b224', '#ff9800', '#e53935', '#7b1fa2'][index % 5]} />
-                          ))}
-                        </Bar>
-                      </RechartsBarChart>
-                    </ResponsiveContainer>
-                  </div>
-                </div>
-              </div>
-            </>
-          )}
         </div>
       )}
     </PageLayout>
