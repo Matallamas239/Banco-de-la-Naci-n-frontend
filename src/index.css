@@ -1,36 +1,34 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Outfit:wght@300;400;500;600;700;800;900&display=swap');
 
 :root {
-  /* Paleta de marca Banco GNB — colores premium y oficiales */
-  --hb-red: #73a700;          /* Verde principal GNB */
-  --hb-red-dark: #5b8500;     /* Verde GNB hover */
-  --hb-red-light: rgba(115, 167, 0, 0.1); /* Verde GNB translúcido */
-  --hb-magenta: #f8fafc;      
-  --hb-turquesa: #73a700;     
-  --hb-naranja: #8ac926;      /* Verde brillante acento */
-  --hb-amarillo: #8ac926;     /* Verde brillante acento */
-  --hb-verde-t: #73a700;      
-  --hb-morado: #0b132b;       
+  /* Paleta de marca Banco de la Nación — Red & Slate Premium */
+  --hb-red: #c5112e;          /* Rojo principal BN */
+  --hb-red-dark: #9e0b20;     /* Rojo oscuro hover */
+  --hb-red-light: #fff1f2;    /* Fondo rojo muy claro */
+  --hb-magenta: #0f172a;      /* Slate oscuro */
+  --hb-turquesa: #c5112e;     /* Rojo secundario */
+  --hb-naranja: #f97316;      /* Naranja */
+  --hb-amarillo: #f59e0b;     /* Amarillo */
+  --hb-verde-t: #c5112e;      /* Rojo para logos */
+  --hb-morado: #1e293b;       /* Slate */
 
-  --hb-bg: #0b132b;           /* Fondo principal: azul pizarra muy oscuro */
-  --hb-text: #f8fafc;         /* Texto principal claro */
-  --hb-muted: #94a3b8;        /* Texto secundario slate */
-  --hb-border: rgba(255, 255, 255, 0.08); /* Bordes suaves translúcidos */
-  --hb-green: #8ac926;        
-  --hb-amber: #f5a800;        
-  --hb-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
-  --hb-radius: 14px;          
-  --card-bg: rgba(21, 37, 61, 0.85); /* Tarjetas premium translúcidas */
+  --hb-bg: #f3f4f6;           /* Fondo gris claro limpio */
+  --hb-text: #111827;         /* Texto gris oscuro */
+  --hb-muted: #6b7280;        /* Texto secundario */
+  --hb-border: #e5e7eb;       /* Bordes */
+  --hb-green: #10b981;        /* Verde de transacciones exitosas */
+  --hb-amber: #d97706;        /* Ámbar */
+  --hb-shadow: 0 1px 3px rgba(0, 0, 0, 0.05), 0 1px 2px rgba(0, 0, 0, 0.03);
+  --hb-radius: 12px;
 
-  /* Gradiente y franja GNB */
-  --hb-grad: linear-gradient(110deg, #0e1b2f 0%, #152238 100%);
-  --hb-grad-login: linear-gradient(135deg, #0b132b 0%, #0e1b2f 50%, #152238 100%);
+  /* Gradiente y franja corporativos Banco de la Nación (rojo y slate) */
+  --hb-grad: linear-gradient(110deg, #0f172a 0%, #1e293b 60%, #c5112e 100%);
+  --hb-grad-login: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #334155 100%);
   --hb-franja: linear-gradient(
     90deg,
-    #73a700 0%,
-    #8ac926 40%,
-    #8ac926 70%,
-    #5b8500 100%
+    #c5112e 0%,
+    #ef4444 50%,
+    #fca5a5 100%
   );
 }
 
@@ -45,7 +43,7 @@ html, body, #root { height: 100%; }
 
 body {
   margin: 0;
-  font-family: "Inter", "Segoe UI", Roboto, sans-serif;
+  font-family: "Outfit", "Inter", "Segoe UI", Roboto, sans-serif;
   color: var(--hb-text);
   background: var(--hb-bg);
   -webkit-font-smoothing: antialiased;
@@ -80,12 +78,10 @@ button {
   font-size: 14px;
 }
 .hb-section-title {
-  font-size: 14px;
-  font-weight: 600;
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
+  font-size: 16px;
+  font-weight: 700;
   margin: 22px 0 10px;
-  color: var(--hb-red);
+  color: #374151;
 }
 
 /* ====== Header ====== */
@@ -132,11 +128,10 @@ button {
 }
 .hb-header-user {
   text-align: right;
-  font-size: 11px;
-  font-weight: 300;
+  font-size: 13px;
   line-height: 1.3;
 }
-.hb-header-user strong { font-weight: 300; font-size: 12px; }
+.hb-header-user strong { font-size: 14px; }
 .hb-header-user .hb-clock {
   opacity: 0.9;
   font-variant-numeric: tabular-nums;
@@ -215,7 +210,7 @@ button {
 
 /* ====== Card ====== */
 .hb-card {
-  background: var(--card-bg);
+  background: #fff;
   border-radius: var(--hb-radius);
   box-shadow: var(--hb-shadow);
   border: 1px solid var(--hb-border);
@@ -223,13 +218,11 @@ button {
 }
 .hb-card + .hb-card { margin-top: 16px; }
 .hb-card-title {
-  font-size: 14px;
-  font-weight: 600;
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
+  font-size: 15px;
+  font-weight: 700;
   margin: 0 0 14px;
-  color: var(--hb-red);
-  display: inline-flex;
+  color: #374151;
+  display: flex;
   align-items: center;
   gap: 8px;
 }
@@ -269,20 +262,19 @@ button {
   align-items: center;
   gap: 8px;
   border: none;
-  border-radius: 8px;
+  border-radius: 9px;
   padding: 10px 16px;
   font-size: 14px;
   font-weight: 600;
   background: var(--hb-red);
   color: #fff;
-  box-shadow: none;
-  transition: all 0.2s ease;
+  transition: background 0.15s, opacity 0.15s;
 }
-.hb-btn:hover { background: #0d42a8; }
+.hb-btn:hover { background: var(--hb-red-dark); }
 .hb-btn:disabled { opacity: 0.6; cursor: not-allowed; }
 .hb-btn-sm { padding: 6px 11px; font-size: 12.5px; border-radius: 7px; }
 .hb-btn-ghost {
-  background: transparent;
+  background: #fff;
   color: var(--hb-red);
   border: 1px solid var(--hb-red);
 }
@@ -310,9 +302,9 @@ button {
 .hb-badge-gray { background: #eef0f3; color: #4b5563; }
 
 /* ====== Money ====== */
-.hb-money { font-variant-numeric: tabular-nums; font-weight: 300; font-size: 1.25em; color: var(--hb-red); }
+.hb-money { font-variant-numeric: tabular-nums; font-weight: 600; }
 .hb-money-pos { color: var(--hb-green); }
-.hb-money-neg { color: #dc2626; } /* negative amounts remain red/alerting */
+.hb-money-neg { color: var(--hb-red); }
 
 /* ====== Forms ====== */
 .hb-field { margin-bottom: 16px; }
@@ -335,8 +327,8 @@ button {
 }
 .hb-input:focus, .hb-select:focus {
   outline: none;
-  border-color: var(--hb-naranja);
-  box-shadow: 0 0 0 3px rgba(245,168,0,0.2);
+  border-color: var(--hb-red);
+  box-shadow: 0 0 0 3px rgba(227,6,19,0.12);
 }
 .hb-grid-2 {
   display: grid;
@@ -453,15 +445,15 @@ button {
   align-items: center;
   gap: 14px;
   padding: 18px;
-  background: var(--card-bg);
+  background: #fff;
   border: 1px solid var(--hb-border);
   border-radius: var(--hb-radius);
   box-shadow: var(--hb-shadow);
-  transition: transform 0.12s, box-shadow 0.12s, border-color 0.12s;
+  transition: transform 0.12s, box-shadow 0.12s;
   text-align: left;
   width: 100%;
 }
-.hb-quick-card:hover { transform: translateY(-2px); box-shadow: 0 6px 18px rgba(0,48,135,0.15); border-color: var(--hb-red); }
+.hb-quick-card:hover { transform: translateY(-2px); box-shadow: 0 6px 18px rgba(227,6,19,0.15); }
 .hb-quick-icon {
   width: 46px; height: 46px;
   border-radius: 50%;
@@ -628,7 +620,7 @@ button {
   cursor: pointer;
 }
 .lp-btn-light { background: #fff; color: var(--hb-red); }
-.lp-btn-light:hover { background: var(--hb-red-light); text-decoration: none; }
+.lp-btn-light:hover { background: #fff0f1; text-decoration: none; }
 .lp-btn-outline { background: transparent; color: #fff; border: 2px solid rgba(255,255,255,0.7); }
 .lp-btn-outline:hover { background: rgba(255,255,255,0.14); text-decoration: none; }
 .lp-btn-primary { background: var(--hb-red); color: #fff; }
@@ -636,11 +628,10 @@ button {
 
 /* ---- Widget de ingreso (tarjeta de ahorros) ---- */
 .lp-login-widget {
-  background: var(--card-bg);
+  background: #fff;
   color: var(--hb-text);
-  border-radius: var(--hb-radius);
-  border: 1px solid var(--hb-border);
-  box-shadow: var(--hb-shadow);
+  border-radius: 16px;
+  box-shadow: 0 18px 40px rgba(0,0,0,0.25);
   overflow: hidden;
 }
 .lp-login-widget-head {
@@ -670,7 +661,7 @@ button {
   margin-bottom: 14px;
   color: #9ca3af;
 }
-.lp-input-wrap:focus-within { border-color: var(--hb-naranja); box-shadow: 0 0 0 3px rgba(245,168,0,0.2); }
+.lp-input-wrap:focus-within { border-color: var(--hb-red); box-shadow: 0 0 0 3px rgba(226,19,43,0.12); }
 .lp-input-wrap input {
   border: none;
   outline: none;
@@ -870,10 +861,11 @@ button {
    APP AUTENTICADA — LAYOUT TIPO BBVA (colores Banco Andino)
    ============================================================ */
 
-/* ---- Barra superior oscura ---- */
+/* ---- Barra superior clara ---- */
 .bbva-topbar {
-  background: var(--hb-grad);
-  color: #fff;
+  background: #ffffff;
+  color: var(--hb-text);
+  border-bottom: 1.5px solid var(--hb-border);
 }
 .bbva-topbar-inner {
   max-width: 1180px;
@@ -891,19 +883,19 @@ button {
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  background: rgba(255,255,255,0.1);
-  color: #fff;
-  border: none;
+  background: #f1f5f9;
+  color: var(--hb-text);
+  border: 1px solid var(--hb-border);
   padding: 7px 12px;
   border-radius: 999px;
   font-size: 12.5px;
   font-weight: 600;
 }
-.bbva-hide-toggle:hover { background: rgba(255,255,255,0.18); }
+.bbva-hide-toggle:hover { background: #e2e8f0; }
 .bbva-switch {
   width: 34px; height: 18px;
   border-radius: 999px;
-  background: rgba(255,255,255,0.35);
+  background: #cbd5e1;
   position: relative;
   transition: background 0.15s;
 }
@@ -925,7 +917,7 @@ button {
   gap: 9px;
   background: transparent;
   border: none;
-  color: #fff;
+  color: var(--hb-text);
   cursor: pointer;
 }
 .bbva-avatar {
@@ -937,9 +929,9 @@ button {
   font-weight: 800;
   font-size: 13px;
 }
-.bbva-user-text { display: flex; flex-direction: column; line-height: 1.2; text-align: left; font-weight: 300; }
-.bbva-user-text strong { font-size: 12px; font-weight: 300; }
-.bbva-user-text small { font-size: 10px; opacity: 0.85; font-weight: 300; }
+.bbva-user-text { display: flex; flex-direction: column; line-height: 1.2; text-align: left; }
+.bbva-user-text strong { font-size: 13px; color: var(--hb-text); }
+.bbva-user-text small { font-size: 11px; color: var(--hb-muted); }
 .bbva-user-menu {
   position: absolute;
   top: 110%;
@@ -947,10 +939,11 @@ button {
   background: #fff;
   color: var(--hb-text);
   border-radius: 10px;
-  box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+  box-shadow: 0 10px 30px rgba(0,0,0,0.15);
   min-width: 210px;
   padding: 6px;
   z-index: 70;
+  border: 1px solid var(--hb-border);
 }
 .bbva-user-menu button {
   display: flex; align-items: center; gap: 10px;
@@ -962,16 +955,17 @@ button {
 .bbva-user-menu button:hover { background: var(--hb-red-light); color: var(--hb-red-dark); }
 .bbva-salir {
   display: inline-flex; align-items: center; gap: 6px;
-  background: rgba(255,255,255,0.15);
-  color: #fff; border: none;
+  background: #f1f5f9;
+  color: var(--hb-text); border: 1px solid var(--hb-border);
   padding: 8px 14px; border-radius: 8px;
   font-size: 13px; font-weight: 600;
 }
-.bbva-salir:hover { background: rgba(255,255,255,0.28); }
+.bbva-salir:hover { background: #e2e8f0; color: var(--hb-red-dark); }
 
 /* ---- Barra de pestañas ---- */
 .bbva-tabs {
-  background: var(--hb-red);
+  background: #ffffff;
+  border-bottom: 1.5px solid var(--hb-border);
   box-shadow: var(--hb-shadow);
   position: sticky; top: 0; z-index: 40;
 }
@@ -985,158 +979,62 @@ button {
 .bbva-tab {
   background: transparent;
   border: none;
-  color: rgba(255,255,255,0.88);
+  color: var(--hb-muted);
   font-size: 14.5px;
   font-weight: 600;
   padding: 14px 20px;
   cursor: pointer;
   border-bottom: 3px solid transparent;
+  transition: all 0.15s ease;
 }
-.bbva-tab:hover { background: rgba(255,255,255,0.1); color: #fff; }
-.bbva-tab.active { color: #fff; border-bottom-color: var(--hb-amarillo); background: rgba(0,0,0,0.08); }
+.bbva-tab:hover { background: #f8fafc; color: var(--hb-red); }
+.bbva-tab.active { color: var(--hb-red); border-bottom-color: var(--hb-red); background: transparent; }
 
 /* ---- Contenedor ---- */
-.bbva-main { background: var(--hb-bg); min-height: calc(100vh - 65px); }
+.bbva-main { background: var(--hb-bg); min-height: calc(100vh - 120px); }
 .bbva-container { max-width: 1180px; margin: 0 auto; padding: 24px 20px 56px; }
 
 /* ---- Page layout 2 columnas ---- */
-.bbva-page { display: grid; grid-template-columns: 1fr; gap: 22px; align-items: start; }
-.bbva-page-main {
-  min-width: 0;
-  display: grid !important;
-  grid-template-columns: 1.35fr 0.65fr !important;
-  gap: 24px !important;
-  align-items: stretch !important;
-}
-
-/* 1. Welcome Banner layout (top left) */
-.bbva-page-main > div[style*="linear-gradient"] {
-  grid-column: 1 !important;
-  grid-row: 1 !important;
-  margin-bottom: 0 !important;
-  height: 100% !important;
-  display: flex !important;
-  flex-direction: column !important;
-  justify-content: center !important;
-}
-
-/* 2. Horizontal Quick Actions grid layout (top right, 2x2 layout) */
-.bbva-page-main > div[style*="repeat(4, 1fr)"] {
-  grid-column: 2 !important;
-  grid-row: 1 !important;
-  display: grid !important;
-  grid-template-columns: 1fr 1fr !important;
-  gap: 12px !important;
-  margin-bottom: 0 !important;
-  height: 100% !important;
-}
-
-/* Adjust quick actions buttons padding */
-.bbva-page-main > div[style*="repeat(4, 1fr)"] button {
-  padding: 12px 8px !important;
-  height: 100% !important;
-}
-
-/* 3. Main lists/charts grid container (bottom, full width span) */
-.bbva-page-main > div[style*="1.2fr 0.8fr"] {
-  grid-column: span 2 !important;
-  grid-row: 2 !important;
-  display: grid !important;
-  grid-template-columns: 1.2fr 0.8fr !important;
-  gap: 24px !important;
-}
-
-/* Force child layout contents to let cards flow in custom order */
-div[style*="1.2fr 0.8fr"] > div {
-  display: contents !important;
-}
-
-/* Specific card orders: Savings list and chart in Row 1, Loans list and chart in Row 2 */
-div[style*="1.2fr 0.8fr"] > div:nth-child(1) section.hb-card:nth-of-type(1) {
-  order: 1 !important;
-}
-div[style*="1.2fr 0.8fr"] > div:nth-child(2) section.hb-card:nth-of-type(1) {
-  order: 2 !important;
-}
-div[style*="1.2fr 0.8fr"] > div:nth-child(1) section.hb-card:nth-of-type(2) {
-  order: 3 !important;
-}
-div[style*="1.2fr 0.8fr"] > div:nth-child(2) section.hb-card:nth-of-type(2) {
-  order: 4 !important;
-}
-
-/* Mobile responsive layout resets */
-@media (max-width: 900px) {
-  .bbva-page-main {
-    grid-template-columns: 1fr !important;
-  }
-  .bbva-page-main > div[style*="linear-gradient"] {
-    grid-column: 1 !important;
-    grid-row: auto !important;
-  }
-  .bbva-page-main > div[style*="repeat(4, 1fr)"] {
-    grid-column: 1 !important;
-    grid-row: auto !important;
-    grid-template-columns: repeat(2, 1fr) !important;
-  }
-  .bbva-page-main > div[style*="1.2fr 0.8fr"] {
-    grid-column: 1 !important;
-    grid-row: auto !important;
-    grid-template-columns: 1fr !important;
-  }
-  div[style*="1.2fr 0.8fr"] > div {
-    display: flex !important;
-    flex-direction: column !important;
-  }
-}
-
-.bbva-page-aside { display: none; }
+.bbva-page { display: grid; grid-template-columns: 1fr 320px; gap: 22px; align-items: start; }
+.bbva-page-main { min-width: 0; }
+.bbva-page-aside { position: sticky; top: 76px; }
 .bbva-page-head {
-  display: flex; align-items: center; justify-content: space-between;
-  gap: 12px; margin-bottom: 22px; flex-wrap: wrap;
-  padding-bottom: 12px; border-bottom: 1px solid #e2e8f0;
+  display: flex; align-items: flex-start; justify-content: space-between;
+  gap: 12px; margin-bottom: 16px; flex-wrap: wrap;
 }
-.bbva-page-title { font-size: 22px; font-weight: 800; margin: 0; color: #1e293b; letter-spacing: -0.5px; }
-.bbva-page-sub { color: var(--hb-muted); margin: 4px 0 0 0; font-size: 13px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.5px; }
-.bbva-page-actions { display: flex; gap: 10px; flex-wrap: wrap; }
+.bbva-page-title { font-size: 24px; font-weight: 800; margin: 0 0 2px; color: #1f2430; }
+.bbva-page-sub { color: var(--hb-muted); margin: 0; font-size: 13.5px; }
+.bbva-page-actions { display: flex; gap: 8px; flex-wrap: wrap; }
 
-/* ---- Botones Premiums ---- */
+/* ---- Botones ---- */
 .bbva-btn {
   display: inline-flex; align-items: center; justify-content: center; gap: 8px;
-  background: linear-gradient(135deg, #003087 0%, #002060 100%);
-  color: #fff; border: none;
-  padding: 10px 20px; border-radius: 10px; font-size: 13.5px; font-weight: 700;
-  cursor: pointer; transition: all 0.2s ease;
-  box-shadow: 0 4px 10px rgba(0, 48, 135, 0.2);
+  background: var(--hb-red); color: #fff; border: none;
+  padding: 11px 20px; border-radius: 9px; font-size: 14px; font-weight: 700;
+  cursor: pointer;
 }
-.bbva-btn:hover { background: linear-gradient(135deg, #002060 0%, #002060 100%); transform: translateY(-1px); box-shadow: 0 6px 14px rgba(0, 48, 135, 0.3); }
-.bbva-btn:active { transform: translateY(0); }
-.bbva-btn:disabled { opacity: 0.55; cursor: not-allowed; transform: none; box-shadow: none; }
-
+.bbva-btn:hover { background: var(--hb-red-dark); }
+.bbva-btn:disabled { opacity: 0.55; cursor: not-allowed; }
 .bbva-btn-gray {
-  display: inline-flex; align-items: center; justify-content: center; gap: 8px;
-  background: #f1f5f9; color: #334155; border: 1px solid #e2e8f0;
-  padding: 10px 20px; border-radius: 10px; font-size: 13.5px; font-weight: 700; cursor: pointer;
-  transition: all 0.2s ease;
+  display: inline-flex; align-items: center; gap: 8px;
+  background: #eef0f3; color: #374151; border: none;
+  padding: 11px 20px; border-radius: 9px; font-size: 14px; font-weight: 600; cursor: pointer;
 }
-.bbva-btn-gray:hover { background: #e2e8f0; color: #1e293b; }
+.bbva-btn-gray:hover { background: #e2e6ea; }
 .bbva-btn-ghost {
-  display: inline-flex; align-items: center; justify-content: center; gap: 8px;
-  background: #fff; color: #003087; border: 1.5px solid #003087;
-  padding: 9px 16px; border-radius: 10px; font-size: 13.5px; font-weight: 700; cursor: pointer;
-  transition: all 0.2s ease;
+  display: inline-flex; align-items: center; gap: 7px;
+  background: #fff; color: var(--hb-red); border: 1px solid var(--hb-border);
+  padding: 9px 14px; border-radius: 8px; font-size: 13px; font-weight: 600; cursor: pointer;
 }
-.bbva-btn-ghost:hover { background: #f0f4fa; }
-.bbva-btn-ghost.sm { padding: 6px 12px; font-size: 12px; border-radius: 8px; }
-.bbva-btn-ghost:disabled { opacity: 0.55; cursor: not-allowed; background: #fff; }
-
+.bbva-btn-ghost:hover { border-color: var(--hb-red); background: var(--hb-red-light); }
+.bbva-btn-ghost.sm { padding: 6px 11px; font-size: 12.5px; }
+.bbva-btn-ghost:disabled { opacity: 0.55; cursor: not-allowed; }
 .bbva-link {
   display: inline-flex; align-items: center; gap: 4px;
-  background: none; border: none; color: #003087;
+  background: none; border: none; color: var(--hb-turquesa);
   font-weight: 700; font-size: 13px; cursor: pointer;
-  transition: color 0.2s;
 }
-.bbva-link:hover { color: #002060; text-decoration: none; }
+.bbva-link:hover { text-decoration: underline; }
 
 /* ---- Panel de acciones (aside) ---- */
 .bbva-actions {
@@ -1166,13 +1064,13 @@ div[style*="1.2fr 0.8fr"] > div:nth-child(2) section.hb-card:nth-of-type(2) {
 .bbva-action-chev { color: var(--hb-muted); }
 
 /* ---- Inicio: saludo + KPIs ---- */
-.bbva-hello h1 { font-size: 24px; margin: 0 0 6px; color: #1e293b; font-weight: 300; }
-.bbva-hello p { margin: 0 0 20px; color: var(--hb-muted); font-size: 14.5px; }
+.bbva-hello h1 { font-size: 22px; margin: 0 0 4px; color: #1f2430; }
+.bbva-hello p { margin: 0 0 18px; color: var(--hb-muted); font-size: 14px; }
 .bbva-kpis { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 18px; }
 .bbva-kpi {
-  background: var(--card-bg); border: 1px solid var(--hb-border); border-left: 5px solid var(--hb-red);
+  background: #fff; border: 1px solid var(--hb-border); border-left: 4px solid var(--hb-red);
   border-radius: var(--hb-radius); box-shadow: var(--hb-shadow);
-  padding: 18px 20px; display: flex; gap: 14px; align-items: center;
+  padding: 16px 18px; display: flex; gap: 14px; align-items: center;
 }
 .bbva-kpi:nth-child(2) { border-left-color: var(--hb-turquesa); }
 .bbva-kpi-ico { width: 48px; height: 48px; border-radius: 12px; display: grid; place-items: center; flex-shrink: 0; }
@@ -1181,58 +1079,54 @@ div[style*="1.2fr 0.8fr"] > div:nth-child(2) section.hb-card:nth-of-type(2) {
 .bbva-kpi small { color: var(--hb-muted); font-size: 12px; }
 
 /* ---- Listas de productos (resumen) ---- */
-.bbva-prodlist { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 4px; }
+.bbva-prodlist { list-style: none; padding: 0; margin: 0; }
 .bbva-prodlist li {
   display: flex; align-items: center; justify-content: space-between;
-  padding: 14px 16px; border: 1px solid #f1f5f9; border-radius: 10px; cursor: pointer;
-  transition: all 0.2s ease;
+  padding: 13px 6px; border-bottom: 1px solid var(--hb-border); cursor: pointer;
 }
-.bbva-prodlist li:hover { background: #f8fafc; border-color: #e2e8f0; transform: translateX(3px); }
-.bbva-prod-info { display: flex; flex-direction: column; gap: 4px; }
-.bbva-prod-info strong { font-size: 14.5px; color: #1e293b; }
+.bbva-prodlist li:hover { background: #fcfcfd; }
+.bbva-prod-info { display: flex; flex-direction: column; gap: 3px; }
 .bbva-prod-info small { color: var(--hb-muted); font-size: 12.5px; display: flex; align-items: center; gap: 6px; }
-.bbva-prod-amt { display: flex; align-items: center; gap: 8px; color: #64748b; font-weight: bold; }
+.bbva-prod-amt { display: flex; align-items: center; gap: 8px; color: var(--hb-muted); }
 .bbva-prodlist-total {
   display: flex; align-items: center; justify-content: space-between;
-  padding: 16px 8px 0; cursor: default;
-  font-size: 14px; color: #475569; font-weight: 700; border-top: 1px dashed #e2e8f0; margin-top: 10px;
+  padding: 13px 6px; cursor: default;
+  font-size: 13.5px; color: var(--hb-muted);
 }
 .bbva-prodlist-total:hover { background: none; }
-.bbva-money-strong { font-size: 20px; font-weight: 300; color: #003087; }
-.bbva-empty { text-align: center; color: var(--hb-muted); padding: 22px 10px; margin: 0; font-size: 13.5px; }
-.bbva-cell-prod { display: flex; flex-direction: column; gap: 2px; }
-.bbva-cell-prod strong { font-size: 14px; color: #1e293b; }
-.bbva-cell-prod small { color: var(--hb-muted); font-size: 11.5px; }
+.bbva-money-strong { font-size: 17px; font-weight: 800; color: var(--hb-red); }
+.bbva-empty { text-align: center; color: var(--hb-muted); padding: 22px 10px; margin: 0; }
+.bbva-cell-prod { display: flex; flex-direction: column; }
+.bbva-cell-prod small { color: var(--hb-muted); font-size: 11px; }
 
 /* ---- Cuentas de ahorro (acordeón) ---- */
-.bbva-acc-list { display: flex; flex-direction: column; gap: 12px; }
-.bbva-acc { border: 1px solid var(--hb-border); border-radius: var(--hb-radius); background: var(--card-bg); overflow: hidden; transition: all 0.25s ease; }
-.bbva-acc.open { border-color: var(--hb-red); box-shadow: var(--hb-shadow); }
+.bbva-acc-list { display: flex; flex-direction: column; }
+.bbva-acc { border-bottom: 1px solid var(--hb-border); }
+.bbva-acc.open { background: #fcfbfc; border-radius: 10px; }
 .bbva-acc-head {
   display: flex; align-items: center; justify-content: space-between;
-  gap: 14px; padding: 16px 20px; flex-wrap: wrap;
+  gap: 14px; padding: 14px 8px; flex-wrap: wrap;
 }
 .bbva-acc-main { display: flex; align-items: center; gap: 12px; }
 .bbva-acc-ico {
   width: 42px; height: 42px; border-radius: 10px;
-  background: #f0f4fa; color: #003087;
+  background: var(--hb-red-light); color: var(--hb-red);
   display: grid; place-items: center; flex-shrink: 0;
 }
-.bbva-acc-main strong { display: block; font-size: 15px; color: #1e293b; }
-.bbva-acc-main small { color: var(--hb-muted); font-size: 12.5px; margin-top: 2px; }
+.bbva-acc-main strong { display: block; font-size: 15px; }
+.bbva-acc-main small { color: var(--hb-muted); font-size: 12.5px; }
 .bbva-acc-right { display: flex; align-items: center; gap: 18px; flex-wrap: wrap; }
 .bbva-acc-saldo { display: flex; flex-direction: column; align-items: flex-end; gap: 4px; }
-.bbva-acc-saldo .hb-money { font-size: 17px; font-weight: 800; color: #1e293b; }
+.bbva-acc-saldo .hb-money { font-size: 17px; font-weight: 800; }
 .bbva-acc-btns { display: flex; gap: 8px; }
 .bbva-chev { transition: transform 0.15s; }
 .bbva-chev.up { transform: rotate(180deg); }
- 
+
 .bbva-detalle {
-  padding: 18px 20px 22px;
+  padding: 16px 12px 18px; margin: 0 4px 8px;
   border-top: 1px dashed var(--hb-border);
-  background: #fafafb;
 }
-.bbva-detalle-title { display: flex; align-items: center; gap: 8px; margin: 0 0 12px; font-size: 14px; color: #003087; font-weight: 700; }
+.bbva-detalle-title { display: flex; align-items: center; gap: 8px; margin: 0 0 12px; font-size: 14px; color: var(--hb-red); }
 .bbva-detalle-sub { margin: 16px 0 8px; font-size: 13px; color: #374151; }
 .bbva-cts-disp {
   display: flex; align-items: center; justify-content: space-between;
@@ -1241,60 +1135,58 @@ div[style*="1.2fr 0.8fr"] > div:nth-child(2) section.hb-card:nth-of-type(2) {
 }
 .bbva-cts-disp span { display: flex; align-items: center; gap: 8px; font-weight: 600; color: #0c6b68; font-size: 13.5px; }
 .bbva-cts-disp .bbva-money-strong { color: var(--hb-turquesa); }
- 
+
 /* ---- Operaciones hub ---- */
-.bbva-op-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; }
+.bbva-op-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
 .bbva-op-card {
   display: flex; align-items: center; gap: 16px;
-  background: var(--card-bg); border: 1px solid var(--hb-border);
+  background: #fff; border: 1px solid var(--hb-border);
   border-radius: var(--hb-radius); box-shadow: var(--hb-shadow);
   padding: 20px; cursor: pointer; text-align: left;
-  transition: transform 0.2s, box-shadow 0.2s;
+  transition: transform 0.12s, box-shadow 0.12s;
 }
 .bbva-op-card:hover { transform: translateY(-3px); box-shadow: 0 10px 24px rgba(0,0,0,0.10); }
 .bbva-op-ico { width: 52px; height: 52px; border-radius: 14px; display: grid; place-items: center; flex-shrink: 0; }
 .bbva-op-body { flex: 1; display: flex; flex-direction: column; gap: 3px; }
-.bbva-op-body strong { font-size: 16px; color: #1e293b; }
+.bbva-op-body strong { font-size: 16px; }
 .bbva-op-body small { color: var(--hb-muted); font-size: 13px; line-height: 1.45; }
 .bbva-op-chev { color: var(--hb-muted); flex-shrink: 0; }
- 
+
 /* ---- Formularios / confirmación ---- */
-.hb-field-label { display: block; font-size: 13.5px; font-weight: 700; margin-bottom: 8px; color: #334155; }
-.bbva-saldo-hint { font-size: 13px; color: var(--hb-muted); margin: -4px 0 14px; font-weight: 500; }
+.hb-field-label { display: block; font-size: 13px; font-weight: 600; margin-bottom: 8px; color: #374151; }
+.bbva-saldo-hint { font-size: 13px; color: var(--hb-muted); margin: -4px 0 14px; }
 .bbva-field-note { display: block; color: var(--hb-muted); font-size: 12px; margin-top: 5px; }
-.bbva-form-actions { display: flex; gap: 12px; margin-top: 24px; flex-wrap: wrap; }
-.bbva-confirm-lead { font-size: 14.5px; font-weight: 700; margin: 0 0 16px; color: #1e293b; }
+.bbva-form-actions { display: flex; gap: 10px; margin-top: 18px; flex-wrap: wrap; }
+.bbva-confirm-lead { font-size: 14px; font-weight: 600; margin: 0 0 14px; }
 .bbva-info-note {
-  background: #eff6ff; border: 1px solid #bfdbfe; color: #1e40af;
-  border-radius: 10px; padding: 12px 14px; font-size: 13px; margin: 16px 0;
-  font-weight: 500;
+  background: #eef4ff; border: 1px solid #cdddff; color: #1d4ed8;
+  border-radius: 8px; padding: 10px 12px; font-size: 12.5px; margin: 16px 0;
 }
 .bbva-cuota-box {
   display: flex; align-items: center; gap: 14px; flex-wrap: wrap;
-  background: #f8fafc; border: 1px solid #e2e8f0;
-  border-radius: 12px; padding: 14px 18px; margin: 4px 0 18px;
+  background: var(--hb-bg); border: 1px solid var(--hb-border);
+  border-radius: 10px; padding: 14px 16px; margin: 4px 0 16px;
 }
-.bbva-cuota-box > span { color: #475569; font-size: 13.5px; font-weight: 600; }
+.bbva-cuota-box > span { color: var(--hb-muted); font-size: 13px; }
 .bbva-cuota-box .bbva-money-strong { margin-left: auto; font-size: 18px; }
- 
+
 /* ---- Servicios (grid de empresas) ---- */
-.bbva-serv-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
+.bbva-serv-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
 .bbva-serv {
-  display: flex; align-items: center; gap: 12px;
-  background: var(--card-bg); border: 1px solid var(--hb-border); border-radius: var(--hb-radius);
-  padding: 14px; cursor: pointer; text-align: left;
-  transition: all 0.2s ease;
+  display: flex; align-items: center; gap: 10px;
+  background: #fff; border: 1.5px solid var(--hb-border); border-radius: 10px;
+  padding: 11px 12px; cursor: pointer; text-align: left;
 }
-.bbva-serv:hover { border-color: #cbd5e1; transform: translateY(-2px); box-shadow: 0 4px 12px rgba(148,163,184,0.05); }
-.bbva-serv.sel { border-color: #003087; background: #f0f4fa; box-shadow: 0 4px 12px rgba(0,48,135,0.08); }
-.bbva-serv-ico { width: 38px; height: 38px; border-radius: 9px; display: grid; place-items: center; flex-shrink: 0; }
-.bbva-serv span:last-child { display: flex; flex-direction: column; gap: 2px; }
-.bbva-serv strong { font-size: 13.5px; color: #1e293b; }
+.bbva-serv:hover { border-color: var(--hb-turquesa); }
+.bbva-serv.sel { border-color: var(--hb-red); background: var(--hb-red-light); }
+.bbva-serv-ico { width: 36px; height: 36px; border-radius: 9px; display: grid; place-items: center; flex-shrink: 0; }
+.bbva-serv span:last-child { display: flex; flex-direction: column; }
+.bbva-serv strong { font-size: 13px; }
 .bbva-serv small { color: var(--hb-muted); font-size: 11.5px; }
- 
+
 /* ---- Comprobante ---- */
 .bbva-comprobante-card {
-  background: var(--card-bg); border: 1px solid var(--hb-border);
+  background: #fff; border: 1px solid var(--hb-border);
   border-radius: var(--hb-radius); box-shadow: var(--hb-shadow);
   padding: 22px; border-top: 5px solid var(--hb-green);
 }
@@ -1318,124 +1210,10 @@ div[style*="1.2fr 0.8fr"] > div:nth-child(2) section.hb-card:nth-of-type(2) {
 .bbva-comprobante-rows dd { margin: 0; font-size: 15px; font-weight: 600; }
 .bbva-comprobante-nota { margin: 16px 0 0; font-size: 12.5px; color: var(--hb-muted); }
 
-/* ============================================================
-   NUEVAS CLASES PREMIUM - BANCO DE LA NACIÓN
-   ============================================================ */
-
-/* ---- Steppers ---- */
-.bn-stepper { display: flex; align-items: center; justify-content: space-between; margin-bottom: 30px; position: relative; }
-.bn-stepper-line { position: absolute; top: 18px; left: 0; right: 0; height: 3px; background: #e2e8f0; z-index: 1; }
-.bn-stepper-line-fill { position: absolute; top: 18px; left: 0; height: 3px; background: #003087; transition: width 0.3s ease; z-index: 2; }
-.bn-step { display: flex; flex-direction: column; align-items: center; gap: 8px; z-index: 3; position: relative; flex: 1; }
-.bn-step-circle { width: 36px; height: 36px; border-radius: 50%; background: #ffffff; border: 3px solid #e2e8f0; display: grid; place-items: center; font-weight: 800; font-size: 13.5px; color: #64748b; transition: all 0.3s ease; }
-.bn-step.active .bn-step-circle { border-color: #003087; color: #003087; box-shadow: 0 0 12px rgba(0, 48, 135, 0.25); background: #fff; }
-.bn-step.completed .bn-step-circle { background: #003087; border-color: #003087; color: #ffffff; }
-.bn-step-label { font-size: 11.5px; font-weight: 700; color: #64748b; text-align: center; }
-.bn-step.active .bn-step-label { color: #003087; }
-.bn-step.completed .bn-step-label { color: #1e293b; }
-
-/* ---- Constancia / Recibo de Pago ---- */
-.bn-receipt {
-  background: #ffffff;
-  border-radius: 20px;
-  box-shadow: 0 15px 35px -8px rgba(148, 163, 184, 0.15);
-  border: 1px solid #e2e8f0;
-  padding: 32px 24px;
-  position: relative;
-  max-width: 480px;
-  margin: 0 auto;
-  overflow: hidden;
-}
-.bn-receipt::before {
-  content: '';
-  position: absolute;
-  top: 0; left: 0; right: 0;
-  height: 6px;
-  background: var(--hb-franja);
-}
-.bn-receipt-header { text-align: center; border-bottom: 2px dashed #e2e8f0; padding-bottom: 20px; margin-bottom: 20px; position: relative; }
-.bn-receipt-header::before, .bn-receipt-header::after { content: ''; position: absolute; bottom: -10px; width: 18px; height: 18px; border-radius: 50%; background: #f8fafc; border: 1px solid #e2e8f0; z-index: 10; }
-.bn-receipt-header::before { left: -34px; }
-.bn-receipt-header::after { right: -34px; }
-.bn-receipt-success-icon { width: 60px; height: 60px; border-radius: 50%; background: #dcfce7; color: #16a34a; display: grid; place-items: center; margin: 0 auto 12px; box-shadow: 0 8px 20px rgba(22, 163, 74, 0.15); }
-.bn-receipt-amount { font-size: 30px; font-weight: 300; color: #003087; margin: 10px 0; font-family: 'Inter', sans-serif; }
-.bn-receipt-rows { display: flex; flex-direction: column; gap: 12px; margin-top: 16px; }
-.bn-receipt-row { display: flex; justify-content: space-between; font-size: 13px; align-items: baseline; }
-.bn-receipt-row dt { color: #64748b; font-weight: 500; }
-.bn-receipt-row dd { color: #1e293b; font-weight: 700; margin: 0; text-align: right; }
-
-/* ---- Barras de progreso de Préstamos ---- */
-.bn-progress-container { margin: 14px 0 6px 0; }
-.bn-progress-labels { display: flex; justify-content: space-between; font-size: 11.5px; font-weight: 700; color: #64748b; margin-bottom: 6px; }
-.bn-progress-track { width: 100%; height: 8px; background: #e2e8f0; border-radius: 999px; overflow: hidden; }
-.bn-progress-fill { height: 100%; background: linear-gradient(90deg, #003087 0%, #0d42a8 100%); border-radius: 999px; transition: width 0.8s cubic-bezier(0.4, 0, 0.2, 1); }
-
-/* ---- Buscador dinámico ---- */
-.bn-search-wrapper { position: relative; margin-bottom: 16px; }
-.bn-search-input { width: 100%; padding: 10px 14px 10px 38px; border: 1.5px solid #e2e8f0; border-radius: 10px; font-size: 13.5px; outline: none; transition: all 0.2s ease; font-family: inherit; }
-.bn-search-input:focus { border-color: var(--hb-naranja); box-shadow: 0 0 0 3px rgba(245, 168, 0, 0.2); }
-.bn-search-icon { position: absolute; left: 12px; top: 50%; transform: translateY(-50%); color: #94a3b8; pointer-events: none; }
-
-/* ---- Tarjetas Físicas de Cuenta ---- */
-.bn-account-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; margin-bottom: 16px; }
-@media (max-width: 768px) {
-  .bn-account-grid { grid-template-columns: 1fr; }
-}
-.bn-card-phys {
-  background: var(--card-bg);
-  border-radius: var(--hb-radius);
-  border: 1px solid var(--hb-border);
-  box-shadow: var(--hb-shadow);
-  padding: 20px;
-  position: relative;
-  overflow: hidden;
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  min-height: 180px;
-}
-.bn-card-phys:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 12px 24px rgba(148, 163, 184, 0.12);
-  border-color: #cbd5e1;
-}
-.bn-card-phys::before {
-  content: '';
-  position: absolute;
-  top: 0; left: 0; bottom: 0; width: 6px;
-  background: linear-gradient(to bottom, #003087, #002060);
-}
-.bn-card-phys-header { display: flex; justify-content: space-between; align-items: flex-start; }
-.bn-card-phys-title { display: flex; flex-direction: column; gap: 3px; }
-.bn-card-phys-title strong { font-size: 16px; color: #1e293b; letter-spacing: -0.2px; }
-.bn-card-phys-title small { font-size: 11.5px; color: #64748b; font-weight: 600; text-transform: uppercase; letter-spacing: 0.3px; }
-.bn-card-phys-badge { padding: 3px 8px; border-radius: 6px; font-size: 10px; font-weight: 800; text-transform: uppercase; }
-.bn-card-phys-middle { margin: 18px 0; }
-.bn-card-phys-saldo-label { font-size: 11px; color: #94a3b8; text-transform: uppercase; font-weight: 700; letter-spacing: 0.5px; }
-.bn-card-phys-saldo { font-size: 26px; font-weight: 300; color: #003087; font-family: 'Inter', sans-serif; margin-top: 2px; }
-.bn-card-phys-footer { display: flex; justify-content: space-between; align-items: center; margin-top: auto; border-top: 1px solid #f1f5f9; padding-top: 12px; }
-.bn-card-phys-tea { font-size: 11.5px; color: #64748b; font-weight: 600; }
-.bn-card-phys-actions { display: flex; gap: 8px; }
-
-/* ---- Agrupación de Movimientos ---- */
-.bn-mov-group { margin-bottom: 24px; }
-.bn-mov-group:last-child { margin-bottom: 0; }
-.bn-mov-date-header { font-size: 11px; font-weight: 800; color: #94a3b8; text-transform: uppercase; letter-spacing: 0.8px; margin-bottom: 12px; border-bottom: 1.5px solid #f1f5f9; padding-bottom: 6px; }
-.bn-mov-item { display: flex; align-items: center; gap: 14px; padding: 12px 14px; border: 1px solid #f8fafc; transition: all 0.2s; border-radius: 10px; background: #fff; margin-bottom: 8px; }
-.bn-mov-item:hover { border-color: #e2e8f0; background: #f8fafc; transform: translateX(3px); }
-.bn-mov-icon { width: 38px; height: 38px; border-radius: 10px; display: grid; place-items: center; flex-shrink: 0; font-size: 18px; }
-.bn-mov-info { flex: 1; display: flex; flex-direction: column; gap: 2px; }
-.bn-mov-info strong { font-size: 13.5px; color: #1e293b; font-weight: 700; }
-.bn-mov-info small { font-size: 11.5px; color: #64748b; font-weight: 500; }
-.bn-mov-amount { font-size: 14.5px; font-weight: 800; text-align: right; font-family: 'Outfit', sans-serif; }
-.bn-mov-amount.positive { color: #16a34a; }
-.bn-mov-amount.negative { color: #1e293b; }
-
-/* ---- Responsive app override ---- */
+/* ---- Responsive app ---- */
 @media (max-width: 900px) {
   .bbva-page { grid-template-columns: 1fr; }
-  .bbva-page-aside { display: none; }
+  .bbva-page-aside { position: static; }
   .bbva-kpis { grid-template-columns: 1fr; }
   .bbva-op-grid { grid-template-columns: 1fr; }
   .bbva-serv-grid { grid-template-columns: 1fr 1fr; }
@@ -1448,7 +1226,6 @@ div[style*="1.2fr 0.8fr"] > div:nth-child(2) section.hb-card:nth-of-type(2) {
   .bbva-serv-grid { grid-template-columns: 1fr; }
   .bbva-tab { padding: 12px 14px; font-size: 13.5px; }
 }
-
 
 /* ============================================================
    ESTILOS PERSONALIZADOS BANCO GNB PERÚ (Según mockup)
@@ -1485,17 +1262,16 @@ div[style*="1.2fr 0.8fr"] > div:nth-child(2) section.hb-card:nth-of-type(2) {
   gap: 10px;
 }
 .gnb-utility-link {
-  font-size: 14px;
+  font-size: 11.5px;
   color: #71717a;
   text-decoration: none;
   font-weight: 500;
 }
 .gnb-utility-link:hover {
-  color: var(--hb-red);
-  text-decoration: underline;
+  color: #0a2e5c;
 }
 .gnb-utility-divider {
-  font-size: 14px;
+  font-size: 11px;
   color: #d4d4d8;
 }
 .gnb-search-box {
@@ -1514,7 +1290,7 @@ div[style*="1.2fr 0.8fr"] > div:nth-child(2) section.hb-card:nth-of-type(2) {
 }
 .gnb-search-box input:focus {
   width: 160px;
-  border-color: #003087;
+  border-color: #0a2e5c;
 }
 .gnb-search-icon {
   position: absolute;
@@ -1543,16 +1319,16 @@ div[style*="1.2fr 0.8fr"] > div:nth-child(2) section.hb-card:nth-of-type(2) {
   display: flex;
   align-items: center;
   gap: 6px;
-  font-size: 15px;
+  font-size: 13px;
   font-weight: 600;
   color: #52525b;
   text-decoration: none;
 }
 .gnb-icon-link:hover {
-  color: #003087;
+  color: #0a2e5c;
 }
 .gnb-action-icon-blue {
-  color: #003087;
+  color: #0a2e5c;
 }
 .gnb-badge-btn-wrapper {
   position: relative;
@@ -1563,8 +1339,8 @@ div[style*="1.2fr 0.8fr"] > div:nth-child(2) section.hb-card:nth-of-type(2) {
   top: -8px;
   left: 50%;
   transform: translateX(-50%);
-  background: #F5A800;
-  color: #1f2937;
+  background: #5cb813;
+  color: #ffffff;
   font-size: 8px;
   font-weight: 800;
   padding: 1px 6px;
@@ -1575,40 +1351,40 @@ div[style*="1.2fr 0.8fr"] > div:nth-child(2) section.hb-card:nth-of-type(2) {
 .gnb-btn-blue-outline {
   display: inline-flex;
   align-items: center;
-  background: #003087;
+  background: #005691;
   color: #ffffff;
   border: none;
   padding: 8px 16px;
   border-radius: 6px;
-  font-size: 15px;
+  font-size: 13px;
   font-weight: 700;
   cursor: pointer;
   transition: background 0.15s;
 }
 .gnb-btn-blue-outline:hover {
-  background: #002060;
+  background: #004270;
 }
 .gnb-btn-internet {
   display: inline-flex;
   align-items: center;
-  background: #003087;
+  background: #73b71c;
   color: #ffffff;
   border: none;
   padding: 8px 18px;
   border-radius: 6px;
-  font-size: 15px;
+  font-size: 13px;
   font-weight: 700;
   cursor: pointer;
   box-shadow: 0 2px 4px rgba(0,0,0,0.1);
   transition: background 0.15s;
 }
 .gnb-btn-internet:hover {
-  background: #002060;
+  background: #5fa014;
 }
 
 /* 3. Segment Bar (Green Bar) */
 .gnb-segment-bar {
-  background: #003087; /* Green GNB color -> Red BN */
+  background: #82bc00; /* Green GNB color */
   padding: 0;
   border-bottom: 3px solid #73a700;
   max-width: 1180px;
@@ -1681,6 +1457,7 @@ div[style*="1.2fr 0.8fr"] > div:nth-child(2) section.hb-card:nth-of-type(2) {
   display: flex;
   justify-content: space-between;
   padding: 10px 20px;
+  overflow-x: auto;
 }
 .gnb-submenu-item {
   display: flex;
@@ -1694,76 +1471,10 @@ div[style*="1.2fr 0.8fr"] > div:nth-child(2) section.hb-card:nth-of-type(2) {
   padding: 6px 4px;
 }
 .gnb-submenu-item:hover {
-  color: #003087;
+  color: #005691;
 }
 .gnb-submenu-arrow {
   color: #a1a1aa;
-}
-.gnb-submenu-item {
-  position: relative;
-}
-.gnb-dropdown-menu {
-  position: absolute;
-  top: 100%;
-  left: 0;
-  width: 550px;
-  background: #ffffff;
-  border-top: 3px solid #003087;
-  box-shadow: 0 8px 24px rgba(0,0,0,0.12);
-  display: flex;
-  visibility: hidden;
-  opacity: 0;
-  transition: all 0.2s ease-in-out;
-  transform: translateY(10px);
-  z-index: 200;
-  border-radius: 0 0 8px 8px;
-  overflow: hidden;
-  text-align: left;
-}
-.gnb-submenu-item:hover .gnb-dropdown-menu {
-  visibility: visible;
-  opacity: 1;
-  transform: translateY(0);
-}
-.gnb-dropdown-img-box {
-  width: 220px;
-  flex-shrink: 0;
-  background: #f4f4f5;
-}
-.gnb-dropdown-img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
-.gnb-dropdown-content {
-  padding: 24px 30px;
-  flex: 1;
-}
-.gnb-dropdown-title {
-  color: #003087;
-  font-size: 18px;
-  font-weight: 800;
-  margin: 0 0 16px;
-  text-transform: uppercase;
-}
-.gnb-dropdown-list {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 12px;
-}
-.gnb-dropdown-link {
-  color: #52525b;
-  text-decoration: none;
-  font-size: 13.5px;
-  font-weight: 600;
-  transition: color 0.15s;
-  display: block;
-}
-.gnb-dropdown-link:hover {
-  color: #003087;
 }
 
 /* Mobile responsive styles */
@@ -1916,7 +1627,7 @@ div[style*="1.2fr 0.8fr"] > div:nth-child(2) section.hb-card:nth-of-type(2) {
   color: #f4b03e;
 }
 .gnb-btn-carousel-cta {
-  background: #003087;
+  background: #73b71c;
   color: #ffffff;
   font-size: 14px;
   font-weight: 700;
@@ -2034,7 +1745,7 @@ div[style*="1.2fr 0.8fr"] > div:nth-child(2) section.hb-card:nth-of-type(2) {
   margin-bottom: 20px;
 }
 .gnb-horario-sub {
-  color: #003087;
+  color: #82bc00;
   font-size: 11px;
   font-weight: 800;
   text-transform: uppercase;
@@ -2052,7 +1763,7 @@ div[style*="1.2fr 0.8fr"] > div:nth-child(2) section.hb-card:nth-of-type(2) {
   color: #a1a1aa;
 }
 .gnb-horario-icon {
-  color: #003087;
+  color: #82bc00;
   flex-shrink: 0;
   margin-top: 2px;
 }
@@ -2109,7 +1820,7 @@ div[style*="1.2fr 0.8fr"] > div:nth-child(2) section.hb-card:nth-of-type(2) {
   display: flex;
   align-items: center;
   gap: 12px;
-  color: #003087;
+  color: #82bc00;
 }
 .gnb-libro-sub {
   color: #a1a1aa;
@@ -2134,7 +1845,7 @@ div[style*="1.2fr 0.8fr"] > div:nth-child(2) section.hb-card:nth-of-type(2) {
 
 .gnb-footer-green-bar {
   height: 4px;
-  background: var(--hb-red);
+  background: #82bc00;
 }
 .gnb-footer-bottom {
   background: #111111;
@@ -2249,7 +1960,7 @@ div[style*="1.2fr 0.8fr"] > div:nth-child(2) section.hb-card:nth-of-type(2) {
   padding: 0;
 }
 .gnb-promo-dot.active {
-  background: #003087;
+  background: #82bc00;
 }
 
 /* GNB Factoring Campaign Banner (Section 2) */
@@ -2259,7 +1970,7 @@ div[style*="1.2fr 0.8fr"] > div:nth-child(2) section.hb-card:nth-of-type(2) {
   padding: 0 20px;
 }
 .gnb-factoring-banner {
-  background: linear-gradient(135deg, #002060 0%, #003087 100%);
+  background: linear-gradient(135deg, #0a2e5c 0%, #005691 100%);
   border-radius: 12px;
   padding: 32px 40px;
   color: #ffffff;
@@ -2296,7 +2007,7 @@ div[style*="1.2fr 0.8fr"] > div:nth-child(2) section.hb-card:nth-of-type(2) {
   line-height: 1.45;
 }
 .gnb-btn-factoring {
-  background: #003087;
+  background: #82bc00;
   color: #ffffff;
   border: none;
   padding: 10px 24px;
@@ -2309,7 +2020,7 @@ div[style*="1.2fr 0.8fr"] > div:nth-child(2) section.hb-card:nth-of-type(2) {
   transition: background 0.15s;
 }
 .gnb-btn-factoring:hover {
-  background: #002060;
+  background: #73a700;
 }
 
 /* GNB Recommendations Carousel (Section 3) */
@@ -2328,7 +2039,7 @@ div[style*="1.2fr 0.8fr"] > div:nth-child(2) section.hb-card:nth-of-type(2) {
 .gnb-security-pre {
   font-size: 14px;
   font-weight: 800;
-  color: #003087;
+  color: #0a2e5c;
   text-transform: uppercase;
   letter-spacing: 1px;
   margin-bottom: 8px;
@@ -2337,7 +2048,7 @@ div[style*="1.2fr 0.8fr"] > div:nth-child(2) section.hb-card:nth-of-type(2) {
 .gnb-security-line {
   width: 40px;
   height: 3px;
-  background: #003087;
+  background: #82bc00;
   margin: 0 auto 16px;
 }
 .gnb-security-title {
@@ -2375,7 +2086,7 @@ div[style*="1.2fr 0.8fr"] > div:nth-child(2) section.hb-card:nth-of-type(2) {
 .gnb-sec-slide-title {
   font-size: 18px;
   font-weight: 800;
-  color: #003087;
+  color: #0a2e5c;
   margin: 0 0 12px;
   line-height: 1.3;
 }
@@ -2391,7 +2102,7 @@ div[style*="1.2fr 0.8fr"] > div:nth-child(2) section.hb-card:nth-of-type(2) {
   flex-wrap: wrap;
 }
 .gnb-btn-sec-link {
-  background: #003087;
+  background: #005691;
   color: #ffffff;
   border: none;
   padding: 8px 18px;
@@ -2402,12 +2113,12 @@ div[style*="1.2fr 0.8fr"] > div:nth-child(2) section.hb-card:nth-of-type(2) {
   text-decoration: none;
 }
 .gnb-btn-sec-link:hover {
-  background: #002060;
+  background: #004270;
 }
 .gnb-btn-sec-link-outline {
   background: transparent;
-  color: #003087;
-  border: 1.5px solid #003087;
+  color: #005691;
+  border: 1.5px solid #005691;
   padding: 6.5px 18px;
   border-radius: 4px;
   font-size: 12.5px;
@@ -2416,7 +2127,7 @@ div[style*="1.2fr 0.8fr"] > div:nth-child(2) section.hb-card:nth-of-type(2) {
   text-decoration: none;
 }
 .gnb-btn-sec-link-outline:hover {
-  background: rgba(0,48,135,0.05);
+  background: rgba(0,86,145,0.05);
 }
 .gnb-security-arrow {
   position: absolute;
@@ -2430,7 +2141,7 @@ div[style*="1.2fr 0.8fr"] > div:nth-child(2) section.hb-card:nth-of-type(2) {
   transition: color 0.15s;
 }
 .gnb-security-arrow:hover {
-  color: #003087;
+  color: #0a2e5c;
 }
 .gnb-security-arrow-left {
   left: 16px;
@@ -2456,7 +2167,7 @@ div[style*="1.2fr 0.8fr"] > div:nth-child(2) section.hb-card:nth-of-type(2) {
   transition: background 0.15s;
 }
 .gnb-security-dot.active {
-  background: #003087;
+  background: #82bc00;
 }
 
 /* GNB Quick Links Grid (Section 4) */
@@ -2482,7 +2193,7 @@ div[style*="1.2fr 0.8fr"] > div:nth-child(2) section.hb-card:nth-of-type(2) {
   border-radius: 50%;
   background: #f1f5f9;
   border: 1px solid #e2e8f0;
-  color: #003087;
+  color: #0a2e5c;
   display: grid;
   place-items: center;
   margin-bottom: 12px;
@@ -2491,9 +2202,9 @@ div[style*="1.2fr 0.8fr"] > div:nth-child(2) section.hb-card:nth-of-type(2) {
 }
 .gnb-quick-link-item:hover .gnb-quick-link-circle {
   transform: translateY(-4px);
-  box-shadow: 0 8px 16px rgba(0,48,135,0.1);
-  border-color: #003087;
-  color: #003087;
+  box-shadow: 0 8px 16px rgba(10,46,92,0.1);
+  border-color: #005691;
+  color: #005691;
   background: #ffffff;
 }
 .gnb-quick-link-label {
@@ -2579,7 +2290,7 @@ div[style*="1.2fr 0.8fr"] > div:nth-child(2) section.hb-card:nth-of-type(2) {
   grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
 }
 .admin-kpi-card {
-  background: var(--card-bg);
+  background: #fff;
   border: 1px solid var(--hb-border);
   border-radius: var(--hb-radius);
   box-shadow: var(--hb-shadow);
@@ -2599,8 +2310,8 @@ div[style*="1.2fr 0.8fr"] > div:nth-child(2) section.hb-card:nth-of-type(2) {
   display: grid;
   place-items: center;
   flex-shrink: 0;
-  background: var(--kpi-bg, #f0f4fa);
-  color: var(--kpi-color, #003087);
+  background: var(--kpi-bg, #e9f5e1);
+  color: var(--kpi-color, #73b71c);
 }
 .admin-kpi-body { display: flex; flex-direction: column; gap: 2px; }
 .admin-kpi-label { font-size: 12px; color: var(--hb-muted); font-weight: 500; }
@@ -2616,7 +2327,7 @@ div[style*="1.2fr 0.8fr"] > div:nth-child(2) section.hb-card:nth-of-type(2) {
   .admin-charts-grid { grid-template-columns: 1fr; }
 }
 .admin-chart-card {
-  background: var(--card-bg);
+  background: #fff;
   border: 1px solid var(--hb-border);
   border-radius: var(--hb-radius);
   box-shadow: var(--hb-shadow);
@@ -2626,11 +2337,9 @@ div[style*="1.2fr 0.8fr"] > div:nth-child(2) section.hb-card:nth-of-type(2) {
   display: flex;
   align-items: center;
   gap: 7px;
-  font-size: 13px;
-  font-weight: 600;
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
-  color: var(--hb-red);
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--hb-magenta);
   margin: 0 0 14px;
 }
 
@@ -2647,21 +2356,22 @@ div[style*="1.2fr 0.8fr"] > div:nth-child(2) section.hb-card:nth-of-type(2) {
   background: var(--hb-red);
   color: #fff;
   border: none;
-  border-radius: 8px;
+  border-radius: 10px;
   padding: 12px 20px;
   font-size: 14px;
   font-weight: 700;
-  transition: all 0.2s ease;
+  transition: background 0.15s, transform 0.12s;
 }
-.admin-ql-btn:hover { background: #0d42a8; }
+.admin-ql-btn:hover { background: var(--hb-red-dark); transform: translateY(-1px); }
 .admin-ql-btn--secondary {
-  background: transparent;
-  color: var(--hb-red);
-  border: 1px solid var(--hb-red);
+  background: #fff;
+  color: var(--hb-magenta);
+  border: 1px solid var(--hb-border);
 }
 .admin-ql-btn--secondary:hover {
-  background: var(--hb-red-light);
-  border-color: var(--hb-red);
+  background: #f1f5f9;
+  border-color: #94a3b8;
+  transform: translateY(-1px);
 }
 
 /* ============================================================
@@ -2810,7 +2520,7 @@ div[style*="1.2fr 0.8fr"] > div:nth-child(2) section.hb-card:nth-of-type(2) {
   display: flex;
   align-items: flex-start;
   gap: 12px;
-  background: #f0f4fa;
+  background: #f4faf0;
   border: 1px solid rgba(115,183,28,0.3);
   border-radius: 10px;
   padding: 14px 18px;
@@ -2851,7 +2561,7 @@ div[style*="1.2fr 0.8fr"] > div:nth-child(2) section.hb-card:nth-of-type(2) {
   gap: 9px;
 }
 .pbi-method-badge {
-  background: #003087;
+  background: #73b71c;
   color: #fff;
   font-size: 10px;
   font-weight: 800;
@@ -2877,7 +2587,7 @@ div[style*="1.2fr 0.8fr"] > div:nth-child(2) section.hb-card:nth-of-type(2) {
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
-  color: #003087;
+  color: #0a2e5c;
 }
 .pbi-copy-btn {
   display: inline-flex;
@@ -2968,8 +2678,8 @@ div[style*="1.2fr 0.8fr"] > div:nth-child(2) section.hb-card:nth-of-type(2) {
 }
 .pbi-code-key { color: #7dd3fc; }
 .pbi-hint {
-  background: #f0f4fa;
-  border-left: 3px solid #003087;
+  background: #f4faf0;
+  border-left: 3px solid #73b71c;
   padding: 10px 14px;
   border-radius: 0 8px 8px 0;
   font-size: 13px;
@@ -3049,1327 +2759,378 @@ div[style*="1.2fr 0.8fr"] > div:nth-child(2) section.hb-card:nth-of-type(2) {
 }
 .pbi-content { display: flex; flex-direction: column; gap: 18px; }
 
-/* GNB Login Screen New Style */
-.gnb-login-screen {
-  min-height: 100vh;
-  background-color: #7AB83F; /* GNB requested green */
-  color: #ffffff;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  padding: 40px 60px;
-  font-family: "Inter", "Outfit", sans-serif;
-  box-sizing: border-box;
-}
+/* ============================================================
+   ESTILOS ADICIONALES: TEMA BANCO DE LA NACIÓN / BANCO ANDINO RED
+   ============================================================ */
 
-.gnb-login-body-wrapper {
-  flex: 1;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 40px 0;
+/* Header BN */
+.bn-header-gray {
+  background-color: #f3f4f6;
+  border-bottom: 1px solid #e5e7eb;
+  font-size: 13px;
+  color: #4b5563;
 }
-
-.gnb-login-body {
-  display: grid;
-  grid-template-columns: 1fr auto 1fr;
-  gap: 60px;
-  align-items: flex-start;
-  max-width: 1000px;
-  width: 100%;
-}
-
-@media (max-width: 768px) {
-  .gnb-login-screen {
-    padding: 20px;
-  }
-  .gnb-login-body {
-    grid-template-columns: 1fr;
-    gap: 30px;
-  }
-  .gnb-login-divider {
-    display: none;
-  }
-}
-
-.gnb-login-left {
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-}
-
-.gnb-login-left h2 {
-  font-size: 15px;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
-  margin: 0 0 10px 0;
-  color: #ffffff;
-  border-bottom: none;
-  padding-bottom: 0;
-}
-
-.gnb-login-divider {
-  width: 1px;
-  align-self: stretch;
-  background-color: rgba(255, 255, 255, 0.25);
-  min-height: 280px;
-}
-
-.gnb-login-right {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-self: center; /* Center the entire block vertically in the grid row */
-  gap: 16px;
-  color: #ffffff;
-  max-width: 480px;
-}
-
-.gnb-login-right h2 {
-  font-size: 26px; /* Larger prominent header matching actual GNB style */
-  font-weight: 700;
-  line-height: 1.25;
-  text-transform: none; /* Sentence case title */
-  letter-spacing: normal;
-  margin: 0 0 10px 0;
-  color: #ffffff;
-}
-
-.gnb-login-subtitle {
-  font-size: 16px;
-  font-weight: 600;
-  line-height: 1.5;
-  opacity: 1;
-  margin-bottom: 20px !important;
-}
-
-.gnb-login-right p {
-  font-size: 14px;
-  line-height: 1.6;
-  opacity: 0.85;
-  margin: 0 0 14px 0;
-}
-
-.gnb-login-field {
-  margin-bottom: 14px;
-}
-
-.gnb-login-field label {
-  display: block;
-  font-size: 12.5px;
-  font-weight: 700;
-  margin-bottom: 6px;
-  color: rgba(255, 255, 255, 0.95);
-  text-transform: none;
-}
-
-.gnb-login-input-wrapper {
-  position: relative;
-  width: 100%;
-}
-
-.gnb-login-input {
-  width: 100%;
-  padding: 12px 12px 12px 40px;
-  border: none;
-  border-radius: 4px;
-  font-size: 14px;
-  background-color: #ffffff;
-  color: #333333;
-  outline: none;
-  font-family: inherit;
-}
-
-.gnb-login-input-icon {
-  position: absolute;
-  left: 12px;
-  top: 50%;
-  transform: translateY(-50%);
-  color: #888888;
-  pointer-events: none;
-}
-
-.gnb-login-btn {
-  width: 100%;
-  padding: 12px;
-  background-color: #005691; /* GNB Blue button */
-  color: #ffffff;
-  border: none;
-  font-weight: 700;
-  font-size: 14px;
-  text-transform: uppercase;
-  cursor: pointer;
-  border-radius: 4px;
-  transition: background-color 0.15s;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 8px;
-  margin-top: 18px;
-}
-
-.gnb-login-btn:hover {
-  background-color: #0d4a75;
-}
-
-.gnb-login-btn:disabled {
-  opacity: 0.7;
-  cursor: not-allowed;
-}
-
-.gnb-login-links-blue {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-  margin-top: 15px;
-  align-items: flex-start;
-}
-
-.gnb-login-link-blue {
-  color: #005691; /* GNB Blue link */
-  text-decoration: underline;
-  font-size: 13.5px;
-  font-weight: 600;
-  cursor: pointer;
-  background: none;
-  border: none;
-  padding: 0;
-  text-align: left;
-}
-
-.gnb-login-link-blue:hover {
-  color: #0d4a75;
-}
-
-.gnb-login-top-bar {
-  display: flex;
-  justify-content: flex-start;
-  width: 100%;
-  max-width: 1000px;
+.bn-header-gray-container {
+  max-width: 1200px;
   margin: 0 auto;
+  padding: 0 20px;
+  height: 38px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.bn-nav-tabs-gray {
+  display: flex;
+  height: 100%;
+}
+.bn-nav-tab-gray {
+  display: flex;
+  align-items: center;
+  padding: 0 16px;
+  font-weight: 600;
+  color: #4b5563;
+  transition: all 0.2s;
+  height: 100%;
+}
+.bn-nav-tab-gray:hover {
+  color: #e2132b;
+}
+.bn-nav-tab-gray.active {
+  background-color: #ffffff;
+  color: #111827;
+  border-radius: 8px 8px 0 0;
+  box-shadow: 0 -2px 5px rgba(0,0,0,0.03);
 }
 
-.gnb-login-back-btn {
+.bn-header-white {
+  background-color: #ffffff;
+  border-bottom: 2px solid #e2132b;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+}
+.bn-header-white-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 12px 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.bn-menu-links {
+  display: flex;
+  gap: 24px;
+}
+.bn-menu-link-dropdown {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-weight: 700;
+  font-size: 14.5px;
+  color: #1f2937;
+  cursor: pointer;
+  transition: color 0.15s;
+}
+.bn-menu-link-dropdown:hover {
+  color: #e2132b;
+}
+.bn-btn-red {
+  background-color: #e2132b;
   color: #ffffff;
+  font-weight: 700;
+  border: none;
+  border-radius: 9999px;
+  padding: 10px 22px;
+  font-size: 14.5px;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  transition: background-color 0.15s, transform 0.1s;
+  box-shadow: 0 4px 10px rgba(226, 19, 43, 0.25);
+}
+.bn-btn-red:hover {
+  background-color: #bd0e20;
+  transform: translateY(-1px);
+}
+.bn-btn-red:active {
+  transform: translateY(0);
+}
+
+.bn-btn-pagalo {
+  background-color: #bd0e20;
+  color: #ffffff;
+  border: none;
+  border-radius: 9999px;
+  padding: 8px 16px;
   font-size: 13px;
   font-weight: 700;
   display: inline-flex;
   align-items: center;
-  gap: 8px;
-  background-color: rgba(255, 255, 255, 0.12);
-  border: 1px solid rgba(255, 255, 255, 0.35);
-  padding: 8px 16px;
-  border-radius: 20px;
-  transition: background-color 0.15s, border-color 0.15s;
-  cursor: pointer;
-  text-decoration: none;
+  gap: 4px;
+  transition: opacity 0.15s;
+}
+.bn-btn-pagalo:hover {
+  opacity: 0.9;
 }
 
-.gnb-login-back-btn:hover {
-  background-color: rgba(255, 255, 255, 0.22);
-  border-color: rgba(255, 255, 255, 0.55);
-  color: #ffffff;
+/* Hero Section BN */
+.bn-hero-curved {
+  position: relative;
+  background-color: #ffffff;
+  overflow: hidden;
+  height: 400px;
 }
-
-.gnb-login-bank-info-block {
+.bn-hero-red-bg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 65%;
+  height: 100%;
+  background-color: #e2132b;
+  clip-path: ellipse(85% 100% at 20% 50%);
+  z-index: 1;
   display: flex;
   align-items: center;
-  gap: 15px;
-  margin-top: 30px;
-  padding-top: 20px;
-  border-top: 1px solid rgba(255, 255, 255, 0.25);
+}
+.bn-hero-red-bg-content {
+  max-width: 600px;
+  padding-left: 80px;
   color: #ffffff;
+  z-index: 10;
+}
+.bn-hero-title {
+  font-size: 38px;
+  font-weight: 800;
+  margin: 0 0 16px;
+  line-height: 1.15;
+}
+.bn-hero-subtitle {
+  font-size: 18px;
+  margin: 0 0 28px;
+  opacity: 0.95;
+  font-weight: 400;
+}
+.bn-hero-btn-white {
+  background-color: #ffffff;
+  color: #e2132b;
+  font-weight: 700;
+  border: none;
+  border-radius: 6px;
+  padding: 12px 24px;
+  font-size: 14.5px;
+  transition: background-color 0.15s;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+}
+.bn-hero-btn-white:hover {
+  background-color: #f3f4f6;
+}
+.bn-hero-image-side {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 50%;
+  height: 100%;
+  z-index: 0;
+}
+.bn-hero-image-side img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
 
-.gnb-login-bank-info-text {
-  text-align: left;
-  line-height: 1.45;
+/* Banner indicators */
+.bn-hero-indicators {
+  position: absolute;
+  bottom: 24px;
+  left: 45%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 12px;
+  z-index: 20;
+}
+.bn-hero-indicator {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  border: 1px solid rgba(255,255,255,0.4);
+  background: transparent;
+  color: #ffffff;
   font-size: 13px;
   font-weight: 700;
-}
-
-.gnb-login-footer-phone-icon {
-  background-color: #ffffff;
-  color: #7AB83F; /* requested green color */
-  width: 36px;
-  height: 36px;
-  border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
-  flex-shrink: 0;
+  transition: all 0.2s;
+  cursor: pointer;
+}
+.bn-hero-indicator.active {
+  background-color: transparent;
+  border: 2px solid #ffffff;
+  box-shadow: 0 0 0 2px rgba(255,255,255,0.3);
 }
 
-/* Cuentas Public Page */
-.gnb-breadcrumb-bar {
-  border-bottom: 1px solid var(--hb-border);
-  padding: 12px 0;
-  font-size: 11.5px;
-  color: #71717a;
-  background-color: var(--card-bg);
+/* Products grid styled */
+.bn-products-section {
+  background-color: #f9fafb;
+  padding: 48px 0;
 }
-.gnb-breadcrumb-bar .gnb-container {
-  max-width: 1180px;
+.bn-products-title {
+  text-align: center;
+  font-size: 26px;
+  font-weight: 800;
+  color: #111827;
+  margin-bottom: 32px;
+}
+.bn-products-grid {
+  max-width: 1200px;
   margin: 0 auto;
   padding: 0 20px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-.gnb-breadcrumb-bar a {
-  color: #003087;
-  text-decoration: none;
-}
-.gnb-breadcrumb-bar a:hover {
-  text-decoration: underline;
-}
-.font-resizer {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
-.font-resizer button {
-  background: none;
-  border: none;
-  color: #71717a;
-  cursor: pointer;
-  padding: 0;
-}
-.btn-size-s { font-size: 10px; }
-.btn-size-m { font-size: 12px; }
-.btn-size-l { font-size: 14px; }
- 
-.gnb-cuentas-content {
   display: grid;
-  grid-template-columns: 240px 1fr 300px;
-  gap: 40px;
-  max-width: 1180px;
-  margin: 40px auto;
-  padding: 0 20px;
-  align-items: start;
+  grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+  gap: 18px;
 }
- 
-.gnb-sidebar-nav {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-  border-right: 1px solid var(--hb-border);
-  padding-right: 20px;
-}
-.gnb-sidebar-nav li {
-  margin-bottom: 16px;
-}
-.gnb-sidebar-nav a {
-  text-decoration: none;
-  color: #52525b;
-  font-size: 13.5px;
-  font-weight: 500;
-  transition: color 0.2s;
-  display: block;
-}
-.gnb-sidebar-nav a:hover {
-  color: #003087;
-  font-weight: 600;
-}
-.gnb-sidebar-nav a.active {
-  color: var(--hb-naranja);
-  font-weight: 600;
-}
- 
-.gnb-main-col {
-  padding-right: 20px;
-  border-right: 1px solid var(--hb-border);
-}
- 
-.gnb-page-title {
-  color: #003087; /* Red BN */
-  font-size: 34px;
-  font-weight: 700;
-  margin: 0 0 16px;
-  line-height: 1;
-}
-.gnb-page-desc {
-  font-size: 15px;
-  color: #52525b;
-  margin-bottom: 30px;
-  line-height: 1.5;
-}
-.gnb-hero-img {
-  width: 100%;
-  border-radius: 4px;
-  margin-bottom: 30px;
-  object-fit: cover;
-}
-.gnb-section-title {
-  color: #003087; /* Red BN */
-  font-size: 16px;
-  font-weight: 600;
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
-  margin-bottom: 16px;
-}
-.gnb-benefits-list {
-  color: #52525b;
-  font-size: 13px;
-  line-height: 1.6;
-  padding-left: 20px;
-}
-.gnb-benefits-list li {
-  margin-bottom: 14px;
-}
-.gnb-benefits-list li::marker {
-  color: var(--hb-naranja);
-}
- 
-.gnb-right-cards {
+.bn-product-card {
+  background-color: #ffffff;
+  border: 1px solid #e5e7eb;
+  border-radius: 12px;
+  padding: 24px 16px;
+  text-align: center;
   display: flex;
   flex-direction: column;
-  gap: 40px;
+  align-items: center;
+  transition: transform 0.2s, box-shadow 0.2s;
+  cursor: pointer;
 }
-.gnb-info-card h4 {
-  color: #003087; /* Red BN */
-  font-size: 14px;
-  font-weight: 600;
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
-  margin: 0 0 12px;
+.bn-product-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.05), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
 }
-.gnb-info-card img {
-  width: 100%;
-  height: 100px;
-  object-fit: cover;
-  border-radius: 4px;
-  margin-bottom: 12px;
+.bn-product-icon-wrap {
+  width: 56px;
+  height: 56px;
+  border-radius: 12px;
+  background-color: #fff1f2;
+  color: #e2132b;
+  display: grid;
+  place-items: center;
+  margin-bottom: 16px;
+  transition: background-color 0.2s;
 }
-.gnb-info-card p {
-  color: #a1a1aa;
+.bn-product-card:hover .bn-product-icon-wrap {
+  background-color: #e2132b;
+  color: #ffffff;
+}
+.bn-product-card h4 {
+  margin: 0 0 8px;
+  font-size: 15px;
+  font-weight: 700;
+  color: #1f2937;
+}
+.bn-product-card p {
+  margin: 0;
   font-size: 12.5px;
-  margin: 0 0 10px;
+  color: #6b7280;
   line-height: 1.4;
 }
-.gnb-card-link {
-  display: block;
-  text-align: right;
-  color: #71717a;
-  font-size: 11.5px;
-  text-decoration: none;
-  border-bottom: 1px solid var(--hb-border);
-  padding-bottom: 20px;
+
+/* Floating WhatsApp assistant bubble */
+.bn-whatsapp-widget {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
 }
-.gnb-card-link:hover {
-  color: #003087;
+.bn-whatsapp-bubble {
+  background-color: #ffffff;
+  border-radius: 20px;
+  padding: 8px 16px 8px 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  border: 1px solid #e5e7eb;
+  transition: transform 0.2s;
 }
-.gnb-security-notice {
-  font-size: 11.5px;
-  color: #71717a;
-  line-height: 1.5;
+.bn-whatsapp-widget:hover .bn-whatsapp-bubble {
+  transform: scale(1.03);
 }
-.gnb-security-notice ul {
-  padding-left: 16px;
-  margin-top: 10px;
+.bn-whatsapp-avatar-wrap {
+  position: relative;
+  width: 44px;
+  height: 44px;
 }
-.gnb-security-notice ul li {
-  margin-bottom: 8px;
+.bn-whatsapp-avatar {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid #10b981;
 }
-.gnb-security-notice ul li::marker {
-  color: #F5A800;
+.bn-whatsapp-status-dot {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background-color: #10b981;
+  border: 2px solid #ffffff;
+}
+.bn-whatsapp-text {
+  display: flex;
+  flex-direction: column;
+}
+.bn-whatsapp-name {
+  font-size: 13.5px;
+  font-weight: 700;
+  color: #1f2937;
+}
+.bn-whatsapp-subtitle {
+  font-size: 11px;
+  color: #10b981;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 3px;
+}
+.bn-whatsapp-icon-btn {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background-color: #25d366;
+  color: #ffffff;
+  display: grid;
+  place-items: center;
+  box-shadow: 0 4px 12px rgba(37, 211, 102, 0.3);
+  transition: transform 0.2s;
+}
+.bn-whatsapp-widget:hover .bn-whatsapp-icon-btn {
+  transform: rotate(10deg) scale(1.05);
 }
 
-@media (max-width: 900px) {
-  .gnb-cuentas-content {
-    grid-template-columns: 1fr;
+@media (max-width: 768px) {
+  .bn-hero-red-bg {
+    width: 100%;
+    clip-path: none;
+    background: linear-gradient(135deg, #e2132b 0%, #a80a1a 100%);
   }
-  .gnb-sidebar-nav, .gnb-main-col {
-    border-right: none;
-    padding-right: 0;
+  .bn-hero-red-bg-content {
+    padding-left: 20px;
+    padding-right: 20px;
+    max-width: 100%;
+    text-align: center;
   }
-}
-
-/* ============================================================
-   RECHARTS CHART VISUALS OVERRIDES
-   ============================================================ */
-
-/* Force all recharts bar and pie sector fill colors to corporate green (#73a700) and light green (#8ac926) */
-
-.recharts-rectangle[fill="#16a34a"],
-.recharts-sector[fill="#16a34a"],
-rect[fill="#16a34a"],
-path[fill="#16a34a"] {
-  fill: #73a700 !important;
-}
-
-.recharts-rectangle[fill="#4b5563"],
-.recharts-sector[fill="#4b5563"],
-rect[fill="#4b5563"],
-path[fill="#4b5563"] {
-  fill: #8ac926 !important;
-}
-
-.recharts-rectangle[fill="#002060"],
-.recharts-sector[fill="#002060"],
-rect[fill="#002060"],
-path[fill="#002060"] {
-  fill: #73a700 !important;
-}
-
-.recharts-rectangle[fill="#7c3aed"],
-.recharts-sector[fill="#7c3aed"],
-rect[fill="#7c3aed"],
-path[fill="#7c3aed"] {
-  fill: #8ac926 !important;
-}
-
-.recharts-rectangle[fill="#f97316"],
-.recharts-sector[fill="#f97316"],
-rect[fill="#f97316"],
-path[fill="#f97316"] {
-  fill: #8ac926 !important;
-}
-
-/* Fallback: Alternating coloring for multi-slice pie/donut charts and bars */
-.recharts-pie-sector:nth-child(odd) path {
-  fill: #73a700 !important;
-}
-.recharts-pie-sector:nth-child(even) path {
-  fill: #8ac926 !important;
-}
-
-.recharts-bar-rectangle:nth-child(odd) rect,
-.recharts-bar-rectangle:nth-child(odd) path {
-  fill: #73a700 !important;
-}
-.recharts-bar-rectangle:nth-child(even) rect,
-.recharts-bar-rectangle:nth-child(even) path {
-  fill: #8ac926 !important;
-}
-
-/* Legend items color override to match GNB colors */
-.recharts-legend-item:nth-child(1) .recharts-legend-icon,
-.recharts-legend-item:nth-child(1) svg path {
-  fill: #73a700 !important;
-  stroke: #73a700 !important;
-}
-.recharts-legend-item:nth-child(2) .recharts-legend-icon,
-.recharts-legend-item:nth-child(2) svg path {
-  fill: #8ac926 !important;
-  stroke: #8ac926 !important;
-}
-
-/* User Welcome Banner styles override */
-div[style*="linear-gradient"] h1 {
-  font-family: 'Inter', sans-serif !important;
-  font-weight: 300 !important;
-  font-size: 24px !important;
-  letter-spacing: -0.3px !important;
-  color: #ffffff !important;
-}
-div[style*="linear-gradient"] p {
-  font-family: 'Inter', sans-serif !important;
-  font-weight: 300 !important;
-  font-size: 13.5px !important;
-  color: rgba(255,255,255,0.85) !important;
-}
-
-/* ============================================================
-   GLOBAL STYLING OVERRIDES FOR INLINE STYLES (Force Premium Theme)
-   ============================================================ */
-
-/* 1. Global typography overrides: Force Inter */
-* {
-  font-family: 'Inter', "Segoe UI", Roboto, sans-serif !important;
-}
-
-/* 2. Global Amounts (Money display) */
-.hb-money,
-span.hb-money,
-.hb-money-strong,
-.bbva-money-strong,
-.bn-receipt-amount,
-.bn-card-phys-saldo,
-span[style*="color: #16a34a"] .hb-money,
-span[style*="color: rgb(22, 163, 74)"] .hb-money {
-  font-family: 'Inter', sans-serif !important;
-  font-weight: 300 !important;
-  font-size: 1.15em !important;
-  color: var(--hb-red) !important; /* Force primary dark color #73a700 */
-}
-
-/* Make actual currency values large as requested */
-.hb-money, .bn-receipt-amount, .bn-card-phys-saldo {
-  font-size: 1.25em !important;
-}
-
-/* 3. Section titles: Uppercase, weight 600, spaced */
-h2.hb-card-title,
-.hb-card-title,
-.gnb-section-title,
-.hb-section-title,
-.admin-chart-title,
-.bbva-actions-title,
-.bbva-detalle-title,
-.bn-progress-labels,
-.bbva-acc-main strong {
-  font-family: 'Inter', sans-serif !important;
-  font-weight: 600 !important;
-  text-transform: uppercase !important;
-  letter-spacing: 0.05em !important;
-  color: var(--hb-red) !important; /* Force primary green color */
-}
-
-/* 4. Action buttons overrides (Primary action buttons) */
-.hb-btn,
-.bbva-btn,
-.admin-ql-btn,
-.lp-btn-primary,
-button[style*="background: rgb(0, 48, 135)"],
-button[style*="background: #003087"] {
-  background: var(--hb-red) !important;
-  color: #ffffff !important;
-  border-radius: 8px !important;
-  border: none !important;
-  box-shadow: none !important;
-  font-weight: 600 !important;
-  transition: all 0.2s ease !important;
-}
-
-.hb-btn:hover,
-.bbva-btn:hover,
-.admin-ql-btn:hover,
-.lp-btn-primary:hover,
-button[style*="background: rgb(0, 48, 135)"]:hover,
-button[style*="background: #003087"]:hover {
-  background: var(--hb-red-dark) !important;
-}
-
-/* Secondary buttons */
-.bbva-btn-gray,
-.hb-btn-gray {
-  background: rgba(255, 255, 255, 0.05) !important;
-  color: #f8fafc !important;
-  border-radius: 8px !important;
-  border: 1px solid rgba(255, 255, 255, 0.08) !important;
-}
-.bbva-btn-gray:hover,
-.hb-btn-gray:hover {
-  background: rgba(255, 255, 255, 0.1) !important;
-}
-
-/* 5. Card Overrides: Force off-white, 14px border-radius, thin border, shadow */
-.hb-card,
-.bbva-kpi,
-.bbva-acc,
-.bbva-op-card,
-.bbva-serv,
-.bbva-comprobante-card,
-.bn-receipt,
-.bn-card-phys,
-.admin-kpi-card,
-.admin-chart-card,
-.hb-quick-card,
-.lp-product,
-.lp-login-widget,
-.lp-quick,
-section.hb-card,
-div[style*="background: #ffffff"],
-div[style*="background: rgb(255, 255, 255)"],
-div[style*="background-color: #ffffff"],
-div[style*="background-color: rgb(255, 255, 255)"] {
-  background: var(--card-bg) !important;
-  border-radius: 14px !important;
-  border: 1px solid rgba(255, 255, 255, 0.08) !important;
-  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3) !important;
-  color: #f8fafc !important;
-}
-
-/* 6. List items inside cards should look beautiful and stand out */
-.bbva-prodlist li,
-.bn-mov-item {
-  background: rgba(255, 255, 255, 0.03) !important;
-  border: 1px solid rgba(255, 255, 255, 0.06) !important;
-  border-radius: 10px !important;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1) !important;
-  margin-bottom: 8px !important;
-  transition: all 0.2s ease !important;
-  color: #f8fafc !important;
-}
-.bbva-prodlist li:hover,
-.bn-mov-item:hover {
-  background: rgba(255, 255, 255, 0.07) !important;
-  border-color: var(--hb-naranja) !important;
-  transform: translateX(3px) !important;
-}
-
-/* Ensure child text inside lists are readable in dark theme */
-.bbva-prod-info strong,
-.bbva-prod-info small,
-.bbva-prod-amt,
-.bn-progress-labels span,
-.bbva-prodlist-total,
-.bbva-acc-main strong,
-.bbva-acc-main small,
-.bbva-acc-saldo,
-.bbva-acc-saldo .hb-money,
-.bbva-detalle-sub,
-.bbva-serv strong,
-.bbva-serv small,
-.bbva-comprobante-rows dd,
-.bbva-comprobante-rows dt,
-.bbva-hello h1,
-.bbva-hello p {
-  color: #f8fafc !important;
-}
-
-/* 7. Header user greeting elegant font weights */
-.hb-header-user,
-.bbva-user-text,
-.bbva-hello h1,
-.bbva-hello p,
-div[style*="linear-gradient"] h1,
-div[style*="linear-gradient"] p {
-  font-weight: 300 !important;
-}
-
-/* 8. Welcoming linear-gradient banner card decoration and colors */
-div[style*="linear-gradient(135deg"] {
-  background: var(--hb-grad) !important;
-  border-radius: 16px !important;
-  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.4) !important;
-}
-
-/* ============================================================
-   FLOATING NAVBAR & CENTERED DOCK MENU OVERRIDES
-   ============================================================ */
-
-@media (min-width: 901px) {
-  /* 1. Transform Header to a Floating Card */
-  body > #root header,
-  #root > header,
-  header {
-    position: fixed !important;
-    top: 16px !important;
-    left: 16px !important;
-    right: 16px !important;
-    z-index: 1000 !important;
-    background: transparent !important;
+  .bn-hero-image-side {
+    display: none;
   }
-
-  .hb-franja-top {
-    display: none !important;
-  }
-
-  header > div[style*="height: 65px"] {
-    background: rgba(14, 27, 47, 0.85) !important;
-    backdrop-filter: blur(12px) !important;
-    border: 1px solid rgba(255, 255, 255, 0.08) !important;
-    border-radius: 16px !important;
-    height: 70px !important;
-    padding: 0 24px !important;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3) !important;
-    border-bottom: none !important;
-  }
-
-  /* 2. Hide Hamburger Menu Button */
-  button[aria-label="Alternar menú lateral"] {
-    display: none !important;
-  }
-
-  /* 3. Adjust Logo Spacing & GNB Logo Branding Fills */
-  button[aria-label="Ir al inicio"] {
-    margin-left: -8px !important;
-  }
-  header svg path[fill="#003087"] {
-    fill: var(--hb-red) !important; /* GNB Green */
-  }
-  header svg path[fill="#0d42a8"],
-  header svg path[fill="#ffffff"] {
-    fill: #ffffff !important;
-  }
-  header span[style*="fontWeight: 800"],
-  header span[style*="font-weight: 800"] {
-    color: #ffffff !important;
-  }
-  header span[style*="fontWeight: 500"],
-  header span[style*="font-weight: 500"] {
-    color: var(--hb-naranja) !important;
-  }
-
-  /* 4. Shift Sidebar Menu to Floating Horizontal Central Dock inside Header */
-  div[style*="width: 70px"],
-  div[style*="width: 250px"] {
-    position: fixed !important;
-    top: 16px !important;
-    left: 50% !important;
-    transform: translateX(-50%) !important;
-    width: auto !important;
-    height: 70px !important;
-    background: transparent !important;
-    box-shadow: none !important;
-    border: none !important;
-    flex-direction: row !important;
-    align-items: center !important;
-    justify-content: center !important;
-    padding: 0 !important;
-    z-index: 1010 !important;
-    gap: 16px !important;
-    pointer-events: auto !important;
-  }
-
-  /* Hide redundant profile summary inside the sidebar container */
-  div[style*="width: 70px"] > div[style*="border-bottom"],
-  div[style*="width: 250px"] > div[style*="border-bottom"],
-  div[style*="width: 70px"] > div[style*="borderBottom"],
-  div[style*="width: 250px"] > div[style*="borderBottom"] {
-    display: none !important;
-  }
-
-  /* Hide bottom log out inside sidebar container */
-  div[style*="width: 70px"] > div[style*="border-top"],
-  div[style*="width: 250px"] > div[style*="border-top"] {
-    display: none !important;
-  }
-
-  /* Transform vertical buttons layout container to horizontal */
-  div[style*="width: 70px"] > div[style*="flex-grow"],
-  div[style*="width: 250px"] > div[style*="flex-grow"],
-  div[style*="width: 70px"] > div[style*="flexGrow"],
-  div[style*="width: 250px"] > div[style*="flexGrow"] {
-    flex-direction: row !important;
-    align-items: center !important;
-    gap: 12px !important;
-    padding: 0 !important;
-    background: transparent !important;
-  }
-
-  /* Style sidebar buttons as circular dock navigation links */
-  div[style*="width: 70px"] button,
-  div[style*="width: 250px"] button {
-    width: 44px !important;
-    height: 44px !important;
-    min-width: 44px !important;
-    padding: 0 !important;
-    border-radius: 50% !important;
-    display: flex !important;
-    align-items: center !important;
-    justify-content: center !important;
-    background: rgba(255, 255, 255, 0.05) !important;
-    border: 1px solid rgba(255, 255, 255, 0.08) !important;
-    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1) !important;
-    color: rgba(255, 255, 255, 0.75) !important;
-  }
-
-  div[style*="width: 70px"] button:hover,
-  div[style*="width: 250px"] button:hover {
-    background: rgba(255, 255, 255, 0.15) !important;
-    transform: translateY(-2px) !important;
-    color: #ffffff !important;
-  }
-
-  /* Active header button circular dock style */
-  div[style*="width: 70px"] button[style*="background: var(--hb-red)"],
-  div[style*="width: 250px"] button[style*="background: var(--hb-red)"],
-  div[style*="width: 70px"] button[style*="background: #003087"],
-  div[style*="width: 250px"] button[style*="background: #003087"],
-  div[style*="width: 70px"] button[style*="background:#73a700"],
-  div[style*="width: 250px"] button[style*="background:#73a700"],
-  div[style*="width: 70px"] button[style*="background: rgb(115, 167, 0)"],
-  div[style*="width: 250px"] button[style*="background: rgb(115, 167, 0)"] {
-    background: var(--hb-red) !important;
-    color: #ffffff !important;
-    border-color: rgba(255, 255, 255, 0.2) !important;
-    box-shadow: 0 4px 14px rgba(115, 167, 0, 0.4) !important;
-  }
-
-  /* Hide vertical lines inside navigation buttons */
-  div[style*="width: 70px"] button div[style*="width: 4px"],
-  div[style*="width: 250px"] button div[style*="width: 4px"] {
-    display: none !important;
-  }
-
-  /* 5. Center main content and remove side margins */
-  .bbva-main {
-    margin-left: 0 !important;
-    padding-top: 110px !important;
-    min-height: 100vh !important;
-  }
-
-  .bbva-container {
-    max-width: 1200px !important;
-    margin: 0 auto !important;
-    padding: 24px 24px 56px !important;
+  .bn-hero-indicators {
+    left: 50%;
   }
 }
 
-/* 10. Headers and Navbars global fallbacks */
-.gnb-public-header,
-.hb-header,
-.bbva-topbar,
-header {
-  background: #0e1b2f !important;
-  color: #ffffff !important;
-}
 
-/* Ensure all header links, texts and search icon are white */
-.gnb-public-header *,
-.hb-header *,
-.bbva-topbar * {
-  color: #ffffff !important;
-}
-
-.gnb-public-header button[style*="borderBottom"] {
-  border-bottom: 2px solid var(--hb-naranja) !important;
-}
-
-/* 11. Public landing page background */
-.gnb-public-page,
-div[style*="background: #fcfcfc"],
-div[style*="background: rgb(252, 252, 252)"] {
-  background: var(--hb-bg) !important;
-}
-
-/* General text elements in dark background to be white */
-.gnb-public-page h1,
-.gnb-public-page h2,
-.gnb-public-page h3,
-.gnb-public-page p,
-.gnb-public-page label,
-.gnb-public-page a {
-  color: #f8fafc !important;
-}
-
-/* Except text inside card elements, which should remain dark slate for contrast */
-.lp-login-widget *,
-.lp-product *,
-.lp-benefit *,
-.lp-quick *,
-.gnb-info-card *,
-.gnb-sidebar-nav *,
-.gnb-security-notice * {
-  color: #f8fafc !important;
-}
-
-/* Form input dark styling overrides */
-.hb-input, .hb-select, .bn-search-input {
-  background: rgba(255, 255, 255, 0.04) !important;
-  border: 1px solid rgba(255, 255, 255, 0.08) !important;
-  color: #f8fafc !important;
-}
-.hb-input:focus, .hb-select:focus, .bn-search-input:focus {
-  border-color: var(--hb-naranja) !important;
-  box-shadow: 0 0 0 3px rgba(138, 201, 38, 0.2) !important;
-}
-
-/* Tables styling overrides for dark mode */
-.hb-table th {
-  background: rgba(255, 255, 255, 0.02) !important;
-  color: #94a3b8 !important;
-  border-bottom: 2px solid rgba(255, 255, 255, 0.08) !important;
-}
-.hb-table td {
-  border-bottom: 1px solid rgba(255, 255, 255, 0.04) !important;
-  color: #f8fafc !important;
-}
-.hb-table tbody tr:hover {
-  background: rgba(255, 255, 255, 0.02) !important;
-}
-
-/* Quick action cards override */
-div[style*="grid-template-columns: repeat(4, 1fr)"] button {
-  background: var(--card-bg) !important;
-  border: 1px solid var(--hb-border) !important;
-  border-radius: var(--hb-radius) !important;
-  box-shadow: var(--hb-shadow) !important;
-}
-div[style*="grid-template-columns: repeat(4, 1fr)"] button:hover {
-  border-color: var(--hb-naranja) !important;
-}
-
-/* Icon container circle: dark backing with glowing GNB green icon */
-div[style*="grid-template-columns: repeat(4, 1fr)"] button > span:first-child {
-  background: rgba(255, 255, 255, 0.04) !important;
-  border: 1px solid rgba(255, 255, 255, 0.08) !important;
-  color: var(--hb-naranja) !important;
-}
-div[style*="grid-template-columns: repeat(4, 1fr)"] button > span:first-child svg {
-  color: var(--hb-naranja) !important;
-}
-
-/* Text label container: white high-contrast text */
-div[style*="grid-template-columns: repeat(4, 1fr)"] button > span:nth-child(2) {
-  color: #f8fafc !important;
-  font-weight: 600 !important;
-}
-
-/* Card titles text color override to be perfectly visible on dark cards */
-.hb-card span[style*="color: #1e293b"],
-.hb-card span[style*="color: rgb(30, 41, 59)"],
-.bbva-card-title span[style*="color: #1e293b"],
-.bbva-card-title span[style*="color: rgb(30, 41, 59)"],
-h2.hb-card-title span[style*="color"] {
-  color: #f8fafc !important;
-  font-weight: 600 !important;
-  text-transform: uppercase !important;
-  letter-spacing: 0.05em !important;
-}
-
-/* Link color inside cards override to GNB accent green */
-.hb-card a,
-.hb-card button,
-.hb-card span[style*="color: #003087"],
-.hb-card span[style*="color: rgb(0, 48, 135)"],
-div[style*="color: #003087"] a,
-div[style*="color: rgb(0, 48, 135)"] a {
-  color: var(--hb-naranja) !important;
-}
-
-.hb-card span[style*="color: #64748b"],
-.hb-card span[style*="color: rgb(100, 116, 139)"] {
-  color: #94a3b8 !important;
-}
-
-/* Chart text overrides to match light font on dark theme */
-.recharts-text,
-.recharts-legend-item-text {
-  fill: #94a3b8 !important;
-  color: #94a3b8 !important;
-}
-.recharts-cartesian-grid-horizontal line,
-.recharts-cartesian-grid-vertical line {
-  stroke: rgba(255, 255, 255, 0.08) !important;
-}
-
-/* ============================================================
-   PAGE HEADER & INLINE TEXT CONTRAST IMPROVEMENTS
-   ============================================================ */
-
-/* Force high contrast white for all page layout titles and headers */
-.bbva-page-title,
-h1.bbva-page-title,
-.bbva-page-main h1 {
-  color: #f8fafc !important;
-  font-weight: 700 !important;
-}
-
-/* Force light gray for subtitles and breadcrumbs */
-.bbva-page-sub,
-p.bbva-page-sub,
-.bbva-page-main p {
-  color: #94a3b8 !important;
-}
-
-/* Overwrite common dark gray/black inline styles in main content */
-.bbva-page-main span[style*="color: #1e293b"],
-.bbva-page-main span[style*="color: rgb(30, 41, 59)"],
-.bbva-page-main span[style*="color: #1f2937"],
-.bbva-page-main span[style*="color: rgb(31, 41, 55)"],
-.bbva-page-main p[style*="color: #6b7280"],
-.bbva-page-main p[style*="color: rgb(107, 114, 128)"],
-.bbva-page-main p[style*="color: #4b5563"],
-.bbva-page-main p[style*="color: rgb(75, 85, 99)"] {
-  color: #e2e8f0 !important;
-}
-
-.bbva-op-card:hover {
-  border-color: var(--hb-naranja) !important;
-}
-
-/* ============================================================
-   SEARCH INPUT ALIGNMENT & EXTRA TEXT CONTRAST OVERRIDES
-   ============================================================ */
-
-/* Clean and center search icon and input layout */
-.bn-search-wrapper {
-  display: flex !important;
-  align-items: center !important;
-  position: relative !important;
-  width: 100% !important;
-  margin-bottom: 20px !important;
-}
-.bn-search-input {
-  width: 100% !important;
-  padding: 12px 14px 12px 42px !important;
-  box-sizing: border-box !important;
-}
-.bn-search-icon {
-  position: absolute !important;
-  left: 14px !important;
-  top: 50% !important;
-  transform: translateY(-50%) !important;
-  color: var(--hb-naranja) !important;
-  z-index: 10 !important;
-}
-
-/* Additional dark gray inline color resets to high contrast light gray */
-.bbva-page-main span[style*="color: #475569"],
-.bbva-page-main span[style*="color: rgb(71, 85, 105)"],
-.bbva-page-main strong[style*="color: #475569"],
-.bbva-page-main strong[style*="color: rgb(71, 85, 105)"],
-.bbva-page-main span[style*="color: #64748b"],
-.bbva-page-main span[style*="color: rgb(100, 116, 139)"],
-.bbva-page-main strong[style*="color: #64748b"],
-.bbva-page-main strong[style*="color: rgb(100, 116, 139)"],
-span[style*="color: #475569"],
-span[style*="color: rgb(71, 85, 105)"],
-strong[style*="color: #475569"],
-strong[style*="color: rgb(71, 85, 105)"],
-span[style*="color: #64748b"],
-span[style*="color: rgb(100, 116, 139)"],
-strong[style*="color: #64748b"],
-strong[style*="color: rgb(100, 116, 139)"] {
-  color: #e2e8f0 !important;
-}
-.bbva-op-card strong,
-.bbva-op-card span.bbva-op-body strong,
-.bbva-op-card [style*="color: #1e293b"] {
-  color: #f8fafc !important; /* Pure white */
-}
-
-.bbva-op-card small,
-.bbva-op-card span.bbva-op-body small,
-.bbva-op-card [style*="color: #64748b"] {
-  color: #94a3b8 !important; /* Light slate gray */
-}
-
-.bbva-op-card .bbva-op-chev {
-  color: #94a3b8 !important;
-}
-
-.bbva-op-card:hover .bbva-op-chev {
-  color: var(--hb-naranja) !important;
-}
-
-.bbva-op-card:hover {
-  border-color: var(--hb-naranja) !important;
-}
-
-/* ============================================================
-   PUBLIC LANDING PAGE & FOOTER VISUAL STYLE OVERRIDES
-   ============================================================ */
-
-/* 1. Public Header Background & Text contrast overrides */
-.gnb-public-header {
-  background: #0e1b2f !important; /* GNB Dark Blue */
-  border-bottom: 1px solid rgba(255, 255, 255, 0.08) !important;
-}
-.gnb-public-header div[style*="background: #ffffff"],
-.gnb-public-header div[style*="background: rgb(255, 255, 255)"] {
-  background: transparent !important;
-}
-.gnb-top-official-bar,
-.gnb-public-header div.gnb-top-official-bar {
-  background: rgba(255, 255, 255, 0.03) !important;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.08) !important;
-  color: #94a3b8 !important;
-}
-.gnb-top-official-bar *,
-.gnb-top-official-bar button {
-  color: #94a3b8 !important;
-}
-.gnb-public-header a,
-.gnb-public-header nav a,
-.gnb-public-header span,
-.gnb-public-header div[style*="color: #4b5563"],
-.gnb-public-header div[style*="color: rgb(75, 85, 99)"] {
-  color: #ffffff !important;
-}
-
-/* 2. Landing Page Sections Background & Text resets */
-.gnb-public-page {
-  background: var(--hb-bg) !important;
-}
-.gnb-public-page section {
-  background: transparent !important;
-}
-.gnb-public-page h2,
-.gnb-public-page section h2,
-.gnb-public-page section h3 {
-  color: #f8fafc !important;
-}
-
-/* Landing page product card text labels color */
-.gnb-public-page span[style*="color: #4b5563"],
-.gnb-public-page span[style*="color: rgb(75, 85, 99)"] {
-  color: #f8fafc !important;
-}
-
-/* Landing page product card circular icons background & glowing green icon */
-.gnb-public-page section span[style*="background: #f0f4fa"],
-.gnb-public-page section span[style*="background: rgb(240, 244, 250)"] {
-  background: rgba(255, 255, 255, 0.04) !important;
-  border: 1px solid rgba(255, 255, 255, 0.08) !important;
-  color: var(--hb-naranja) !important;
-}
-.gnb-public-page section span[style*="background: #f0f4fa"] svg,
-.gnb-public-page section span[style*="background: rgb(240, 244, 250)"] svg {
-  color: var(--hb-naranja) !important;
-}
-
-/* 3. Public Footer Styling Overrides (GNB Dark Blue & High Contrast Slate) */
-.gnb-public-footer {
-  background: #0e1b2f !important;
-  border-top: 1px solid rgba(255, 255, 255, 0.08) !important;
-  color: #94a3b8 !important;
-}
-.gnb-public-footer h4,
-.gnb-public-footer strong,
-.gnb-public-footer p {
-  color: #f8fafc !important;
-}
-.gnb-public-footer a {
-  color: #94a3b8 !important;
-  transition: color 0.15s ease !important;
-}
-.gnb-public-footer a:hover {
-  color: var(--hb-naranja) !important;
-}
-
-/* Libro de reclamaciones card */
-.gnb-public-footer a[style*="background: #fff"],
-.gnb-public-footer a[style*="background: rgb(255, 255, 255)"] {
-  background: var(--card-bg) !important;
-  border: 1px solid rgba(255, 255, 255, 0.08) !important;
-  box-shadow: none !important;
-}
-.gnb-public-footer a[style*="background: #fff"] *,
-.gnb-public-footer a[style*="background: rgb(255, 255, 255)"] * {
-  color: #f8fafc !important;
-}
-
-/* Footer Accent Line */
-.gnb-footer-green-bar {
-  background: var(--hb-franja) !important;
-}
-
-/* Footer Section 2 (bottom address block) */
-.gnb-public-footer div[style*="background: #374151"],
-.gnb-public-footer div[style*="background: rgb(55, 65, 81)"] {
-  background: #0b132b !important;
-  border-top: 1px solid rgba(255, 255, 255, 0.05) !important;
-}
-.gnb-public-footer div[style*="background: #374151"] *,
-.gnb-public-footer div[style*="background: rgb(55, 65, 81)"] * {
-  color: #94a3b8 !important;
-}
-.gnb-public-footer div[style*="background: #374151"] strong,
-.gnb-public-footer div[style*="background: rgb(55, 65, 81)"] strong {
-  color: #ffffff !important;
-}
-
-/* ============================================================
-   BN LOGIN PAGE DARK MODE BRANDING OVERRIDES
-   ============================================================ */
-
-.bn-login-page {
-  background: var(--hb-bg) !important;
-}
-.bn-login-page main {
-  background: transparent !important;
-}
-
-/* Form Container Card Override */
-.bn-login-page main > div:nth-of-type(2) {
-  background: var(--card-bg) !important;
-  border: 1px solid rgba(255, 255, 255, 0.08) !important;
-  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3) !important;
-  color: #f8fafc !important;
-  border-radius: 14px !important;
-}
-
-/* Labels and text colors */
-.bn-login-page label {
-  color: #94a3b8 !important;
-}
-.bn-login-page div[style*="color: #003087"] {
-  color: var(--hb-naranja) !important;
-}
-.bn-login-page a[style*="color: #003087"],
-.bn-login-page a[style*="color: rgb(0, 48, 135)"],
-.bn-login-page a[style*="color: #0284c7"] {
-  color: var(--hb-naranja) !important;
-}
-.bn-login-page a[style*="color: #4b5563"] {
-  color: #94a3b8 !important;
-}
-
-/* Input boxes & dropdown selects */
-.bn-login-page input,
-.bn-login-page select {
-  background: rgba(255, 255, 255, 0.04) !important;
-  border: 1px solid rgba(255, 255, 255, 0.08) !important;
-  color: #f8fafc !important;
-}
-.bn-login-page input:focus,
-.bn-login-page select:focus {
-  border-color: var(--hb-naranja) !important;
-}
-
-/* Virtual keyboard keys overrides */
-.bn-login-page button[style*="background: #f2f2f2"],
-.bn-login-page button[style*="background: rgb(242, 242, 242)"] {
-  background: rgba(255, 255, 255, 0.05) !important;
-  border: 1px solid rgba(255, 255, 255, 0.08) !important;
-  color: #f8fafc !important;
-}
-.bn-login-page button[style*="background: #f2f2f2"]:hover,
-.bn-login-page button[style*="background: rgb(242, 242, 242)"]:hover {
-  background: rgba(255, 255, 255, 0.15) !important;
-}
-
-/* Virtual keyboard clear button override */
-.bn-login-page button[style*="background: #444444"],
-.bn-login-page button[style*="background: rgb(68, 68, 68)"] {
-  background: rgba(255, 255, 255, 0.12) !important;
-  border: 1px solid rgba(255, 255, 255, 0.05) !important;
-  color: #ffffff !important;
-}
-
-/* Submit button override */
-.bn-login-page button[style*="background: #002060"],
-.bn-login-page button[style*="background: rgb(0, 32, 96)"] {
-  background: var(--hb-red) !important;
-  color: #ffffff !important;
-  border-radius: 8px !important;
-  border: none !important;
-  transition: all 0.2s ease !important;
-}
-.bn-login-page button[style*="background: #002060"]:hover,
-.bn-login-page button[style*="background: rgb(0, 32, 96)"]:hover {
-  background: var(--hb-red-dark) !important;
-}
-
-/* Login Page Header */
-.bn-login-page header {
-  background: #0e1b2f !important;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.08) !important;
-}
-.bn-login-page header div[style*="background: #003087"],
-.bn-login-page header div[style*="background: rgb(0, 48, 135)"] {
-  /* Hide the top red multired virtual tag hanging */
-  display: none !important;
-}
-.bn-login-page header span[style*="color"] {
-  color: #ffffff !important;
-}
-
-/* Login Page Footer */
-.bn-login-page footer {
-  background: #0b132b !important;
-  border-top: 1px solid rgba(255, 255, 255, 0.08) !important;
-  color: #94a3b8 !important;
-}
-.bn-login-page footer div[style*="color: #444444"],
-.bn-login-page footer div[style*="color: rgb(68, 68, 68)"] {
-  color: #ffffff !important;
-}
-
-/* Security tips & Guides boxes */
-.bn-login-page div[style*="background: #f9fafb"],
-.bn-login-page div[style*="background: rgb(249, 250, 251)"] {
-  background: rgba(255, 255, 255, 0.02) !important;
-  border: 1px solid rgba(255, 255, 255, 0.05) !important;
-  color: #94a3b8 !important;
-}
-.bn-login-page div[style*="background: #f9fafb"] span[style*="color: #003087"],
-.bn-login-page div[style*="background: rgb(249, 250, 251)"] span[style*="color: rgb(0, 48, 135)"] {
-  color: var(--hb-naranja) !important;
-}

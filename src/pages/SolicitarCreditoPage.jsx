@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { FilePlus2, ArrowLeft, ArrowRight, ShieldCheck, Clock } from 'lucide-react'
+import { FilePlus2, ArrowLeft, Clock } from 'lucide-react'
 import { useSolicitudCredito } from '../hooks/useOperaciones.js'
 import { toNumber } from '../utils/format.js'
 import PageLayout from '../components/layout/PageLayout.jsx'
@@ -8,9 +8,9 @@ import Card from '../components/ui/Card.jsx'
 import Money from '../components/ui/Money.jsx'
 import Badge from '../components/ui/Badge.jsx'
 import Alert from '../components/ui/Alert.jsx'
-import Comprobante from '../components/ui/Comprobante.jsx'
 
 // Actividades económicas (CIIU) que EXISTEN en dactividadeconomica de la BD.
+// Usar un código inexistente hace que el backend responda 400 "no encontrada".
 const ACTIVIDADES = [
   { cod: '0111', label: '0111 — Cultivo de cereales (excepto arroz)' },
   { cod: '4711', label: '4711 — Comercio minorista (bodega/abarrotes)' },
@@ -25,7 +25,6 @@ const ACTIVIDADES = [
 export default function SolicitarCreditoPage() {
   const navigate = useNavigate()
   const { run, loading, error, result, reset } = useSolicitudCredito()
-  const [paso, setPaso] = useState('form') // form | confirm
   const [validacion, setValidacion] = useState(null)
 
   const [form, setForm] = useState({
@@ -34,33 +33,23 @@ export default function SolicitarCreditoPage() {
     codtipocredito: 'CO',
     codactividadeconomica: '0111',
     montoingresoneto: '',
+    con_seguro: true,
   })
 
-  const setF = (k) => (e) => setForm((f) => ({ ...f, [k]: e.target.value }))
+  const setF = (k) => (e) => setForm((f) => ({ ...f, [k]: e.target.type === 'checkbox' ? e.target.checked : e.target.value }))
 
-  const validar = () => {
-    const monto = toNumber(form.montosolicitud)
-    const plazo = parseInt(form.plazo, 10)
-    const ingreso = toNumber(form.montoingresoneto)
-
-    if (monto <= 0) return 'Ingrese un monto de solicitud válido.'
-    if (!plazo || plazo <= 0) return 'Ingrese un plazo (número de cuotas) válido.'
-    if (ingreso <= 0) return 'Ingrese su ingreso neto mensual.'
-    if (!form.codactividadeconomica) return 'Seleccione una actividad económica.'
-    return null
-  }
-
-  const irAConfirmar = (e) => {
+  const onSubmit = async (e) => {
     e.preventDefault()
-    const v = validar()
-    setValidacion(v)
-    if (!v) setPaso('confirm')
-  }
+    setValidacion(null)
 
-  const confirmar = async () => {
     const monto = toNumber(form.montosolicitud)
     const plazo = parseInt(form.plazo, 10)
     const ingreso = toNumber(form.montoingresoneto)
+
+    if (monto <= 0) { setValidacion('Ingrese un monto de solicitud válido.'); return }
+    if (!plazo || plazo <= 0) { setValidacion('Ingrese un plazo (número de cuotas) válido.'); return }
+    if (ingreso <= 0) { setValidacion('Ingrese su ingreso neto mensual.'); return }
+    if (!form.codactividadeconomica) { setValidacion('Seleccione una actividad económica.'); return }
 
     try {
       await run({
@@ -69,6 +58,7 @@ export default function SolicitarCreditoPage() {
         codtipocredito: form.codtipocredito,
         codactividadeconomica: form.codactividadeconomica,
         montoingresoneto: ingreso,
+        con_seguro: form.con_seguro,
       })
     } catch {
       /* mensaje de elegibilidad se muestra vía `error` */
@@ -77,140 +67,120 @@ export default function SolicitarCreditoPage() {
 
   const nuevaSolicitud = () => {
     reset()
-    setPaso('form')
-    setForm({ montosolicitud: '', plazo: '', codtipocredito: 'CO', codactividadeconomica: '0111', montoingresoneto: '' })
+    setForm({ montosolicitud: '', plazo: '', codtipocredito: 'CO', codactividadeconomica: '0111', montoingresoneto: '', con_seguro: true })
   }
 
-  const renderStepper = (currentStep) => {
-    const isPaso1 = currentStep === 'form'
-    const isPaso2 = currentStep === 'confirm'
-    const isPaso3 = currentStep === 'result'
-
-    return (
-      <div className="bn-stepper">
-        <div className="bn-stepper-line" />
-        <div 
-          className="bn-stepper-line-fill" 
-          style={{ width: isPaso1 ? '0%' : isPaso2 ? '50%' : '100%' }} 
-        />
-        
-        <div className={`bn-step ${isPaso1 ? 'active' : (isPaso2 || isPaso3 ? 'completed' : '')}`}>
-          <div className="bn-step-circle">1</div>
-          <span className="bn-step-label">Datos de Crédito</span>
-        </div>
-        
-        <div className={`bn-step ${isPaso2 ? 'active' : (isPaso3 ? 'completed' : '')}`}>
-          <div className="bn-step-circle">2</div>
-          <span className="bn-step-label">Evaluación</span>
-        </div>
-        
-        <div className={`bn-step ${isPaso3 ? 'active' : ''}`}>
-          <div className="bn-step-circle">3</div>
-          <span className="bn-step-label">Resultado</span>
-        </div>
-      </div>
-    )
+  // Simulación en tiempo real (TEM)
+  const simulacionMonto = parseFloat(form.montosolicitud) || 0
+  const simulacionPlazo = parseInt(form.plazo, 10) || 0
+  const conSeguro = form.con_seguro !== false
+  const tea = conSeguro ? 0.4092 : 0.4392
+  const tem = Math.pow(1 + tea, 1/12) - 1
+  let cuotaEstimada = 0
+  if (simulacionMonto > 0 && simulacionPlazo > 0) {
+    if (tem === 0) {
+      cuotaEstimada = simulacionMonto / simulacionPlazo
+    } else {
+      cuotaEstimada = simulacionMonto * (tem * Math.pow(1 + tem, simulacionPlazo)) / (Math.pow(1 + tem, simulacionPlazo) - 1)
+    }
   }
 
   return (
-    <PageLayout
-      title="Solicitud de crédito digital"
-      subtitle="Operaciones › Solicitar préstamo"
-      actions={
-        <button className="bbva-btn-ghost sm" onClick={() => navigate('/operaciones')}>
-          <ArrowLeft size={14} /> Volver a Operaciones
-        </button>
-      }
-    >
-      {renderStepper(result ? 'result' : paso)}
+    <PageLayout>
+      <button className="hb-back" onClick={() => navigate('/operaciones')}>
+        <ArrowLeft size={16} /> Volver a Operaciones
+      </button>
+      <h1 className="bbva-page-title">Solicitud de Crédito — Producto Digital</h1>
+      <p className="bbva-page-sub">Operaciones › Solicitar préstamo</p>
 
       {result ? (
-        <Comprobante
-          titulo="Solicitud registrada con éxito"
-          mensaje={result.mensaje}
-          filas={[
-            { label: 'Código de solicitud', value: result.codsolicitud },
-            { label: 'Estado', value: <Badge estado={result.estado} /> },
-            { label: 'Monto solicitado', value: <Money value={result.montosolicitud} /> },
-            { label: 'Plazo solicitado', value: `${result.plazo} cuotas` },
-          ]}
-          nota="Su solicitud pasará por evaluación del banco (core financiero). Le notificaremos el resultado."
-          acciones={[
-            { label: 'Nueva solicitud', onClick: nuevaSolicitud },
-            { label: 'Ir al inicio', primary: true, onClick: () => navigate('/inicio') },
-          ]}
-        />
+        <Card>
+          <div className="hb-comprobante">
+            <h3>Solicitud registrada</h3>
+            <p style={{ marginTop: 0 }}>{result.mensaje}</p>
+            <dl className="hb-dl">
+              <div><dt>Código de solicitud</dt><dd>{result.codsolicitud}</dd></div>
+              <div><dt>Estado</dt><dd><Badge estado={result.estado} /></dd></div>
+              <div><dt>Monto solicitado</dt><dd><Money value={result.montosolicitud} /></dd></div>
+              <div><dt>Plazo</dt><dd>{result.plazo} cuotas</dd></div>
+            </dl>
+            <p style={{ display: 'flex', alignItems: 'center', gap: 6, color: 'var(--hb-amber)', fontSize: 13, marginBottom: 0 }}>
+              <Clock size={15} /> Su solicitud pasará por evaluación del banco (core financiero). Le notificaremos el resultado.
+            </p>
+          </div>
+          <div className="bbva-form-actions">
+            <button className="bbva-btn-gray" onClick={nuevaSolicitud}>Nueva solicitud</button>
+            <button className="bbva-btn" onClick={() => navigate('/inicio')}>Ir al inicio</button>
+          </div>
+        </Card>
       ) : (
-        <Card title="Datos de la solicitud" icon={<FilePlus2 size={18} style={{ color: '#003087' }} />}>
+        <Card title="Datos de la solicitud" icon={<FilePlus2 size={18} />}>
+          {error && <Alert tipo="error">{error}</Alert>}
           {validacion && <Alert tipo="warn">{validacion}</Alert>}
 
-          {paso === 'confirm' ? (
-            <div className="bbva-confirm">
-              <p className="bbva-confirm-lead">Revisa los datos antes de enviar la solicitud a evaluación:</p>
-              {error && <Alert tipo="error">{error}</Alert>}
-              <dl className="hb-dl">
-                <div><dt>Monto solicitado</dt><dd><Money value={form.montosolicitud} /></dd></div>
-                <div><dt>Plazo</dt><dd>{form.plazo} meses / cuotas</dd></div>
-                <div><dt>Tipo de crédito</dt><dd>{form.codtipocredito === 'CO' ? 'Consumo' : 'Microempresa'}</dd></div>
-                <div><dt>Ingreso neto mensual</dt><dd><Money value={form.montoingresoneto} /></dd></div>
-                <div><dt>Actividad económica</dt><dd>{ACTIVIDADES.find(a => a.cod === form.codactividadeconomica)?.label}</dd></div>
-              </dl>
-              <div className="bbva-form-actions">
-                <button className="bbva-btn-gray" onClick={() => setPaso('form')} disabled={loading}>Volver</button>
-                <button className="bbva-btn" onClick={confirmar} disabled={loading}>
-                  <ShieldCheck size={18} /> {loading ? 'Enviando solicitud…' : 'Enviar a evaluación'}
-                </button>
+          <form onSubmit={onSubmit}>
+            <div className="hb-grid-2">
+              <div className="hb-field">
+                <label htmlFor="monto">Monto solicitado (S/)</label>
+                <input id="monto" className="hb-input" type="number" min="1" step="0.01"
+                  placeholder="0.00" value={form.montosolicitud} onChange={setF('montosolicitud')} />
+              </div>
+              <div className="hb-field">
+                <label htmlFor="plazo">Plazo (n° de cuotas / meses)</label>
+                <input id="plazo" className="hb-input" type="number" min="1" step="1"
+                  placeholder="12" value={form.plazo} onChange={setF('plazo')} />
               </div>
             </div>
-          ) : (
-            <form onSubmit={irAConfirmar}>
-              <div className="hb-grid-2">
-                <div className="hb-field">
-                  <label htmlFor="monto" className="hb-field-label">Monto solicitado (S/)</label>
-                  <input id="monto" className="hb-input" type="number" min="1" step="0.01"
-                    placeholder="0.00" value={form.montosolicitud} onChange={setF('montosolicitud')} />
-                </div>
-                <div className="hb-field">
-                  <label htmlFor="plazo" className="hb-field-label">Plazo (n° de cuotas / meses)</label>
-                  <input id="plazo" className="hb-input" type="number" min="1" step="1"
-                    placeholder="12" value={form.plazo} onChange={setF('plazo')} />
-                </div>
-              </div>
 
-              <div className="hb-grid-2" style={{ marginTop: '16px' }}>
-                <div className="hb-field">
-                  <label htmlFor="tipo" className="hb-field-label">Tipo de crédito</label>
-                  <select id="tipo" className="hb-select" value={form.codtipocredito} onChange={setF('codtipocredito')}>
-                    <option value="CO">CO — Consumo</option>
-                    <option value="ME">ME — Microempresa</option>
-                  </select>
-                </div>
-                <div className="hb-field">
-                  <label htmlFor="ingreso" className="hb-field-label">Ingreso neto mensual (S/)</label>
-                  <input id="ingreso" className="hb-input" type="number" min="0" step="0.01"
-                    placeholder="0.00" value={form.montoingresoneto} onChange={setF('montoingresoneto')} />
-                </div>
-              </div>
-
-              <div className="hb-field" style={{ marginTop: '16px' }}>
-                <label htmlFor="actividad" className="hb-field-label">Actividad económica (CIIU)</label>
-                <select id="actividad" className="hb-select" value={form.codactividadeconomica} onChange={setF('codactividadeconomica')}>
-                  {ACTIVIDADES.map((a) => (
-                    <option key={a.cod} value={a.cod}>{a.label}</option>
-                  ))}
+            <div className="hb-grid-2">
+              <div className="hb-field">
+                <label htmlFor="tipo">Tipo de crédito</label>
+                <select id="tipo" className="hb-select" value={form.codtipocredito} onChange={setF('codtipocredito')}>
+                  <option value="CO">CO — Consumo</option>
+                  <option value="ME">ME — Microempresa</option>
                 </select>
               </div>
-
-              <div style={{ marginTop: '24px' }}>
-                <button type="submit" className="bbva-btn">
-                  Continuar <ArrowRight size={18} />
-                </button>
+              <div className="hb-field">
+                <label htmlFor="ingreso">Ingreso neto mensual (S/)</label>
+                <input id="ingreso" className="hb-input" type="number" min="0" step="0.01"
+                  placeholder="0.00" value={form.montoingresoneto} onChange={setF('montoingresoneto')} />
               </div>
-            </form>
-          )}
+            </div>
+
+            <div className="hb-field">
+              <label htmlFor="actividad">Actividad económica (CIIU)</label>
+              <select id="actividad" className="hb-select" value={form.codactividadeconomica} onChange={setF('codactividadeconomica')}>
+                {ACTIVIDADES.map((a) => (
+                  <option key={a.cod} value={a.cod}>{a.label}</option>
+                ))}
+              </select>
+            </div>
+
+            <div className="hb-field" style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 16 }}>
+              <input id="seguro" type="checkbox" checked={form.con_seguro} onChange={setF('con_seguro')} style={{ width: 18, height: 18, cursor: 'pointer' }} />
+              <label htmlFor="seguro" style={{ margin: 0, cursor: 'pointer', fontWeight: 600 }}>Incluye Seguro de Desgravamen (TEA 40.92%)</label>
+            </div>
+            {!form.con_seguro && <p style={{ fontSize: '0.8rem', color: 'var(--hb-muted)', marginTop: -10, marginBottom: 16 }}>Sin seguro, la TEA será de 43.92%</p>}
+
+            {simulacionMonto > 0 && simulacionPlazo > 0 && (
+              <div className="bbva-cuota-box" style={{ background: '#f0f4f8', borderColor: '#d0dbe5', color: '#0a2e5c', display: 'flex', flexDirection: 'column', alignItems: 'stretch', gap: 8, padding: 16, borderRadius: 12, marginBottom: 20 }}>
+                <h4 style={{ margin: 0, fontSize: 13, fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.5px' }}>Simulador de Cuotas</h4>
+                <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '8px 16px', fontSize: 13 }}>
+                  <div><span style={{ color: 'var(--hb-muted)' }}>TEA:</span> <strong>{(tea * 100).toFixed(2)}%</strong></div>
+                  <div><span style={{ color: 'var(--hb-muted)' }}>TEM:</span> <strong>{(tem * 100).toFixed(4)}%</strong></div>
+                  <div><span style={{ color: 'var(--hb-muted)' }}>Plazo:</span> <strong>{simulacionPlazo} meses</strong></div>
+                  <div><span style={{ color: 'var(--hb-muted)' }}>Cuota aprox:</span> <strong style={{ color: 'var(--hb-turquesa)', fontSize: 15 }}>S/ {cuotaEstimada.toFixed(2)}</strong></div>
+                </div>
+              </div>
+            )}
+
+            <button type="submit" className="bbva-btn" disabled={loading}>
+              <FilePlus2 size={18} />
+              {loading ? 'Enviando solicitud…' : 'Enviar solicitud'}
+            </button>
+          </form>
         </Card>
       )}
     </PageLayout>
   )
 }
-

@@ -1,6 +1,6 @@
 import { useParams, useNavigate } from 'react-router-dom'
 import { ArrowLeft, CalendarDays, Receipt, RefreshCw } from 'lucide-react'
-import { useCuotas } from '../hooks/useCreditos.js'
+import { useCuotas, useCreditos } from '../hooks/useCreditos.js'
 import { formatDate } from '../utils/format.js'
 import PageLayout from '../components/layout/PageLayout.jsx'
 import Card from '../components/ui/Card.jsx'
@@ -14,79 +14,57 @@ export default function CuotasCreditoPage() {
   const { cod } = useParams()
   const navigate = useNavigate()
   const { cuotas, loading, error, recargar } = useCuotas(cod)
+  const { creditos } = useCreditos()
+
+  const creditInfo = creditos.find((c) => c.codcuentacredito === cod)
+  let teaVal = creditInfo ? parseFloat(creditInfo.tea) : 0.4392
+  if (teaVal > 1) {
+    teaVal = teaVal / 100
+  }
+  const temVal = Math.pow(1 + teaVal, 1/12) - 1
 
   const proxima = cuotas.find((c) => !c.pagada)
 
   const columns = [
-    { key: 'nrocuota', header: 'N° Cuota', render: (c) => <strong style={{ color: '#1e293b' }}>{c.nrocuota}</strong> },
+    { key: 'nrocuota', header: 'N° Cuota', render: (c) => <strong>{c.nrocuota}</strong> },
     { key: 'fecha_vencimiento', header: 'Vencimiento', render: (c) => formatDate(c.fecha_vencimiento) },
     { key: 'monto_cuota', header: 'Cuota', align: 'right', render: (c) => <Money value={c.monto_cuota} /> },
     { key: 'capital', header: 'Capital', align: 'right', render: (c) => <Money value={c.capital} /> },
     { key: 'interes', header: 'Interés', align: 'right', render: (c) => <Money value={c.interes} /> },
     { key: 'saldo_capital', header: 'Saldo Capital', align: 'right', render: (c) => <Money value={c.saldo_capital} /> },
-    { key: 'dias_atraso', header: 'Días atraso', align: 'center', render: (c) => (c.dias_atraso > 0 ? <Badge estado={`${c.dias_atraso}`} tone="red" /> : <span style={{ color: '#94a3b8', fontWeight: '500' }}>0</span>) },
-    { key: 'estado', header: 'Estado', render: (c) => <Badge estado={c.pagada ? 'Pagada' : (c.estado === '02' ? 'Vencida' : 'Vigente')} tone={c.pagada ? 'green' : (c.estado === '02' ? 'red' : 'yellow')} /> },
+    { key: 'dias_atraso', header: 'Días atraso', align: 'center', render: (c) => (c.dias_atraso > 0 ? <Badge estado={`${c.dias_atraso}`} tone="red" /> : '0') },
+    { key: 'estado', header: 'Estado', render: (c) => <Badge estado={c.pagada ? 'Pagada' : (c.estado === '02' ? 'Vencida' : 'Vigente')} /> },
   ]
 
   return (
-    <PageLayout
-      title="Cronograma de Cuotas"
-      subtitle={`Préstamos › Crédito ${cod}`}
-      actions={
-        <div style={{ display: 'flex', gap: '8px' }}>
-          <button className="bbva-btn-ghost sm" onClick={() => navigate('/cuentas/credito')}>
-            <ArrowLeft size={14} /> Volver
-          </button>
-          <button className="bbva-btn-ghost sm" onClick={recargar} disabled={loading}>
-            <RefreshCw size={14} /> Actualizar
+    <PageLayout>
+      <button className="hb-back" onClick={() => navigate('/cuentas/credito')}>
+        <ArrowLeft size={16} /> Volver a Préstamos
+      </button>
+
+      <div className="bbva-page-head">
+        <div>
+          <h1 className="bbva-page-title">Cronograma de cuotas</h1>
+          <p className="bbva-page-sub">Préstamos › Crédito {cod} · TEA {(teaVal*100).toFixed(2)}% · TEM {(temVal*100).toFixed(2)}%</p>
+        </div>
+        <div className="bbva-page-actions">
+          <button className="bbva-btn-ghost" onClick={recargar} disabled={loading}><RefreshCw size={14} /> Actualizar</button>
+          <button className="bbva-btn" onClick={() => navigate(`/operaciones/pago-credito/${cod}`)} disabled={!proxima}>
+            <Receipt size={14} /> Pagar próxima cuota
           </button>
         </div>
-      }
-    >
+      </div>
+
       {error && <Alert tipo="error">{error}</Alert>}
 
-      {/* Alerta de Próxima Cuota Premium */}
-      {!loading && proxima && (
-        <div style={{
-          background: 'linear-gradient(135deg, #fffbeb 0%, #fef3c7 100%)',
-          border: '1.5px solid #F5A800',
-          borderRadius: '12px',
-          padding: '18px 24px',
-          marginBottom: '20px',
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'space-between',
-          flexWrap: 'wrap',
-          gap: '16px',
-          boxShadow: '0 4px 12px rgba(245, 158, 11, 0.08)'
-        }}>
-          <div>
-            <span style={{ fontSize: '11px', fontWeight: '800', color: '#b45309', textTransform: 'uppercase', letterSpacing: '0.6px', display: 'block' }}>
-              ⚠️ Próximo Vencimiento Pendiente
-            </span>
-            <strong style={{ fontSize: '15px', color: '#78350f', marginTop: '4px', display: 'block' }}>
-              Cuota N° {proxima.nrocuota} — Vence el {formatDate(proxima.fecha_vencimiento)}
-            </strong>
-          </div>
-          <div style={{ display: 'flex', alignItems: 'center', gap: '20px' }}>
-            <div style={{ textAlign: 'right' }}>
-              <span style={{ fontSize: '10px', color: '#b45309', display: 'block', fontWeight: '800', textTransform: 'uppercase', letterSpacing: '0.5px' }}>Total a Pagar</span>
-              <span style={{ fontSize: '19px', fontWeight: '900', color: '#b45309', fontFamily: 'Outfit, sans-serif' }}>
-                <Money value={proxima.monto_cuota} />
-              </span>
-            </div>
-            <button 
-              className="bbva-btn" 
-              onClick={() => navigate(`/operaciones/pago-credito/${cod}`)}
-              style={{ padding: '8px 16px', fontSize: '13px', borderRadius: '8px', boxShadow: '0 4px 10px rgba(0, 48, 135, 0.15)' }}
-            >
-              <Receipt size={14} /> Pagar cuota
-            </button>
-          </div>
-        </div>
+      {proxima && (
+        <Alert tipo="info">
+          Próxima cuota pendiente: <strong>N° {proxima.nrocuota}</strong> · vence el{' '}
+          <strong>{formatDate(proxima.fecha_vencimiento)}</strong> · monto <Money value={proxima.monto_cuota} />
+        </Alert>
       )}
 
-      <Card title="Cronograma de pagos" icon={<CalendarDays size={18} style={{ color: '#003087' }} />}>
+      <Card title="Cronograma" icon={<CalendarDays size={18} />}>
         {loading ? (
           <Loader text="Cargando cronograma…" />
         ) : (

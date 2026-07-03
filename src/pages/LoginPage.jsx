@@ -1,41 +1,48 @@
 import { useState, useEffect } from 'react'
 import { useNavigate, useLocation, Link } from 'react-router-dom'
-import { Lock, ShieldCheck, AlertCircle, RefreshCw, FileText, ChevronDown } from 'lucide-react'
+import { Lock, ArrowLeft } from 'lucide-react'
 import { useHBAuth } from '../hooks/useHBAuth.js'
 import { extractError } from '../utils/format.js'
 import Alert from '../components/ui/Alert.jsx'
-import Logo from '../components/ui/Logo.jsx'
 
-const CAPTCHAS = ['PEW4N', 'BN89X', 'TK47Y', 'MN32B', 'RX78W']
+const CAPTCHAS = ['DQUCV', 'RT89A', 'XP43Z', 'LK90Q', 'BN76X']
 
 export default function LoginPage() {
   const { login, isAuthenticated } = useHBAuth()
   const navigate = useNavigate()
   const location = useLocation()
   
+  // Número de tarjeta / usuario
   const [tarjeta, setTarjeta] = useState(location.state?.tarjeta || '')
   const [dni, setDni] = useState('')
   const [password, setPassword] = useState('')
-  const [userCaptcha, setUserCaptcha] = useState('')
-  const [captchaCode, setCaptchaCode] = useState(CAPTCHAS[0])
   const [error, setError] = useState(null)
   const [loading, setLoading] = useState(false)
+  
+  // Estados para simular MultiRed
+  const [numbers, setNumbers] = useState([])
+  const [captchaText, setCaptchaText] = useState('DQUCV')
+  const [captchaInput, setCaptchaInput] = useState('')
+  const [tipoDocumento, setTipoDocumento] = useState('DNI')
+  const [tipoTarjeta, setTipoTarjeta] = useState('Multired Global Débito')
 
-  // Teclado virtual
-  const keyboardKeys = ['5', '2', '1', '7', '9', '0', '4', '8', '3', '6']
+  // Generar números aleatorios para el teclado virtual al cargar
+  useEffect(() => {
+    const arr = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+    arr.sort(() => Math.random() - 0.5)
+    setNumbers(arr)
+  }, [])
 
+  // Si ya hay sesión, va directo a la banca.
   useEffect(() => {
     if (isAuthenticated) navigate('/inicio', { replace: true })
   }, [isAuthenticated, navigate])
 
-  const changeCaptcha = () => {
-    const nextIdx = (CAPTCHAS.indexOf(captchaCode) + 1) % CAPTCHAS.length
-    setCaptchaCode(CAPTCHAS[nextIdx])
-  }
+  const isAdmin = tarjeta.trim().toLowerCase() === 'admin'
 
-  const handleVirtualKey = (val) => {
-    if (password.length < 6) {
-      setPassword((prev) => prev + val)
+  const handleKeyClick = (num) => {
+    if (password.length < 15) {
+      setPassword(prev => prev + num)
     }
   }
 
@@ -43,19 +50,23 @@ export default function LoginPage() {
     setPassword('')
   }
 
-  const isAdmin = tarjeta.trim().toLowerCase() === 'admin'
+  const refreshCaptcha = () => {
+    const random = CAPTCHAS[Math.floor(Math.random() * CAPTCHAS.length)]
+    setCaptchaText(random)
+    setCaptchaInput('')
+  }
 
   const onSubmit = async (e) => {
     e.preventDefault()
     setError(null)
 
-    // Validar Captcha
-    if (userCaptcha.trim().toUpperCase() !== captchaCode) {
-      setError('El texto de la imagen (Captcha) es incorrecto.')
+    // Validar captcha
+    if (captchaInput.trim().toUpperCase() !== captchaText) {
+      setError('El texto de la imagen ingresado no es correcto.')
       return
     }
 
-    // El DNI se valida en el front solo para clientes normales
+    // El DNI se valida en el front solo para clientes normales.
     if (!isAdmin && !/^\d{8}$/.test(dni.trim())) {
       setError('Ingresa un DNI válido de 8 dígitos.')
       return
@@ -67,422 +78,262 @@ export default function LoginPage() {
       navigate('/inicio', { replace: true })
     } catch (err) {
       setError(extractError(err, 'No se pudo iniciar sesión.'))
+      // Refrescar teclado y captcha tras error
+      const arr = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+      arr.sort(() => Math.random() - 0.5)
+      setNumbers(arr)
+      refreshCaptcha()
     } finally {
       setLoading(false)
     }
   }
 
   return (
-    <div className="bn-login-page" style={{ background: '#eaeaea', minHeight: '100vh', display: 'flex', flexDirection: 'column', fontFamily: 'Arial, sans-serif' }}>
+    <div style={{ minHeight: '100vh', background: '#eef0f2', display: 'flex', flexDirection: 'column', fontFamily: '"Outfit", "Inter", "Segoe UI", sans-serif' }}>
       
-      {/* 1. Header superior con la franja roja y el logo colgado */}
-      <div style={{ height: '6px', background: '#003087', width: '100%' }}></div>
-      <header style={{ background: '#ffffff', height: '65px', display: 'flex', alignItems: 'center', justifyContent: 'center', borderBottom: '1px solid #d4d4d8', position: 'relative' }}>
-        <div style={{ maxWidth: '1000px', width: '100%', padding: '0 20px', display: 'flex', justifyContent: 'space-between', alignItems: 'center', height: '100%' }}>
-          
-          {/* Logo Multired Virtual colgado */}
-          <div style={{ 
-            background: '#003087', 
-            color: '#fff', 
-            padding: '8px 24px 12px 24px', 
-            borderBottomLeftRadius: '14px', 
-            borderBottomRightRadius: '14px',
-            boxShadow: '0 3px 6px rgba(0,0,0,0.1)',
-            textAlign: 'center',
-            alignSelf: 'flex-start',
-            zIndex: 10,
-            marginTop: '-6px'
-          }}>
-            <div style={{ fontSize: '18px', fontWeight: '900', fontStyle: 'italic', letterSpacing: '-0.5px', color: '#F5A800', fontFamily: 'Arial, sans-serif' }}>
-              multired
-            </div>
-            <div style={{ fontSize: '10px', fontWeight: '800', textTransform: 'uppercase', letterSpacing: '1px', marginTop: '-2px', color: '#ffffff', fontFamily: 'Arial, sans-serif' }}>
-              Virtual
-            </div>
-          </div>
+      {/* 1. HEADER DE MULTIRED VIRTUAL */}
+      <header style={{
+        background: '#ffffff', height: 80, borderBottom: '2px solid #dcdcdc',
+        display: 'flex', justifyContent: 'space-between', alignItems: 'center',
+        padding: '0 24px', width: '100%'
+      }}>
+        {/* Lado izquierdo: Pestaña Multired Virtual */}
+        <div style={{
+          background: '#c5112e', padding: '12px 28px 16px', color: '#ffffff',
+          borderRadius: '0 0 16px 0', display: 'flex', flexDirection: 'column',
+          alignItems: 'flex-start', justifyContent: 'center', marginTop: -6, boxShadow: '0 2px 4px rgba(0,0,0,0.1)'
+        }}>
+          <span style={{ fontSize: 26, fontWeight: 800, letterSpacing: -0.5, lineHeight: 1 }}>multired</span>
+          <span style={{ fontSize: 13, color: '#facc15', fontStyle: 'italic', fontWeight: 600, marginTop: 2, alignSelf: 'flex-end' }}>Virtual</span>
+        </div>
 
-          {/* Logo Banco de la Nación */}
-          <div style={{ display: 'flex', alignItems: 'center' }}>
-            <Logo size={34} variant="dark" />
+        {/* Lado derecho: Logo Banco de la Nación */}
+        <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
+          {/* Logo Espiral / Símbolo Rojo de la Nación */}
+          <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="16" cy="16" r="14" fill="#c5112e" />
+            <path
+              d="M11 22V10L21 22V10"
+              stroke="#ffffff"
+              strokeWidth="3"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            />
+          </svg>
+          <div style={{ display: 'flex', flexDirection: 'column', lineHeight: 1.1 }}>
+            <span style={{ fontSize: 18, fontWeight: 900, color: '#0f172a', letterSpacing: -0.5 }}>Banco</span>
+            <span style={{ fontSize: 11, fontWeight: 700, color: '#475569', textTransform: 'uppercase', letterSpacing: 0.5 }}>de la Nación</span>
           </div>
         </div>
       </header>
 
-      {/* 2. Cuerpo Principal */}
-      <main style={{ flexGrow: 1, display: 'flex', flexDirection: 'column', alignItems: 'center', padding: '32px 20px', background: '#eaeaea' }}>
+      {/* 2. CONTENIDO PRINCIPAL */}
+      <main style={{ flex: 1, display: 'flex', flexDirection: 'column', alignItems: 'center', padding: '24px 16px' }}>
         
-        {/* Zona Segura */}
-        <div style={{ display: 'flex', alignItems: 'center', gap: '8px', color: '#003087', marginBottom: '16px', fontWeight: 'bold', fontSize: '16px' }}>
-          <Lock size={18} style={{ color: '#71717a' }} strokeWidth={2.5} />
-          <span>Usted se encuentra en una zona segura</span>
+        {/* Zona Segura Banner */}
+        <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 20 }}>
+          <Lock size={20} style={{ color: '#475569' }} />
+          <span style={{ fontSize: 18, color: '#334155', fontWeight: 600 }}>Usted se encuentra en una <span style={{ color: '#c5112e', fontWeight: 800 }}>zona segura</span></span>
         </div>
 
-        {/* Card Formulario */}
-        <div style={{ 
-          maxWidth: '650px', 
-          width: '100%', 
-          background: '#ffffff', 
-          borderRadius: '6px', 
-          border: '1px solid #cccccc', 
-          boxShadow: '0 4px 12px rgba(0,0,0,0.04)',
-          padding: '28px 32px',
-          boxSizing: 'border-box'
+        {/* Tarjeta de Log In */}
+        <div style={{
+          background: '#ffffff', border: '1px solid #d1d5db', borderRadius: 12,
+          width: '100%', maxWidth: 640, padding: 32,
+          boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.025)'
         }}>
-          
           {error && <Alert tipo="error">{error}</Alert>}
 
-          <form onSubmit={onSubmit} style={{ display: 'flex', flexDirection: 'column', width: '100%' }}>
-            
-            {/* Campo Seleccione */}
-            <div style={{ display: 'flex', alignItems: 'flex-start', marginBottom: '12px', width: '100%' }}>
-              <label style={{ width: '190px', textAlign: 'right', paddingRight: '16px', paddingTop: '4px', fontSize: '11px', fontWeight: 'bold', color: '#555555' }}>
-                Seleccione:
-              </label>
-              <div style={{ display: 'flex', alignItems: 'center', flexGrow: 1 }}>
-                <div style={{ position: 'relative', width: '250px' }}>
-                  <select 
-                    disabled
-                    style={{ 
-                      width: '100%', 
-                      height: '26px', 
-                      border: '1px solid #b1b1b1', 
-                      borderRadius: '4px', 
-                      background: '#ffffff', 
-                      fontSize: '11px', 
-                      fontWeight: '600',
-                      padding: '2px 28px 2px 8px', 
-                      appearance: 'none', 
-                      outline: 'none',
-                      color: '#1f2937'
-                    }}
-                  >
-                    <option>Multired Global Débito</option>
-                  </select>
-                  <div style={{ position: 'absolute', right: 0, top: 0, bottom: 0, width: '24px', background: '#002060', borderTopRightRadius: '4px', borderBottomRightRadius: '4px', display: 'flex', alignItems: 'center', justifyContent: 'center', pointerEvents: 'none' }}>
-                    <div style={{ width: 0, height: 0, borderLeft: '4px solid transparent', borderRight: '4px solid transparent', borderTop: '5px solid #ffffff' }} />
-                  </div>
-                </div>
-              </div>
+          <form onSubmit={onSubmit} style={{ display: 'flex', flexDirection: 'column', gap: 20 }}>
+            {/* Campo 1: Seleccione Tarjeta */}
+            <div style={{ display: 'grid', gridTemplateColumns: '160px 1fr', alignItems: 'center', gap: 16 }}>
+              <label style={{ fontSize: 13, fontWeight: 700, textAlign: 'right', color: '#475569' }}>Seleccione:</label>
+              <select className="hb-select" style={{ maxWidth: 360 }} value={tipoTarjeta} onChange={(e) => setTipoTarjeta(e.target.value)}>
+                <option value="Multired Global Débito">Multired Global Débito</option>
+                <option value="Tarjeta de Ahorro">Tarjeta de Ahorro</option>
+                <option value="Multired Clásica">Multired Clásica</option>
+              </select>
             </div>
 
-            {/* Número de tarjeta */}
-            <div style={{ display: 'flex', alignItems: 'flex-start', marginBottom: '12px', width: '100%' }}>
-              <label htmlFor="tarjeta" style={{ width: '190px', textAlign: 'right', paddingRight: '16px', paddingTop: '4px', fontSize: '11px', fontWeight: 'bold', color: '#555555' }}>
-                Número de tarjeta:
-              </label>
-              <div style={{ display: 'flex', alignItems: 'center', flexGrow: 1 }}>
-                <input 
+            {/* Campo 2: Número de Tarjeta */}
+            <div style={{ display: 'grid', gridTemplateColumns: '160px 1fr', alignItems: 'center', gap: 16 }}>
+              <label style={{ fontSize: 13, fontWeight: 700, textAlign: 'right', color: '#475569' }}>Número de tarjeta:</label>
+              <div style={{ position: 'relative', maxWidth: 360, width: '100%' }}>
+                <input
                   id="tarjeta"
-                  type="text" 
-                  placeholder=""
+                  type="text"
+                  required
+                  className="hb-input"
+                  placeholder="Ej. cli000001"
                   value={tarjeta}
                   onChange={(e) => setTarjeta(e.target.value)}
-                  required
-                  style={{ 
-                    width: '250px',
-                    height: '26px',
-                    border: '1px solid #b1b1b1', 
-                    borderRadius: '4px', 
-                    padding: '2px 8px', 
-                    fontSize: '12px',
-                    outline: 'none'
-                  }}
+                  autoFocus
                 />
               </div>
             </div>
 
-            {/* Tipo y N° Documento */}
-            <div style={{ display: 'flex', alignItems: 'flex-start', marginBottom: '12px', width: '100%' }}>
-              <label htmlFor="dni" style={{ width: '190px', textAlign: 'right', paddingRight: '16px', paddingTop: '4px', fontSize: '11px', fontWeight: 'bold', color: '#555555' }}>
-                Tipo y N° Documento:
-              </label>
-              <div style={{ display: 'flex', alignItems: 'center', gap: '8px', flexGrow: 1 }}>
-                <div style={{ position: 'relative', width: '100px' }}>
-                  <select 
-                    value="DNI"
-                    disabled
-                    style={{ 
-                      width: '100%', 
-                      height: '26px', 
-                      border: '1px solid #b1b1b1', 
-                      borderRadius: '4px', 
-                      background: '#ffffff', 
-                      fontSize: '11px', 
-                      fontWeight: '600',
-                      padding: '2px 28px 2px 8px', 
-                      appearance: 'none', 
-                      outline: 'none',
-                      color: '#1f2937'
-                    }}
-                  >
+            {/* Campo 3: Tipo y N° Documento */}
+            {!isAdmin && (
+              <div style={{ display: 'grid', gridTemplateColumns: '160px 1fr', alignItems: 'center', gap: 16 }}>
+                <label style={{ fontSize: 13, fontWeight: 700, textAlign: 'right', color: '#475569' }}>Tipo y N° Documento:</label>
+                <div style={{ display: 'flex', gap: 10, maxWidth: 360 }}>
+                  <select className="hb-select" style={{ width: 140 }} value={tipoDocumento} onChange={(e) => setTipoDocumento(e.target.value)}>
                     <option value="DNI">DNI</option>
+                    <option value="Carnet Ext.">Carnet Ext.</option>
+                    <option value="RUC">RUC</option>
                   </select>
-                  <div style={{ position: 'absolute', right: 0, top: 0, bottom: 0, width: '24px', background: '#002060', borderTopRightRadius: '4px', borderBottomRightRadius: '4px', display: 'flex', alignItems: 'center', justifyContent: 'center', pointerEvents: 'none' }}>
-                    <div style={{ width: 0, height: 0, borderLeft: '4px solid transparent', borderRight: '4px solid transparent', borderTop: '5px solid #ffffff' }} />
-                  </div>
+                  <input
+                    id="dni"
+                    type="text"
+                    required
+                    maxLength={8}
+                    className="hb-input"
+                    placeholder="8 dígitos"
+                    value={dni}
+                    onChange={(e) => setDni(e.target.value.replace(/\D/g, ''))}
+                  />
                 </div>
-                <input 
-                  id="dni"
-                  type="text" 
-                  maxLength={8}
-                  placeholder=""
-                  value={dni}
-                  onChange={(e) => setDni(e.target.value.replace(/\D/g, ''))}
-                  required={!isAdmin}
-                  style={{ 
-                    width: '142px', 
-                    height: '26px',
-                    border: '1px solid #b1b1b1', 
-                    borderRadius: '4px', 
-                    padding: '2px 8px', 
-                    fontSize: '12px',
-                    outline: 'none'
-                  }}
-                />
               </div>
-            </div>
+            )}
 
-            {/* Clave de Internet usando Teclado Virtual */}
-            <div style={{ display: 'flex', alignItems: 'flex-start', marginBottom: '12px', width: '100%' }}>
-              <label style={{ width: '190px', textAlign: 'right', paddingRight: '16px', paddingTop: '4px', fontSize: '11px', fontWeight: 'bold', color: '#555555', lineHeight: '1.3' }}>
-                Ingresa tu clave usando el teclado virtual:
-              </label>
-              <div style={{ display: 'flex', gap: '10px', alignItems: 'flex-start', flexGrow: 1 }}>
-                
-                {/* Teclado Virtual Grid (90px) */}
-                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 28px)', gap: '2px', width: '88px', userSelect: 'none' }}>
-                  {['5', '2', '1', '7', '9', '0', '4', '8', '3', '6'].map((key) => (
-                    <button 
-                      key={key} 
-                      type="button"
-                      onClick={() => handleVirtualKey(key)}
-                      style={{ 
-                        width: '28px', 
-                        height: '24px', 
-                        background: '#f2f2f2', 
-                        border: '1px solid #aaaaaa', 
-                        borderRadius: '3px', 
-                        fontSize: '12px', 
-                        fontWeight: 'bold',
-                        color: '#333333', 
-                        display: 'flex', 
-                        alignItems: 'center', 
-                        justifyContent: 'center', 
-                        cursor: 'pointer',
-                        padding: 0
+            {/* Fila Dual: Teclado Virtual a la izquierda, Contraseña e instrucciones a la derecha */}
+            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 24, padding: '12px 0', borderTop: '1px dashed #e5e7eb', borderBottom: '1px dashed #e5e7eb' }}>
+              
+              {/* Lado Izquierdo: Teclado Virtual */}
+              <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+                <span style={{ fontSize: 11.5, color: '#64748b', fontWeight: 600, marginBottom: 10, textAlign: 'center' }}>
+                  Ingresa tu clave usando<br />el teclado virtual:
+                </span>
+                <div style={{
+                  display: 'grid', gridTemplateColumns: 'repeat(3, 42px)', gap: 8,
+                  justifyContent: 'center', background: '#f8fafc', padding: 12, borderRadius: 8, border: '1px solid #e2e8f0'
+                }}>
+                  {numbers.slice(0, 9).map((num) => (
+                    <button
+                      key={num} type="button" onClick={() => handleKeyClick(num)}
+                      style={{
+                        height: 38, width: 42, background: '#ffffff', border: '1px solid #cbd5e1',
+                        borderRadius: 4, fontWeight: 700, cursor: 'pointer', display: 'grid', placeItems: 'center',
+                        fontSize: 15, color: '#334155', boxShadow: '0 1px 2px rgba(0,0,0,0.05)',
+                        transition: 'background 0.1s'
                       }}
+                      onMouseDown={(e) => e.target.style.background = '#e2e8f0'}
+                      onMouseUp={(e) => e.target.style.background = '#ffffff'}
                     >
-                      {key}
+                      {num}
                     </button>
                   ))}
-                  <button 
-                    type="button" 
-                    onClick={handleClear}
-                    style={{ 
-                      gridColumn: 'span 2', 
-                      width: '58px', 
-                      height: '24px', 
-                      background: '#444444', 
-                      color: '#ffffff', 
-                      border: '1px solid #444444', 
-                      borderRadius: '3px', 
-                      fontSize: '9px', 
-                      fontWeight: 'bold', 
-                      display: 'flex', 
-                      alignItems: 'center', 
-                      justifyContent: 'center', 
-                      cursor: 'pointer',
-                      padding: 0
+                  {/* Fila 4 del Teclado */}
+                  <button
+                    type="button" onClick={() => handleKeyClick(numbers[9])}
+                    style={{
+                      height: 38, width: 42, background: '#ffffff', border: '1px solid #cbd5e1',
+                      borderRadius: 4, fontWeight: 700, cursor: 'pointer', display: 'grid', placeItems: 'center',
+                      fontSize: 15, color: '#334155', boxShadow: '0 1px 2px rgba(0,0,0,0.05)'
+                    }}
+                  >
+                    {numbers[9]}
+                  </button>
+                  <button
+                    type="button" onClick={handleClear}
+                    style={{
+                      gridColumn: 'span 2', height: 38, background: '#64748b', border: '1px solid #475569',
+                      borderRadius: 4, fontWeight: 700, color: '#ffffff', cursor: 'pointer', fontSize: 11,
+                      textTransform: 'uppercase', display: 'grid', placeItems: 'center'
                     }}
                   >
                     LIMPIAR
                   </button>
                 </div>
+              </div>
 
-                {/* Enlaces del medio (140px) */}
-                <div style={{ width: '140px', display: 'flex', flexDirection: 'column', justifyContent: 'center', minHeight: '50px' }}>
-                  <a href="#" style={{ fontSize: '10.5px', color: '#003087', textDecoration: 'none', fontWeight: 'bold', display: 'flex', gap: '3px', alignItems: 'flex-start' }}>
-                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style={{ flexShrink: 0, marginTop: '1px' }}>
-                      <circle cx="9" cy="15" r="5" fill="#F5A800" />
-                      <path d="M13 11L18 6M18 6L20 8M18 6L16 4" stroke="#F5A800" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
-                      <circle cx="9" cy="15" r="2" fill="#ffffff" />
-                    </svg>
-                    <span style={{ textDecoration: 'underline' }}>Genera tu Clave de Internet</span>
-                  </a>
-                  <span style={{ color: '#6b7280', fontSize: '9px', marginTop: '2px', display: 'block', paddingLeft: '17px' }}>
-                    Ingresa tu Clave de Internet (06 dígitos)
-                  </span>
-
-                  <div style={{ display: 'flex', alignItems: 'center', gap: '4px', marginTop: '12px', paddingLeft: '17px' }}>
-                    <div style={{ width: '13px', height: '13px', borderRadius: '50%', background: '#003087', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#ffffff', fontSize: '9px', fontWeight: 'bold', flexShrink: 0 }}>!</div>
-                    <a href="#" style={{ fontSize: '10.5px', color: '#003087', textDecoration: 'underline', fontWeight: 'bold' }}>Olvidé mi clave</a>
-                  </div>
-                </div>
-
-                {/* Password Input a la derecha (100px) */}
-                <input 
-                  type="password" 
-                  placeholder=""
+              {/* Lado Derecho: Input clave y link */}
+              <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', gap: 12 }}>
+                <a href="#" onClick={(e) => { e.preventDefault(); alert('Clave de Internet de prueba: demo1234'); }} style={{ fontSize: 12, color: '#c5112e', fontWeight: 700, display: 'flex', alignItems: 'center', gap: 4, textDecoration: 'none' }}>
+                  🔑 Genera tu Clave de Internet
+                </a>
+                <span style={{ fontSize: 11.5, color: '#64748b' }}>
+                  Ingresa tu Clave de Internet:
+                </span>
+                <input
+                  id="password"
+                  type="password"
+                  required
+                  className="hb-input"
+                  style={{ letterSpacing: 4, fontWeight: 700, textAlign: 'center', background: '#f8fafc' }}
+                  placeholder="••••••••"
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
-                  required
-                  style={{ 
-                    width: '100px',
-                    height: '26px',
-                    border: '1px solid #b1b1b1', 
-                    borderRadius: '4px', 
-                    padding: '2px 8px', 
-                    fontSize: '12px',
-                    background: '#ffffff',
-                    outline: 'none',
-                    textAlign: 'center',
-                    letterSpacing: '3px',
-                    fontWeight: 'bold'
-                  }}
                 />
-
+                <a href="#" onClick={(e) => { e.preventDefault(); alert('Utilice la clave demo1234 para pruebas.'); }} style={{ fontSize: 12, color: '#c5112e', fontWeight: 600, textDecoration: 'none' }}>
+                  ⚠️ Olvidé mi clave
+                </a>
               </div>
             </div>
 
-            {/* Captcha */}
-            <div style={{ display: 'flex', alignItems: 'flex-start', marginBottom: '12px', width: '100%' }}>
-              <label htmlFor="captcha" style={{ width: '190px', textAlign: 'right', paddingRight: '16px', paddingTop: '4px', fontSize: '11px', fontWeight: 'bold', color: '#555555' }}>
-                Ingresa el texto de la imagen:
-              </label>
-              
-              <div style={{ display: 'flex', gap: '10px', alignItems: 'flex-start', flexGrow: 1 }}>
-                
-                {/* Caja del captcha (90px) */}
-                <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', width: '88px' }}>
-                  <div style={{ 
-                    width: '88px', 
-                    height: '32px', 
-                    background: '#f0f0f0', 
-                    border: '1px solid #b1b1b1', 
-                    borderRadius: '4px',
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    fontSize: '15px', 
-                    fontWeight: '900', 
-                    fontStyle: 'italic', 
-                    color: '#374151', 
-                    letterSpacing: '2px',
-                    fontFamily: 'Courier New, monospace',
-                    userSelect: 'none',
-                    boxShadow: 'inset 0 1px 3px rgba(0,0,0,0.05)',
-                    backgroundSize: '4px 4px',
-                    backgroundImage: 'linear-gradient(45deg, #e5e5e5 25%, transparent 25%, transparent 75%, #e5e5e5 75%, #e5e5e5), linear-gradient(45deg, #e5e5e5 25%, transparent 25%, transparent 75%, #e5e5e5 75%, #e5e5e5)',
-                    backgroundPosition: '0 0, 2px 2px'
-                  }}>
-                    <span style={{ transform: 'rotate(-3deg) translateY(-1px)', textShadow: '1px 1px 0px #ffffff' }}>
-                      {captchaCode}
-                    </span>
-                  </div>
-                  <button 
-                    type="button" 
-                    onClick={changeCaptcha} 
-                    style={{ background: 'none', border: 'none', color: '#003087', fontSize: '10px', textDecoration: 'underline', cursor: 'pointer', marginTop: '4px', display: 'flex', alignItems: 'center', gap: '2px', padding: 0 }}
-                  >
-                    <RefreshCw size={10} /> Cambiar texto
-                  </button>
+            {/* Captcha de Seguridad */}
+            <div style={{ display: 'grid', gridTemplateColumns: '160px 1fr', alignItems: 'center', gap: 16 }}>
+              <label style={{ fontSize: 12, fontWeight: 700, textAlign: 'right', color: '#475569' }}>Ingresa el texto de la imagen:</label>
+              <div style={{ display: 'flex', alignItems: 'center', gap: 12, flexWrap: 'wrap' }}>
+                <div style={{
+                  background: '#f1f5f9', border: '1.5px dashed #cbd5e1', padding: '6px 16px',
+                  fontFamily: 'monospace', fontSize: 20, fontWeight: 800, letterSpacing: 4,
+                  textDecoration: 'line-through', fontStyle: 'italic', color: '#334155',
+                  userSelect: 'none', borderRadius: 6, display: 'inline-block',
+                  backgroundSize: '10px 10px', backgroundImage: 'radial-gradient(#cbd5e1 20%, transparent 20%)'
+                }}>
+                  {captchaText}
                 </div>
-
-                {/* Espaciador del medio (140px) */}
-                <div style={{ width: '140px', height: '10px' }} />
-
-                {/* Captcha input a la derecha (100px) */}
-                <input 
-                  id="captcha"
-                  type="text" 
-                  maxLength={5}
-                  value={userCaptcha}
-                  onChange={(e) => setUserCaptcha(e.target.value)}
-                  placeholder=""
+                <button type="button" onClick={refreshCaptcha} style={{ background: 'none', border: 'none', color: '#c5112e', fontSize: 12, cursor: 'pointer', fontWeight: 600 }}>
+                  🔄 Cambiar texto
+                </button>
+                <input
+                  type="text"
                   required
-                  style={{ 
-                    width: '100px', 
-                    height: '26px',
-                    border: '1px solid #b1b1b1', 
-                    borderRadius: '4px', 
-                    padding: '2px 8px', 
-                    fontSize: '12px',
-                    outline: 'none'
-                  }}
+                  className="hb-input"
+                  style={{ width: 120 }}
+                  placeholder="Código"
+                  value={captchaInput}
+                  onChange={(e) => setCaptchaInput(e.target.value)}
                 />
               </div>
             </div>
 
             {/* Botón Ingresar */}
-            <div style={{ display: 'flex', justifyContent: 'center', marginTop: '16px' }}>
-              <button 
-                type="submit" 
-                disabled={loading}
-                style={{ 
-                  background: '#002060', 
-                  color: '#ffffff', 
-                  border: 'none', 
-                  fontWeight: 'bold', 
-                  padding: '6px 36px', 
-                  borderRadius: '20px', 
-                  fontSize: '12px', 
-                  cursor: 'pointer',
-                  letterSpacing: '0.5px',
-                  textTransform: 'uppercase'
-                }}
-              >
+            <div style={{ display: 'flex', justifyContent: 'center', marginTop: 10 }}>
+              <button type="submit" className="bbva-btn" style={{ background: '#c5112e', padding: '12px 48px', fontSize: 14, fontWeight: 800, textTransform: 'uppercase', borderRadius: 6, width: 'auto' }} disabled={loading}>
                 {loading ? 'INGRESANDO…' : 'INGRESAR'}
               </button>
             </div>
-
           </form>
 
-          {/* Dotted Divider & Guides */}
-          <div style={{ borderTop: '1px dotted #aaaaaa', margin: '20px 0 14px 0' }} />
-          
-          <div style={{ textAlign: 'center' }}>
-            <a href="#" style={{ fontSize: '11px', color: '#0284c7', textDecoration: 'underline', fontWeight: 'bold' }}>Recomendaciones de Seguridad</a>
-            <div style={{ display: 'flex', justifyContent: 'center', gap: '20px', marginTop: '10px' }}>
-              <a href="#" style={{ fontSize: '10.5px', color: '#4b5563', textDecoration: 'none', display: 'flex', alignItems: 'center', gap: '4px', fontWeight: '600' }}>
-                <span style={{ color: '#003087', fontSize: '12px' }}>■</span>
-                <span>Guía Cuenta de Ahorro</span>
-              </a>
-              <a href="#" style={{ fontSize: '10.5px', color: '#4b5563', textDecoration: 'none', display: 'flex', alignItems: 'center', gap: '4px', fontWeight: '600' }}>
-                <span style={{ color: '#003087', fontSize: '12px' }}>■</span>
-                <span>Guía Cuentas Corrientes</span>
-              </a>
-            </div>
-          </div>
+          {isAdmin ? (
+            <p className="hb-login-hint" style={{ marginTop: 24, borderTop: '1px solid #e2e8f0', paddingTop: 12 }}>
+              Acceso de administrador: tarjeta <strong>admin</strong> · clave escrita manual (tipear <strong>admin1234</strong>)
+            </p>
+          ) : (
+            <p className="hb-login-hint" style={{ marginTop: 24, borderTop: '1px solid #e2e8f0', paddingTop: 12 }}>
+              Prueba: tarjeta <strong>cli000001</strong> · DNI <strong>12345678</strong> · clave <strong>demo1234</strong>
+            </p>
+          )}
 
-          {/* Prueba Credenciales Box */}
-          <div style={{ marginTop: '16px', background: '#f9fafb', border: '1px solid #e5e7eb', borderRadius: '4px', padding: '8px 12px', fontSize: '10.5px', color: '#6b7280', lineHeight: '1.4' }}>
-            {isAdmin ? (
-              <span>Acceso admin: Tarjeta <strong>admin</strong> · Clave virtual <strong>admin1234</strong></span>
-            ) : (
-              <span>Prueba: Tarjeta <strong>cli000001</strong> · DNI <strong>12345678</strong> · Clave virtual <strong>demo1234</strong> (Ingresa escribiendo o usando el teclado virtual)</span>
-            )}
+          <div style={{ textAlign: 'center', marginTop: 16 }}>
+            <Link to="/" style={{ display: 'inline-flex', alignItems: 'center', gap: 6, color: 'var(--hb-muted)', fontSize: 13, textDecoration: 'none' }}>
+              <ArrowLeft size={15} /> Volver al inicio
+            </Link>
           </div>
+        </div>
 
+        {/* Footer Recomendaciones */}
+        <div style={{ display: 'flex', justifySelf: 'center', gap: 16, marginTop: 20, fontSize: 12, color: '#64748b', flexWrap: 'wrap', justifyContent: 'center' }}>
+          <a href="#" className="pbi-link" onClick={(e) => e.preventDefault()} style={{ textDecoration: 'none' }}>Recomendaciones de Seguridad</a>
+          <span>|</span>
+          <a href="#" className="pbi-link" onClick={(e) => e.preventDefault()} style={{ textDecoration: 'none' }}>Guía Cuenta de Ahorro</a>
+          <span>|</span>
+          <a href="#" className="pbi-link" onClick={(e) => e.preventDefault()} style={{ textDecoration: 'none' }}>Guía Cuentas Corrientes</a>
         </div>
 
       </main>
-
-      {/* 3. Footer del Login */}
-      <footer style={{ background: '#eaeaea', borderTop: '1px solid #cccccc', padding: '20px 20px', fontSize: '10px', color: '#666666', textAlign: 'center', lineHeight: '1.5' }}>
-        <div style={{ fontWeight: 'bold', color: '#444444', marginBottom: '3px' }}>
-          Banco de la Nación | Ministerio de Economía y Finanzas
-        </div>
-        <div>
-          Oficina Principal: Av. Javier Prado Este 2499, San Borja. Central Telefónica: 518 2000
-        </div>
-        <div>
-          Atención en Oficinas Administrativas: Lunes a Viernes de 08:30 a 17:30. Refrigerio de: 13:00-14:00.
-        </div>
-        <div>
-          Atención en Oficina de Trámite Documentario: Lunes a Viernes de 8:30 a 16:30 (horario corrido)
-        </div>
-      </footer>
-
     </div>
   )
 }

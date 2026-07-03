@@ -74,59 +74,24 @@ export default function PagoCreditoPage() {
 
   const nuevo = () => { reset(); setPaso('form'); recargarCuotas(); recargarCuentas() }
 
-  const renderStepper = (currentStep) => {
-    const isPaso1 = currentStep === 'form'
-    const isPaso2 = currentStep === 'confirm'
-    const isPaso3 = currentStep === 'result'
-
-    return (
-      <div className="bn-stepper">
-        <div className="bn-stepper-line" />
-        <div 
-          className="bn-stepper-line-fill" 
-          style={{ width: isPaso1 ? '0%' : isPaso2 ? '50%' : '100%' }} 
-        />
-        
-        <div className={`bn-step ${isPaso1 ? 'active' : (isPaso2 || isPaso3 ? 'completed' : '')}`}>
-          <div className="bn-step-circle">1</div>
-          <span className="bn-step-label">Datos de Pago</span>
-        </div>
-        
-        <div className={`bn-step ${isPaso2 ? 'active' : (isPaso3 ? 'completed' : '')}`}>
-          <div className="bn-step-circle">2</div>
-          <span className="bn-step-label">Confirmación</span>
-        </div>
-        
-        <div className={`bn-step ${isPaso3 ? 'active' : ''}`}>
-          <div className="bn-step-circle">3</div>
-          <span className="bn-step-label">Constancia Digital</span>
-        </div>
-      </div>
-    )
-  }
-
   const cargando = lc || lca
 
   return (
-    <PageLayout
-      title="Pago de crédito"
-      subtitle="Operaciones › Pago de crédito"
-      actions={
-        <button className="bbva-btn-ghost sm" onClick={() => navigate('/operaciones')}>
-          <ArrowLeft size={14} /> Volver a Operaciones
-        </button>
-      }
-    >
-      {renderStepper(result ? 'result' : paso)}
+    <PageLayout>
+      <button className="hb-back" onClick={() => navigate('/operaciones')}>
+        <ArrowLeft size={16} /> Volver a Operaciones
+      </button>
+      <h1 className="bbva-page-title">Pago de crédito desde cuenta de ahorro</h1>
+      <p className="bbva-page-sub">Operaciones › Pago de crédito</p>
 
       {result ? (
         <Comprobante
-          titulo="Pago realizado con éxito"
+          titulo="Pago realizado"
           mensaje={result.mensaje}
           filas={[
             { label: 'Crédito', value: result.codcuentacredito },
             { label: 'N° de cuota', value: result.nrocuota },
-            { label: 'Monto', value: <Money value={result.monto_pagado} simbolo={simbolo} /> },
+            { label: 'Monto pagado', value: <Money value={result.monto_pagado} /> },
             { label: 'Cuenta debitada', value: result.cuenta_origen || origen },
             { label: 'N° de operación', value: result.pkoperacion },
             { label: 'Op. débito ahorro', value: result.pkoperacion_debito_ahorro ?? '—' },
@@ -138,7 +103,7 @@ export default function PagoCreditoPage() {
           ]}
         />
       ) : (
-        <Card title="Pagar cuota de préstamo" icon={<Receipt size={18} style={{ color: '#003087' }} />}>
+        <Card title="Pagar cuota" icon={<Receipt size={18} />}>
           {cargando ? (
             <Loader text="Cargando datos…" />
           ) : creditos.length === 0 ? (
@@ -166,12 +131,12 @@ export default function PagoCreditoPage() {
               {validacion && <Alert tipo="warn">{validacion}</Alert>}
 
               <div className="hb-field">
-                <label htmlFor="credito" className="hb-field-label">Crédito a pagar</label>
+                <label htmlFor="credito">Crédito a pagar</label>
                 <select id="credito" className="hb-select" value={credito} onChange={(e) => setCredito(e.target.value)}>
                   <option value="">— Seleccione un crédito —</option>
                   {creditos.map((c) => (
                     <option key={c.codcuentacredito} value={c.codcuentacredito}>
-                      {c.codcuentacredito} · saldo pendiente {c.pago_pendiente}
+                      {c.codcuentacredito} · pendiente {c.pago_pendiente}
                     </option>
                   ))}
                 </select>
@@ -179,22 +144,20 @@ export default function PagoCreditoPage() {
 
               {credito && (
                 lq ? <Loader text="Consultando próxima cuota…" /> : proxima ? (
-                  <div className="bbva-cuota-box" style={{ margin: '16px 0', padding: '16px', background: '#f8fafc', borderRadius: '12px', border: '1px solid #e2e8f0' }}>
-                    <span style={{ fontSize: '11px', textTransform: 'uppercase', color: '#64748b', fontWeight: '800', display: 'block' }}>Próxima cuota a pagar</span>
-                    <strong style={{ fontSize: '18px', display: 'block', margin: '4px 0', color: '#1e293b' }}>N° {proxima.nrocuota}</strong>
-                    <span style={{ fontSize: '13px', color: '#64748b', display: 'block', marginBottom: '8px' }}>vence {formatDate(proxima.fecha_vencimiento)}</span>
-                    <Money value={proxima.monto_cuota} style={{ fontSize: '20px', fontWeight: '800', color: '#003087' }} />
+                  <div className="bbva-cuota-box">
+                    <span>Próxima cuota a pagar</span>
+                    <strong>N° {proxima.nrocuota}</strong>
+                    <span>vence {formatDate(proxima.fecha_vencimiento)}</span>
+                    <Money value={proxima.monto_cuota} className="bbva-money-strong" />
                   </div>
                 ) : (
-                  <div style={{ margin: '16px 0' }}>
-                    <Alert tipo="success">Este crédito no tiene cuotas pendientes. ¡Está al día!</Alert>
-                  </div>
+                  <Alert tipo="success">Este crédito no tiene cuotas pendientes. ¡Está al día!</Alert>
                 )
               )}
 
-              <div className="hb-grid-2" style={{ marginTop: '16px' }}>
+              <div className="hb-grid-2">
                 <div className="hb-field">
-                  <label htmlFor="origen" className="hb-field-label">Cuenta de ahorro origen (se debita)</label>
+                  <label htmlFor="origen">Cuenta de ahorro origen (se debita)</label>
                   <select id="origen" className="hb-select" value={origen} onChange={(e) => setOrigen(e.target.value)}>
                     <option value="">— Seleccione una cuenta —</option>
                     {cuentas.map((c) => (
@@ -205,7 +168,7 @@ export default function PagoCreditoPage() {
                   </select>
                 </div>
                 <div className="hb-field">
-                  <label htmlFor="monto" className="hb-field-label">Monto a pagar ({simbolo}) — vacío = cuota completa</label>
+                  <label htmlFor="monto">Monto a pagar (S/) — vacío = cuota completa</label>
                   <input id="monto" className="hb-input" type="number" min="0" step="0.01"
                     placeholder={proxima ? String(toNumber(proxima.monto_cuota)) : '0.00'}
                     value={monto} onChange={(e) => setMonto(e.target.value)} />
@@ -213,17 +176,15 @@ export default function PagoCreditoPage() {
               </div>
 
               {cuentaOrigen && (
-                <p className="bbva-saldo-hint" style={{ marginTop: '10px' }}>
+                <p className="bbva-saldo-hint">
                   Saldo disponible en origen: <Money value={cuentaOrigen.saldo} simbolo={simbolo} />
                   {saldoInsuficiente && <span style={{ color: 'var(--hb-red)', fontWeight: 600 }}> · saldo insuficiente</span>}
                 </p>
               )}
 
-              <div style={{ marginTop: '24px' }}>
-                <button type="submit" className="bbva-btn" disabled={!proxima || saldoInsuficiente}>
-                  Continuar <ArrowRight size={18} />
-                </button>
-              </div>
+              <button type="submit" className="bbva-btn" disabled={!proxima || saldoInsuficiente}>
+                Continuar <ArrowRight size={18} />
+              </button>
             </form>
           )}
         </Card>
@@ -231,4 +192,3 @@ export default function PagoCreditoPage() {
     </PageLayout>
   )
 }
-

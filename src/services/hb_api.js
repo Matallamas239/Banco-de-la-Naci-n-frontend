@@ -12,17 +12,12 @@ const hbApi = axios.create({
   timeout: 20000,
 })
 
-// --- Request: inyecta el Bearer token y el rol de admin en cada petición ---
+// --- Request: inyecta el Bearer token en cada petición ---
 hbApi.interceptors.request.use((config) => {
   const token = localStorage.getItem(TOKEN_KEY)
   if (token) {
     config.headers = config.headers || {}
     config.headers.Authorization = `Bearer ${token}`
-  }
-  const adminRole = localStorage.getItem('hb_admin_role')
-  if (adminRole) {
-    config.headers = config.headers || {}
-    config.headers['x-admin-role'] = adminRole
   }
   return config
 })
