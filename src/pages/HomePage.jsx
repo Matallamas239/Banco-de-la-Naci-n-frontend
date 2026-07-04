@@ -28,8 +28,22 @@ const SBS_COLORS = {
   Normal: '#16a34a',
   CPP: '#F5A800',
   Deficiente: '#f97316',
-  Dudoso: '#F5A800',
-  Pérdida: '#7c3aed',
+  Dudoso: '#f59e0b',
+  Pérdida: '#ef4444',
+}
+
+const AHORRO_COLORS = {
+  'Ahorro Corriente': '#003087',
+  'Ahorro Programado': '#F5A800',
+  'CTS': '#4b5563',
+  'Plazo Fijo': '#D91223'
+}
+
+const MORA_COLORS = {
+  'Al día': '#16a34a',
+  '1-30 días': '#eab308',
+  '31-90 días': '#f97316',
+  '+90 días': '#d91223'
 }
 
 // ──────────────────────────────────────────────────────────────────────────────
@@ -74,10 +88,10 @@ function AdminDashboard() {
   ]
 
   // Prepara datos para gráfica de distribución de productos de ahorro
-  const distProd = (stats.dist_productos_ahorro || []).map((p, i) => ({
+  const distProd = (stats.dist_productos_ahorro || []).map((p) => ({
     name: p.tipo,
     value: p.total,
-    color: BN_COLORS[i % BN_COLORS.length],
+    color: AHORRO_COLORS[p.tipo] || '#4b5563',
   }))
 
   // Cartera SBS para gráfica de barras
@@ -89,11 +103,11 @@ function AdminDashboard() {
   }))
 
   // Mora
-  const moraData = (stats.mora || []).map((m, i) => ({
+  const moraData = (stats.mora || []).map((m) => ({
     name: m.grupo,
     monto: m.monto,
     cantidad: m.cantidad,
-    fill: BN_COLORS[i % BN_COLORS.length],
+    fill: MORA_COLORS[m.grupo] || '#4b5563',
   }))
 
   return (
@@ -224,10 +238,11 @@ function ClienteDashboard() {
   ]
 
   // Datos para gráfica de distribución de ahorros
-  const dataPie = cuentas.map((c, i) => ({
+  const dataPie = cuentas.map((c) => ({
     name: c.codcuentaahorro,
+    tipo: c.tipo,
     value: toNumber(c.saldo),
-    color: BN_COLORS[i % BN_COLORS.length],
+    color: AHORRO_COLORS[c.tipo] || '#4b5563',
   }))
 
   // Datos para amortización de créditos
