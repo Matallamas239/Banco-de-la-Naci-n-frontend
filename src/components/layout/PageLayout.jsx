@@ -2,10 +2,10 @@
  * Layout de página estilo BBVA: contenido principal a la izquierda y un panel
  * de acciones/accesos a la derecha. Si no se pasa `aside`, ocupa todo el ancho.
  */
-export default function PageLayout({ title, subtitle, actions, aside, children }) {
+export default function PageLayout({ title, subtitle, actions, aside, children, className }) {
   return (
-    <div className="bbva-page">
-      <div className="bbva-page-main">
+    <div className={`bbva-page ${className || ''}`}>
+      <div className={`bbva-page-main ${className ? `${className}-main` : ''}`}>
         {(title || actions) && (
           <div className="bbva-page-head">
             <div>

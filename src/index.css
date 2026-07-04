@@ -1001,12 +1001,18 @@ button {
 
 /* ---- Page layout 2 columnas ---- */
 .bbva-page { display: grid; grid-template-columns: 1fr; gap: 22px; align-items: start; }
-.bbva-page-main {
+.client-dashboard-main {
   min-width: 0;
   display: grid !important;
   grid-template-columns: 1.35fr 0.65fr !important;
   gap: 24px !important;
   align-items: stretch !important;
+}
+.bbva-page-main {
+  min-width: 0;
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 24px !important;
 }
 
 /* 1. Welcome Banner layout (top left) */
@@ -1067,7 +1073,7 @@ div[style*="1.2fr 0.8fr"] > div:nth-child(2) section.hb-card:nth-of-type(2) {
 
 /* Mobile responsive layout resets */
 @media (max-width: 900px) {
-  .bbva-page-main {
+  .client-dashboard-main {
     grid-template-columns: 1fr !important;
   }
   .bbva-page-main > div[style*="linear-gradient"] {
@@ -3744,6 +3750,10 @@ div[style*="linear-gradient(135deg"] {
    ============================================================ */
 
 @media (min-width: 901px) {
+  .hb-header-badge {
+    display: none !important;
+  }
+
   /* 1. Transform Header to a Floating Card */
   body > #root header,
   #root > header,

@@ -106,17 +106,20 @@ export default function Header() {
 
             <div style={{ width: '1px', height: '20px', background: 'rgba(255,255,255,0.25)' }} />
 
-            <div style={{
-              background: 'rgba(255, 255, 255, 0.12)',
-              padding: '3px 9px',
-              borderRadius: '12px',
-              fontSize: '10px',
-              fontWeight: '800',
-              letterSpacing: '0.6px',
-              textTransform: 'uppercase',
-              color: '#ffffff',
-              border: '1px solid rgba(255, 255, 255, 0.1)'
-            }}>
+            <div 
+              className="hb-header-badge"
+              style={{
+                background: 'rgba(255, 255, 255, 0.12)',
+                padding: '3px 9px',
+                borderRadius: '12px',
+                fontSize: '10px',
+                fontWeight: '800',
+                letterSpacing: '0.6px',
+                textTransform: 'uppercase',
+                color: '#ffffff',
+                border: '1px solid rgba(255, 255, 255, 0.1)'
+              }}
+            >
               {isAdmin ? 'Módulo Administrativo' : 'Banca por Internet'}
             </div>
           </div>

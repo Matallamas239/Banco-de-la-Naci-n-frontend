@@ -27,6 +27,7 @@ export default function SolicitarCreditoPage() {
   const { run, loading, error, result, reset } = useSolicitudCredito()
   const [paso, setPaso] = useState('form') // form | confirm
   const [validacion, setValidacion] = useState(null)
+  const [validationRules, setValidationRules] = useState(null)
 
   const [form, setForm] = useState({
     montosolicitud: '',
@@ -63,6 +64,7 @@ export default function SolicitarCreditoPage() {
     const ingreso = toNumber(form.montoingresoneto)
 
     try {
+      setValidationRules(null)
       await run({
         montosolicitud: monto,
         plazo,
@@ -70,14 +72,19 @@ export default function SolicitarCreditoPage() {
         codactividadeconomica: form.codactividadeconomica,
         montoingresoneto: ingreso,
       })
-    } catch {
+    } catch (err) {
       /* mensaje de elegibilidad se muestra vía `error` */
+      const detail = err?.response?.data?.detail
+      if (detail && typeof detail === 'object' && detail.elegibilidad?.reglas) {
+        setValidationRules(detail.elegibilidad.reglas)
+      }
     }
   }
 
   const nuevaSolicitud = () => {
     reset()
     setPaso('form')
+    setValidationRules(null)
     setForm({ montosolicitud: '', plazo: '', codtipocredito: 'CO', codactividadeconomica: '0111', montoingresoneto: '' })
   }
 
@@ -148,6 +155,76 @@ export default function SolicitarCreditoPage() {
             <div className="bbva-confirm">
               <p className="bbva-confirm-lead">Revisa los datos antes de enviar la solicitud a evaluación:</p>
               {error && <Alert tipo="error">{error}</Alert>}
+
+              {validationRules && (
+                <div style={{
+                  marginTop: '12px',
+                  marginBottom: '16px',
+                  border: '1px solid #ecc9c9',
+                  borderRadius: '6px',
+                  background: '#fdf3f3',
+                  padding: '16px',
+                  fontSize: '13px'
+                }}>
+                  <h4 style={{ margin: '0 0 10px 0', color: '#b91c1c', fontWeight: 'bold' }}>
+                    Detalle de Requisitos de Elegibilidad:
+                  </h4>
+                  <ul style={{ paddingLeft: '20px', margin: '0 0 12px 0', display: 'flex', flexDirection: 'column', gap: '8px' }}>
+                    {validationRules.map((regla, idx) => (
+                      <li key={idx} style={{ color: regla.cumple ? '#16a34a' : '#d91223', fontWeight: '500', listStyleType: 'none', display: 'flex', alignItems: 'center', gap: '8px' }}>
+                        <span style={{ fontSize: '15px' }}>{regla.cumple ? '✅' : '❌'}</span>
+                        <span>
+                          <strong>{regla.nombre}:</strong> Límite: {regla.limite} (Actual: {regla.actual})
+                        </span>
+                      </li>
+                    ))}
+                  </ul>
+                  
+                  {validationRules.some(r => !r.cumple && r.tipo === 'rds') && (
+                    <div style={{
+                      background: '#fff',
+                      border: '1px solid #e5e7eb',
+                      borderRadius: '4px',
+                      padding: '12px',
+                      marginTop: '8px'
+                    }}>
+                      <div style={{ fontWeight: '600', color: '#374151', marginBottom: '8px' }}>
+                        💡 Opciones sugeridas para cumplir con el Ratio Deuda-Ingreso (RDS):
+                      </div>
+                      <div style={{ display: 'flex', gap: '8px', flexWrap: 'wrap' }}>
+                        {validationRules.find(r => r.tipo === 'rds')?.monto_maximo_sugerido > 0 && (
+                          <button
+                            type="button"
+                            className="bbva-btn-ghost sm"
+                            onClick={() => {
+                              const maxMonto = validationRules.find(r => r.tipo === 'rds').monto_maximo_sugerido;
+                              setForm(f => ({ ...f, montosolicitud: maxMonto.toFixed(2) }));
+                              setPaso('form');
+                              setValidationRules(null);
+                            }}
+                            style={{ display: 'inline-flex', alignItems: 'center', gap: '4px', fontSize: '11px', padding: '6px 12px' }}
+                          >
+                            Ajustar Monto Solicitado a S/ {validationRules.find(r => r.tipo === 'rds').monto_maximo_sugerido.toLocaleString('es-PE', { minimumFractionDigits: 2 })}
+                          </button>
+                        )}
+                        <button
+                          type="button"
+                          className="bbva-btn-ghost sm"
+                          onClick={() => {
+                            const minIngreso = validationRules.find(r => r.tipo === 'rds').ingreso_minimo_sugerido;
+                            setForm(f => ({ ...f, montoingresoneto: minIngreso.toFixed(2) }));
+                            setPaso('form');
+                            setValidationRules(null);
+                          }}
+                          style={{ display: 'inline-flex', alignItems: 'center', gap: '4px', fontSize: '11px', padding: '6px 12px' }}
+                        >
+                          Ajustar Ingreso Neto a S/ {validationRules.find(r => r.tipo === 'rds').ingreso_minimo_sugerido.toLocaleString('es-PE', { minimumFractionDigits: 2 })}
+                        </button>
+                      </div>
+                    </div>
+                  )}
+                </div>
+              )}
               <dl className="hb-dl">
                 <div><dt>Monto solicitado</dt><dd><Money value={form.montosolicitud} /></dd></div>
                 <div><dt>Plazo</dt><dd>{form.plazo} meses / cuotas</dd></div>

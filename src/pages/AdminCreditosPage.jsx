@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react'
 import { useNavigate, useSearchParams } from 'react-router-dom'
 import { FilePlus2, ArrowLeft, RefreshCw, CheckCircle, Play, FileText, CalendarDays } from 'lucide-react'
 import { getAdminSolicitudes, adminSolicitarCredito, adminEvaluarSolicitud, adminDesembolsarSolicitud, adminBuscarClientes, adminCrearCliente } from '../services/adminService.js'
-import { toNumber, formatDate } from '../utils/format.js'
+import { toNumber, formatDate, extractError } from '../utils/format.js'
 import PageLayout from '../components/layout/PageLayout.jsx'
 import Card from '../components/ui/Card.jsx'
 import Badge from '../components/ui/Badge.jsx'
@@ -44,6 +44,7 @@ function AdminSolicitarCreditoForm() {
   const [error, setError] = useState(null)
   const [validacion, setValidacion] = useState(null)
   const [result, setResult] = useState(null)
+  const [validationRules, setValidationRules] = useState(null)
 
   // Mode: 'existente' or 'nuevo'. Defaults to 'existente'
   const [clientMode, setClientMode] = useState('existente')
@@ -135,6 +136,7 @@ function AdminSolicitarCreditoForm() {
 
     try {
       setLoading(true)
+      setValidationRules(null)
       let targetPkCliente = null
 
       if (clientMode === 'nuevo') {
@@ -167,7 +169,11 @@ function AdminSolicitarCreditoForm() {
       })
       setResult(data)
     } catch (err) {
-      setError(err?.response?.data?.detail || 'Error al procesar la solicitud')
+      setError(extractError(err, 'Error al procesar la solicitud'))
+      const detail = err?.response?.data?.detail
+      if (detail && typeof detail === 'object' && detail.elegibilidad?.reglas) {
+        setValidationRules(detail.elegibilidad.reglas)
+      }
     } finally {
       setLoading(false)
     }
@@ -347,6 +353,77 @@ function AdminSolicitarCreditoForm() {
           <Card title="Datos de la Solicitud de Crédito" icon={<FilePlus2 size={18} />}>
             {error && <Alert tipo="error">{error}</Alert>}
             {validacion && <Alert tipo="warn">{validacion}</Alert>}
+
+            {validationRules && (
+              <div style={{
+                marginTop: '12px',
+                marginBottom: '16px',
+                border: '1px solid #ecc9c9',
+                borderRadius: '6px',
+                background: '#fdf3f3',
+                padding: '16px',
+                fontSize: '13px'
+              }}>
+                <h4 style={{ margin: '0 0 10px 0', color: '#b91c1c', fontWeight: 'bold' }}>
+                  Detalle de Requisitos de Elegibilidad:
+                </h4>
+                <ul style={{ paddingLeft: '20px', margin: '0 0 12px 0', display: 'flex', flexDirection: 'column', gap: '8px' }}>
+                  {validationRules.map((regla, idx) => (
+                    <li key={idx} style={{ color: regla.cumple ? '#16a34a' : '#d91223', fontWeight: '500', listStyleType: 'none', display: 'flex', alignItems: 'center', gap: '8px' }}>
+                      <span style={{ fontSize: '15px' }}>{regla.cumple ? '✅' : '❌'}</span>
+                      <span>
+                        <strong>{regla.nombre}:</strong> Límite: {regla.limite} (Actual: {regla.actual})
+                      </span>
+                    </li>
+                  ))}
+                </ul>
+                
+                {validationRules.some(r => !r.cumple && r.tipo === 'rds') && (
+                  <div style={{
+                    background: '#fff',
+                    border: '1px solid #e5e7eb',
+                    borderRadius: '4px',
+                    padding: '12px',
+                    marginTop: '8px'
+                  }}>
+                    <div style={{ fontWeight: '600', color: '#374151', marginBottom: '8px' }}>
+                      💡 Opciones sugeridas para cumplir con el Ratio Deuda-Ingreso (RDS):
+                    </div>
+                    <div style={{ display: 'flex', gap: '8px', flexWrap: 'wrap' }}>
+                      {validationRules.find(r => r.tipo === 'rds')?.monto_maximo_sugerido > 0 && (
+                        <button
+                          type="button"
+                          className="bbva-btn-ghost sm"
+                          onClick={() => {
+                            const maxMonto = validationRules.find(r => r.tipo === 'rds').monto_maximo_sugerido;
+                            setForm(f => ({ ...f, montosolicitud: maxMonto.toFixed(2) }));
+                            setValidationRules(null);
+                          }}
+                          style={{ display: 'inline-flex', alignItems: 'center', gap: '4px', fontSize: '11px', padding: '4px 8px' }}
+                        >
+                          Ajustar Monto Solicitado a S/ {validationRules.find(r => r.tipo === 'rds').monto_maximo_sugerido.toLocaleString('es-PE', { minimumFractionDigits: 2 })}
+                        </button>
+                      )}
+                      <button
+                        type="button"
+                        className="bbva-btn-ghost sm"
+                        onClick={() => {
+                          const minIngreso = validationRules.find(r => r.tipo === 'rds').ingreso_minimo_sugerido;
+                          if (clientMode === 'nuevo') {
+                            setClientForm(cf => ({ ...cf, montoingresoneto: minIngreso.toFixed(2) }));
+                          }
+                          setForm(f => ({ ...f, montoingresoneto: minIngreso.toFixed(2) }));
+                          setValidationRules(null);
+                        }}
+                        style={{ display: 'inline-flex', alignItems: 'center', gap: '4px', fontSize: '11px', padding: '4px 8px' }}
+                      >
+                        Ajustar Ingreso Neto a S/ {validationRules.find(r => r.tipo === 'rds').ingreso_minimo_sugerido.toLocaleString('es-PE', { minimumFractionDigits: 2 })}
+                      </button>
+                    </div>
+                  </div>
+                )}
+              </div>
+            )}
 
             <form onSubmit={onSubmit}>
               <div className="hb-grid-2">

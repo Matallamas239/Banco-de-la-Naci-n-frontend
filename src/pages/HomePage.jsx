@@ -238,7 +238,7 @@ function ClienteDashboard() {
   }))
 
   return (
-    <PageLayout>
+    <PageLayout className="client-dashboard">
       {/* 1. Saludo / Banner de Bienvenida Premium */}
       <div style={{
         background: 'linear-gradient(135deg, #9B0F23 0%, #D91223 60%, #ef4444 100%)',
